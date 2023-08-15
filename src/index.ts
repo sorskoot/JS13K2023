@@ -2,7 +2,7 @@ import {Renderer} from './lib/Renderer';
 import {Material} from './lib/Material';
 import {Mesh} from './lib/Mesh';
 import {Objs} from './lib/Objs';
-import {Vec3} from './lib/Types';
+import {Vector3} from './lib/Vector3';
 
 let canvas!: HTMLCanvasElement; // we'll keep it as a global object
 let gl!: WebGL2RenderingContext; // it will store our context, and all the functions and constants that are needed to use it
@@ -107,7 +107,6 @@ function onSessionStarted(_session) {
     // });
 
     planeMesh.loadFromData(Objs.plane());
-    planeMesh.scale(new Vec3(0.1, 1, 2));
 
     planeMaterial = new Material(gl);
     planeMaterial.setProjection(identityMatrix);
@@ -126,8 +125,8 @@ function onSessionStarted(_session) {
 
     // cubeMaterial.setColor([0.4, 0.4, 0.4, 1.0]);
 
-    // controllerMesh = new Mesh(gl);
-    // controllerMesh.loadFromOBJ('/smallcube.obj');
+    controllerMesh = new Mesh(gl);
+    controllerMesh.loadFromData(Objs.bow());
 
     controllerMaterial = new Material(gl);
     controllerMaterial.setProjection(identityMatrix);
@@ -139,8 +138,8 @@ function onSessionStarted(_session) {
         xrRefSpace = refSpace; // we set our referance space to be the one returned by this function
         let xrLayer = new XRWebGLLayer(xrSession, gl);
 
-        gl.enable(gl.CULL_FACE);
-        gl.frontFace(gl.CCW); // assuming your vertices are counter-clockwise ordered
+        //gl.enable(gl.CULL_FACE);
+        //gl.frontFace(gl.CCW); // assuming your vertices are counter-clockwise ordered
 
         xrSession.updateRenderState({baseLayer: xrLayer});
         xrSession.requestAnimationFrame(onSessionFrame); // at this point everything has been set up, so we can finally request an animation frame, on a function with the name of onSessionFrame
@@ -182,7 +181,7 @@ function onSessionFrame(t, frame) {
 
             // renderer.draw(cubeMesh, cubeMaterial);
 
-            // renderControllers(view);
+            renderControllers(view);
         }
     }
 }
@@ -208,20 +207,20 @@ function renderControllers(view) {
         controllerMaterial.setView(view.transform.inverse.matrix);
         controllerMaterial.setModel(controllers.left.pose.transform.matrix); // we just get our model matrix for the controller
 
-        controllerMaterial.setColor([0.5, 0.0, 0.0, 1.0]);
+        controllerMaterial.setColor([0.6, 0.4, 0.2, 1.0]);
 
         renderer.draw(controllerMesh, controllerMaterial);
     }
-    if (controllers.right) {
-        // checks if WebXR got our right controller
-        controllerMaterial.setProjection(view.projectionMatrix);
-        controllerMaterial.setView(view.transform.inverse.matrix);
-        controllerMaterial.setModel(controllers.right.pose.transform.matrix); // we just get our model matrix for the controller
+    // if (controllers.right) {
+    //     // checks if WebXR got our right controller
+    //     controllerMaterial.setProjection(view.projectionMatrix);
+    //     controllerMaterial.setView(view.transform.inverse.matrix);
+    //     controllerMaterial.setModel(controllers.right.pose.transform.matrix); // we just get our model matrix for the controller
 
-        controllerMaterial.setColor([0.5, 0.0, 0.0, 1.0]);
+    //     controllerMaterial.setColor([0.5, 0.0, 0.0, 1.0]);
 
-        renderer.draw(controllerMesh, controllerMaterial);
-    }
+    //     renderer.draw(controllerMesh, controllerMaterial);
+    // }
 }
 
 // we call our init function, therefore initializing the application
