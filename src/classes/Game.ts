@@ -3,6 +3,7 @@ import {Renderer} from '../lib/Renderer';
 import {Material} from '../lib/Material';
 import {Mesh} from '../lib/Mesh';
 import {Scene} from './Scene';
+import {MeshNode} from './Node';
 
 /**
  * Represents the game object.
@@ -19,6 +20,8 @@ export class Game {
     planeMaterial!: Material;
     cubeMesh!: Mesh;
     cubeMaterial!: Material;
+
+    scene!: Scene;
 
     constructor() {
         console.log('Game started');
@@ -79,14 +82,7 @@ export class Game {
         this.renderer = new Renderer(this.gl);
         this.renderer.depthTesting(true); // if you don't know what that means - it means that our meshes will be rendered properly ¯\_(ツ)_/¯
 
-        let scene = new Scene(this.renderer);
-
-        const identityMatrix = new Float32Array([
-            1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
-        ]);
-        const offsetMatrix = new Float32Array([
-            1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -2, 1, -5, 1,
-        ]);
+        this.scene = new Scene(this.renderer);
 
         this.planeMesh = new Mesh(this.gl);
         this.planeMesh.loadFromData([
@@ -96,6 +92,16 @@ export class Game {
         ]);
 
         this.planeMaterial = new Material(this.gl);
+
+        this.scene.addNode(new MeshNode(this.planeMesh, this.planeMaterial));
+
+        const identityMatrix = new Float32Array([
+            1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+        ]);
+        const offsetMatrix = new Float32Array([
+            1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -2, 1, -5, 1,
+        ]);
+
         this.planeMaterial.setProjection(identityMatrix);
         this.planeMaterial.setView(identityMatrix);
         this.planeMaterial.setModel(identityMatrix);

@@ -11,4 +11,11 @@ export class Scene {
         this.renderer = renderer;
         this.nodes = [];
     }
+
+    addNode(node: Node) {
+        node.setRenderer(this.renderer);
+        this.nodes.push(node);
+    }
+
+    render() {}
 }

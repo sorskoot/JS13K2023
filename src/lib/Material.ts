@@ -11,6 +11,7 @@ import {Renderer} from './Renderer';
 export class Material {
     shader: Shader;
     textures: GlTexture[];
+
     constructor(gl: WebGL2RenderingContext, customShader = null) {
         this.shader = new Shader(gl);
         this.shader.join(Renderer.vSS);
