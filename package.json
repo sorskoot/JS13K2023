@@ -3,11 +3,15 @@
     "version": "1.0.0",
     "description": "Entry for the JS13K 2023 competition",
     "main": "index.js",
+    "type": "module",
     "scripts": {
         "copyHtml": "copyfiles -u 1 ./static/index.html ./dist",
         "build": "esbuild ./src/index.ts --bundle --minify --sourcemap --target=ES2022 --format=esm --outfile=./dist/index.js && npm run copyHtml",
         "build:watch": "esbuild ./src/index.ts --bundle --minify --sourcemap --watch --target=ES2022 --format=esm --outfile=./dist/index.js ",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "doc": "typedoc --out docs ./src --watch",
+        "doc:run":"http-server docs -o -c-1 -p 7777",
+        "start":"http-server ./dist -o -c-1 -p 1337"
     },
     "repository": {
         "type": "git",
@@ -30,6 +34,7 @@
         "eslint": "^8.46.0",
         "eslint-plugin-etc": "^2.0.3",
         "ts-node": "^10.9.1",
+        "typedoc": "^0.24.8",
         "typescript": "^5.1.6"
     }
 }

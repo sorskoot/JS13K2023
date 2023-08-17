@@ -1,6 +1,7 @@
-import {Material} from './Material';
-import {Mesh} from './Mesh';
-import {SubShader} from './SubShader';
+import {Camera} from './Camera.js';
+import {Material} from './Material.js';
+import {Object3D} from './Object3D.js';
+import {SubShader} from './SubShader.js';
 
 export class Renderer {
     static fSSC0: string;
@@ -21,16 +22,12 @@ export class Renderer {
         this.masks = this.gl.COLOR_BUFFER_BIT;
         this.depthTest = false;
 
-        Renderer.fSSC0 =
-            '#version 300 es\n\
-            precision mediump float;\n\
-            \n\
-            out vec4 o_Color;\n\
-            \n\
-            in vec2 v_TexCoord;\n\
-            \n\
-            uniform vec4 u_Color;\n\
-            uniform sampler2D u_TexID[16];\n';
+        Renderer.fSSC0 = `#version 300 es
+precision mediump float;
+out vec4 o_Color;
+in vec2 v_TexCoord;
+uniform vec4 u_Color;
+uniform sampler2D u_TexID[16];`;
         Renderer.fSSC1 =
             '\nvoid main() {\n\
                 o_Color = shader();\n\
@@ -87,12 +84,13 @@ export class Renderer {
         }
         this.gl.clear(this.masks);
     }
-    draw(mesh: Mesh, material: Material) {
-        material.shader.bind();
-        for (let i = 0; i < material.textures.length; i++) {
-            material.textures[i].bind(i);
-        }
-        mesh.vertexbuffer.draw();
-        material.shader.unbind();
+
+    render(scene: Object3D, camera?: Camera) {
+        // material.shader.bind();
+        // for (let i = 0; i < material.textures.length; i++) {
+        //     material.textures[i].bind(i);
+        // }
+        // mesh.vertexbuffer.draw();
+        // material.shader.unbind();
     }
 }

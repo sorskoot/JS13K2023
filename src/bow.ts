@@ -1,12 +1,12 @@
-import {Quaternion} from './lib/Quaternion';
-import {Vector3} from './lib/Vector3';
+import {Quaternion} from './lib/Quaternion.js';
+import {Vector3} from './lib/Vector3.js';
 
 const G = 9.8; // m/s^2
 
 class Bow {
     // The position and orientation of the bow hand.
     private bowHandPosition: Vector3;
-    private bowHandOrientation: Quaternion;
+    // private bowHandOrientation: Quaternion;
 
     // The position of the arrow hand.
     private arrowHandPosition: Vector3;
@@ -17,7 +17,7 @@ class Bow {
     // Force multiplier for drawing the bow.
     DRAW_FORCE_MULTIPLIER = 10;
 
-    private arrowHandOrientation: Quaternion;
+    // private arrowHandOrientation: Quaternion;
 
     constructor() {
         this.state = State.IDLE;
@@ -27,8 +27,8 @@ class Bow {
 
     update(bowHandState: HandState, arrowHandState: HandState) {
         // Update hand positions based on controller input.
-        this.bowHandPosition = bowHandState.position;
-        this.arrowHandOrientation = bowHandState.orientation;
+        // this.bowHandPosition = bowHandState.position;
+        // this.arrowHandOrientation = bowHandState.orientation;
 
         switch (this.state) {
             case State.IDLE:
@@ -43,17 +43,17 @@ class Bow {
                     this.state = State.IDLE;
 
                     // Calculate direction and force
-                    let direction = calculateDirection(
-                        this.bowHandPosition,
-                        this.arrowHandPosition,
-                        this.bowHandOrientation
-                    );
+                    // let direction = calculateDirection(
+                    //     this.bowHandPosition,
+                    //     this.arrowHandPosition,
+                    //     this.bowHandOrientation
+                    // );
 
                     let force =
                         calculateForce(this.bowHandPosition, this.arrowHandPosition) *
                         this.DRAW_FORCE_MULTIPLIER;
 
-                    fireArrow(direction, force);
+                    //fireArrow(direction, force);
                 } else {
                     // If still gripping update the arrow hand position for next calculations
                     this.arrowHandPosition = arrowHandState.position;

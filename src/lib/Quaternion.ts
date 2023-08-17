@@ -1,4 +1,4 @@
-import {Vector3} from './Vector3';
+import {Vector3} from './Vector3.js';
 const EPSILON = 1e-6;
 
 /**
@@ -254,5 +254,54 @@ export class Quaternion extends Array<number> {
             const S = Math.sqrt(1 + sm33 - sm11 - sm22) * 2;
             return this.set((sm31 + sm13) / S, (sm23 + sm32) / S, S / 4, (sm12 - sm21) / S);
         }
+    }
+
+    setFromRotationMatrix(m) {
+        // http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/index.htm
+
+        // assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
+
+        const m11 = m[0],
+            m12 = m[4],
+            m13 = m[8],
+            m21 = m[1],
+            m22 = m[5],
+            m23 = m[9],
+            m31 = m[2],
+            m32 = m[6],
+            m33 = m[10],
+            trace = m11 + m22 + m33;
+
+        if (trace > 0) {
+            const s = 0.5 / Math.sqrt(trace + 1.0);
+
+            this.w = 0.25 / s;
+            this.x = (m32 - m23) * s;
+            this.y = (m13 - m31) * s;
+            this.z = (m21 - m12) * s;
+        } else if (m11 > m22 && m11 > m33) {
+            const s = 2.0 * Math.sqrt(1.0 + m11 - m22 - m33);
+
+            this.w = (m32 - m23) / s;
+            this.x = 0.25 * s;
+            this.y = (m12 + m21) / s;
+            this.z = (m13 + m31) / s;
+        } else if (m22 > m33) {
+            const s = 2.0 * Math.sqrt(1.0 + m22 - m11 - m33);
+
+            this.w = (m13 - m31) / s;
+            this.x = (m12 + m21) / s;
+            this.y = 0.25 * s;
+            this.z = (m23 + m32) / s;
+        } else {
+            const s = 2.0 * Math.sqrt(1.0 + m33 - m11 - m22);
+
+            this.w = (m21 - m12) / s;
+            this.x = (m13 + m31) / s;
+            this.y = (m23 + m32) / s;
+            this.z = 0.25 * s;
+        }
+
+        return this;
     }
 }
