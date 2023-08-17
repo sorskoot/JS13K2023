@@ -1,5 +1,5 @@
-import type {Vector3} from './Vector3';
-import type {Quaternion} from './Quaternion';
+import {Vector3} from './Vector3.js';
+import type {Quaternion} from './Quaternion.js';
 
 /**
  * Represents the components of a {@link Matrix4}.
@@ -327,6 +327,51 @@ export class Matrix4 extends Array<number> {
         );
     }
 
+    decompose(position: Vector3, quaternion: Quaternion, scale: Vector3) {
+        const _v1 = new Vector3();
+        const _m1 = new Matrix4();
+        const te = this;
+
+        let sx = _v1.set(te[0], te[1], te[2]).getLength();
+        const sy = _v1.set(te[4], te[5], te[6]).getLength();
+        const sz = _v1.set(te[8], te[9], te[10]).getLength();
+
+        // if determine is negative, we need to invert one scale
+        const det = this.determinant();
+        if (det < 0) sx = -sx;
+
+        position.x = te[12];
+        position.y = te[13];
+        position.z = te[14];
+
+        // scale the rotation part
+        _m1.copy(this);
+
+        const invSX = 1 / sx;
+        const invSY = 1 / sy;
+        const invSZ = 1 / sz;
+
+        _m1[0] *= invSX;
+        _m1[1] *= invSX;
+        _m1[2] *= invSX;
+
+        _m1[4] *= invSY;
+        _m1[5] *= invSY;
+        _m1[6] *= invSY;
+
+        _m1[8] *= invSZ;
+        _m1[9] *= invSZ;
+        _m1[10] *= invSZ;
+
+        quaternion.setFromRotationMatrix(_m1);
+
+        scale.x = sx;
+        scale.y = sy;
+        scale.z = sz;
+
+        return this;
+    }
+
     /**
      * Composes this matrix's elements from position, quaternion, and scale properties.
      */
@@ -429,6 +474,14 @@ export class Matrix4 extends Array<number> {
         this[9] += this[13] /= 2;
         this[10] += this[14] /= 2;
         this[11] += this[15] /= 2;
+
+        return this;
+    }
+
+    fromArray(array, offset = 0) {
+        for (let i = 0; i < 16; i++) {
+            this[i] = array[i + offset];
+        }
 
         return this;
     }

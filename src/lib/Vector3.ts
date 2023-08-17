@@ -1,5 +1,5 @@
-import type {Quaternion} from './Quaternion';
-import type {Matrix4} from './Matrix4';
+import type {Quaternion} from './Quaternion.js';
+import type {Matrix4} from './Matrix4.js';
 
 /**
  * Represents the components of a {@link Vector3}.
