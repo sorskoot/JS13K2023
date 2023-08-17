@@ -1,4 +1,5 @@
 {
+    "editor.insertSpaces": true,
     "[javascript]": {
         "editor.formatOnSave": true
     },

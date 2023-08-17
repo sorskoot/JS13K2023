@@ -1,5 +1,5 @@
-var process = require('process');
-var fs = require('fs');
+import process from 'process';
+import fs from 'fs';
 
 function readObj(path) {
     fs.readFile(path, 'utf8', (err, data) => {
