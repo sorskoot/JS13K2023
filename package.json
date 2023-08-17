@@ -5,7 +5,7 @@
     "main": "index.js",
     "type": "module",
     "scripts": {
-        "copyHtml": "copyfiles -u 1 ./static/index.html ./dist",
+        "copyHtml": "copyfiles -a -u 1 ./static/**/* ./dist",
         "build": "esbuild ./src/index.ts --bundle --minify --sourcemap --target=ES2022 --format=esm --outfile=./dist/index.js && npm run copyHtml",
         "build:watch": "esbuild ./src/index.ts --bundle --minify --sourcemap --watch --target=ES2022 --format=esm --outfile=./dist/index.js ",
         "test": "echo \"Error: no test specified\" && exit 1",
