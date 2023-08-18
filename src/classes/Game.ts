@@ -105,7 +105,7 @@ export class Game {
 
         this.cubeMaterial = new Material(this.gl);
 
-        this.cubeMaterial.setColor([0.4, 0.4, 0.4, 1]);
+        this.cubeMaterial.setColor([1, 0.0, 0.0, 1]);
         this.cube = new MeshNode(this.cubeMesh, this.cubeMaterial);
         this.cube.translation.set(0, 1, -2);
         this.cube.scale.set(0.25, 0.25, 0.25);

@@ -22,46 +22,56 @@ export class Renderer {
         this.masks = gl.COLOR_BUFFER_BIT;
         this.depthTest = false;
 
-        Renderer.fSSC0 =
-            '#version 300 es\n\
-            precision mediump float;\n\
-            \n\
-            out vec4 o_Color;\n\
-            \n\
-            in vec2 v_TexCoord;\n\
-            \n\
-            uniform vec4 u_Color;\n\
-            uniform sampler2D u_TexID[16];\n';
-        Renderer.fSSC1 =
-            '\nvoid main() {\n\
-                o_Color = shader();\n\
-            }';
+        Renderer.fSSC0 = `#version 300 es
+            precision mediump float;
+            
+            out vec4 o_Color;
+            
+            in vec2 v_TexCoord;
+            in vec3 v_Normal;
+            uniform vec4 u_Color;
+            uniform sampler2D u_TexID[16];`;
+        Renderer.fSSC1 = `void main() {
+                o_Color = shader();
+            }`;
         Renderer.vSS = new SubShader(
             gl,
             gl.VERTEX_SHADER,
-            '#version 300 es\n\
-            precision mediump float;\n\
-            \n\
-            layout(location = 0) in vec3 a_Position;\n\
-            layout(location = 1) in vec2 a_TexCoord;\n\
-            layout(location = 2) in vec3 a_Normal;\n\
-            \n\
-            uniform mat4 u_Projection;\n\
-            uniform mat4 u_View;\n\
-            uniform mat4 u_Model;\n\
-            \n\
-            out vec2 v_TexCoord;\n\
-            \n\
-            void main() {\n\
-            gl_Position = u_Projection * u_View * u_Model * vec4(a_Position, 1.0);\n\
-                v_TexCoord = a_TexCoord;\n\
-                v_TexCoord.y = 1.0 - v_TexCoord.y;\n\
-            }'
+            `#version 300 es
+            precision mediump float;
+            
+            layout(location = 0) in vec3 a_Position;
+            layout(location = 1) in vec2 a_TexCoord;
+            layout(location = 2) in vec3 a_Normal;
+            
+            uniform mat4 u_Projection;
+            uniform mat4 u_View;
+            uniform mat4 u_Model;
+            
+            out vec2 v_TexCoord;
+            out vec3 v_Normal;
+
+            void main() {
+                gl_Position = u_Projection * u_View * u_Model * vec4(a_Position, 1.0);
+                v_TexCoord = a_TexCoord;
+                v_TexCoord.y = 1.0 - v_TexCoord.y;
+                v_Normal = mat3(u_View * u_Model) * a_Normal;
+            }`
         );
         (Renderer.fSS = new SubShader(
             gl,
             gl.FRAGMENT_SHADER,
-            Renderer.fSSC0 + '\nvec4 shader() { return u_Color; }\n' + Renderer.fSSC1
+            Renderer.fSSC0 +
+                `
+                vec4 shader() { 
+                    vec3 lightDirection = normalize(vec3(0.3, 1.0, 0.5));
+                    float diff = max(dot(v_Normal, lightDirection), 0.0);
+                    vec3 diffuse = u_Color.rgb * diff;
+                
+                    return vec4(diffuse, 1.0);
+                    // return u_Color; 
+                }` +
+                Renderer.fSSC1
         )),
             (Renderer.triangle = [
                 -0.5, -0.5, 0, 0, 0, 0, 0, 1, 0, 0.5, 0, 0.5, 1, 0, 0, 1, 0.5, -0.5, 0, 1,
