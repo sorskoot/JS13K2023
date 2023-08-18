@@ -53,15 +53,6 @@
 <a id="md:audio-design" class="tsd-anchor"></a><h2><a href="#md:audio-design">Audio Design</a></h2><p>An immersive soundtrack evoking the 13th century feel and sound effects such as release and hit of arrows, cries or grunts of enemies being hit, alarm bells if enemy is too close to the castle.</p>
 <a id="md:music" class="tsd-anchor"></a><h3><a href="#md:music">Music</a></h3><p>For previous Js13K games I&#39;ve used <a href="https://sb.bitsnbites.eu/">https://sb.bitsnbites.eu/</a></p>
 <a id="md:sfx" class="tsd-anchor"></a><h3><a href="#md:sfx">SFX</a></h3><p>Probably <a href="https://sfxr.me/">https://sfxr.me/</a></p>
-<a id="md:development-plan-amp-timeline" class="tsd-anchor"></a><h2><a href="#md:development-plan-amp-timeline">Development Plan &amp; Timeline</a></h2><p>-[x] Setting up the development environment
--[ ] Fix rotation/translation of objects.
--[ ] Finalizing game design details
--[ ] Developing core mechanic - Bow shooting
--[ ] Block out platform (Castle) and enemies
--[ ] Integrating visual assets; Implementing audio features
--[ ] Implementing scoring system
--[ ] Testing, bug fixes, optimizations
--[ ] Final testing before submission</p>
 </div></div>
 <div class="col-sidebar">
 <div class="page-menu">
@@ -111,14 +102,12 @@
 <li>
 <ul>
 <li><a href="#md:music"><span>Music</span></a></li>
-<li><a href="#md:sfx"><span>SFX</span></a></li></ul></li>
-<li><a href="#md:development-plan-amp-timeline"><span>Development <wbr/>Plan &amp; <wbr/>Timeline</span></a></li></ul></li></ul></li></ul></div></details></div>
+<li><a href="#md:sfx"><span>SFX</span></a></li></ul></li></ul></li></ul></li></ul></div></details></div>
 <div class="site-menu">
 <nav class="tsd-navigation"><a href="index.html" class="current"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-4"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-namespace)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6"></rect><path d="M9.33 16V7.24H10.77L13.446 14.74C13.43 14.54 13.41 14.296 13.386 14.008C13.37 13.712 13.354 13.404 13.338 13.084C13.33 12.756 13.326 12.448 13.326 12.16V7.24H14.37V16H12.93L10.266 8.5C10.282 8.692 10.298 8.936 10.314 9.232C10.33 9.52 10.342 9.828 10.35 10.156C10.366 10.476 10.374 10.784 10.374 11.08V16H9.33Z" fill="var(--color-text)"></path></g></svg><span>js13k2023</span></a>
 <ul class="tsd-small-nested-navigation">
+<li><a href="modules/classes_Consts.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>classes/<wbr/>Consts</span></a></li>
 <li><a href="modules/classes_Game.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>classes/<wbr/>Game</span></a></li>
-<li><a href="modules/classes_Node.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>classes/<wbr/>Node</span></a></li>
-<li><a href="modules/classes_Scene.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>classes/<wbr/>Scene</span></a></li>
 <li><a href="modules/index.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>index</span></a></li>
 <li><a href="modules/lib_Consts.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>lib/<wbr/>Consts</span></a></li>
 <li><a href="modules/lib_GL.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>lib/GL</span></a></li>
@@ -126,8 +115,11 @@
 <li><a href="modules/lib_Material.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>lib/<wbr/>Material</span></a></li>
 <li><a href="modules/lib_Matrix4.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>lib/<wbr/>Matrix4</span></a></li>
 <li><a href="modules/lib_Mesh.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>lib/<wbr/>Mesh</span></a></li>
+<li><a href="modules/lib_MeshNode.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>lib/<wbr/>Mesh<wbr/>Node</span></a></li>
+<li><a href="modules/lib_Node.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>lib/<wbr/>Node</span></a></li>
 <li><a href="modules/lib_Quaternion.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>lib/<wbr/>Quaternion</span></a></li>
 <li><a href="modules/lib_Renderer.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>lib/<wbr/>Renderer</span></a></li>
+<li><a href="modules/lib_Scene.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>lib/<wbr/>Scene</span></a></li>
 <li><a href="modules/lib_Shader.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>lib/<wbr/>Shader</span></a></li>
 <li><a href="modules/lib_SubShader.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>lib/<wbr/>Sub<wbr/>Shader</span></a></li>
 <li><a href="modules/lib_Texture.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-4"></use></svg><span>lib/<wbr/>Texture</span></a></li>

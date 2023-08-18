@@ -4,6 +4,7 @@ import {GlTexture} from './GlTexture';
 import {Shader} from './Shader';
 import {SubShader} from './SubShader';
 import {Renderer} from './Renderer';
+import {identityMatrix} from './Consts';
 
 /**
  * Represents a material that can be applied to a mesh for rendering.
@@ -36,6 +37,10 @@ export class Material {
             this.shader.set1i('u_TexID[' + i + ']', i);
         }
         this.shader.unbind();
+
+        this.setProjection(identityMatrix);
+        this.setView(identityMatrix);
+        this.setModel(identityMatrix);
     }
     free() {
         this.shader.free();

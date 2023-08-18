@@ -92,14 +92,4 @@ For previous Js13K games I've used https://sb.bitsnbites.eu/
 
 Probably https://sfxr.me/
 
-## Development Plan & Timeline
 
--[x] Setting up the development environment
--[ ] Fix rotation/translation of objects.
--[ ] Finalizing game design details
--[ ] Developing core mechanic - Bow shooting
--[ ] Block out platform (Castle) and enemies
--[ ] Integrating visual assets; Implementing audio features
--[ ] Implementing scoring system
--[ ] Testing, bug fixes, optimizations
--[ ] Final testing before submission

@@ -1,0 +1,24 @@
+# Development Plan
+
+✔ Setting up the development environment
+Creating a WebXR engine:
+    ✔ Node @done(23-08-18 18:06)
+    ✔ Geometry Node @done(23-08-18 18:06)
+    ✔ Scene @done(23-08-18 18:06)
+    ✔ Camera @done(23-08-18 18:06)
+    ✔ Renderer @done(23-08-18 18:06)
+    ☐ Controllers
+    ☐ Lights
+    ☐ Textures
+Game:
+    ☐ Shooting arrows
+    ☐ Hitting enemies
+
+Overall:
+    ☐ Finalizing game design details
+    ☐ Developing core mechanic - Bow shooting
+    ☐ Block out platform (Castle) and enemies
+    ☐ Integrating visual assets; Implementing audio features
+    ☐ Implementing scoring system
+    ☐ Testing, bug fixes, optimizations
+    ☐ Final testing before submission

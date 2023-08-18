@@ -2,8 +2,10 @@ import {GL} from '../lib/GL';
 import {Renderer} from '../lib/Renderer';
 import {Material} from '../lib/Material';
 import {Mesh} from '../lib/Mesh';
-import {Scene} from './Scene';
-import {MeshNode} from './Node';
+import {Scene} from '../lib/Scene';
+import {MeshNode} from '../lib/MeshNode';
+import {identityMatrix, offsetMatrix} from '../lib/Consts';
+import {cube} from './Consts';
 
 /**
  * Represents the game object.
@@ -92,40 +94,13 @@ export class Game {
         ]);
 
         this.planeMaterial = new Material(this.gl);
-
         this.scene.addNode(new MeshNode(this.planeMesh, this.planeMaterial));
-
-        const identityMatrix = new Float32Array([
-            1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
-        ]);
-        const offsetMatrix = new Float32Array([
-            1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -2, 1, -5, 1,
-        ]);
-
-        this.planeMaterial.setProjection(identityMatrix);
-        this.planeMaterial.setView(identityMatrix);
-        this.planeMaterial.setModel(identityMatrix);
 
         this.planeMaterial.setColor([0.0, 0.5, 0.2, 1]);
 
         this.cubeMesh = new Mesh(this.gl);
-        this.cubeMesh.loadFromData([
-            -1, 1, 1, 0.625, 0, -1, 0, 0, -1, -1, -1, 0.375, 0.25, -1, 0, 0, -1, -1, 1,
-            0.375, 0, -1, 0, 0, -1, 1, -1, 0.625, 0.25, 0, 0, -1, 1, -1, -1, 0.375, 0.5, 0,
-            0, -1, -1, -1, -1, 0.375, 0.25, 0, 0, -1, 1, 1, -1, 0.625, 0.5, 1, 0, 0, 1, -1,
-            1, 0.375, 0.75, 1, 0, 0, 1, -1, -1, 0.375, 0.5, 1, 0, 0, 1, 1, 1, 0.625, 0.75,
-            0, 0, 1, -1, -1, 1, 0.375, 1, 0, 0, 1, 1, -1, 1, 0.375, 0.75, 0, 0, 1, 1, -1,
-            -1, 0.375, 0.5, 0, -1, 0, -1, -1, 1, 0.125, 0.75, 0, -1, 0, -1, -1, -1, 0.125,
-            0.5, 0, -1, 0, -1, 1, -1, 0.875, 0.5, 0, 1, 0, 1, 1, 1, 0.625, 0.75, 0, 1, 0, 1,
-            1, -1, 0.625, 0.5, 0, 1, 0, -1, 1, 1, 0.625, 0, -1, 0, 0, -1, 1, -1, 0.625,
-            0.25, -1, 0, 0, -1, -1, -1, 0.375, 0.25, -1, 0, 0, -1, 1, -1, 0.625, 0.25, 0, 0,
-            -1, 1, 1, -1, 0.625, 0.5, 0, 0, -1, 1, -1, -1, 0.375, 0.5, 0, 0, -1, 1, 1, -1,
-            0.625, 0.5, 1, 0, 0, 1, 1, 1, 0.625, 0.75, 1, 0, 0, 1, -1, 1, 0.375, 0.75, 1, 0,
-            0, 1, 1, 1, 0.625, 0.75, 0, 0, 1, -1, 1, 1, 0.625, 1, 0, 0, 1, -1, -1, 1, 0.375,
-            1, 0, 0, 1, 1, -1, -1, 0.375, 0.5, 0, -1, 0, 1, -1, 1, 0.375, 0.75, 0, -1, 0,
-            -1, -1, 1, 0.125, 0.75, 0, -1, 0, -1, 1, -1, 0.875, 0.5, 0, 1, 0, -1, 1, 1,
-            0.875, 0.75, 0, 1, 0, 1, 1, 1, 0.625, 0.75, 0, 1, 0,
-        ]);
+
+        this.cubeMesh.loadFromData(cube);
 
         this.cubeMaterial = new Material(this.gl);
         this.cubeMaterial.setProjection(identityMatrix);
@@ -133,32 +108,17 @@ export class Game {
         this.cubeMaterial.setModel(offsetMatrix);
 
         this.cubeMaterial.setColor([0.4, 0.4, 0.4, 1]);
+        this.scene.addNode(new MeshNode(this.cubeMesh, this.cubeMaterial));
 
-        // Create a renderer with that GL context (this is just for the samples
-        // framework and has nothing to do with WebXR specifically.)
-        //const renderer = new Renderer(gl);
-        // Set the scene's renderer, which creates the necessary GPU resources.
-        //scene.setRenderer(renderer);
-        // Use the new WebGL context to create a XRWebGLLayer and set it as the
-        // sessions baseLayer. This allows any content rendered to the layer to
-        // be displayed on the XRDevice.
         session.updateRenderState({baseLayer: new XRWebGLLayer(session, this.gl)});
 
-        // Get a frame of reference, which is required for querying poses. In
-        // this case an 'local' frame of reference means that all poses will
-        // be relative to the location where the XRDevice was first detected.
         session.requestReferenceSpace('local').then((refSpace) => {
-            this.xrRefSpace = refSpace;
+            // make sure the camera starts 1.6m below the floor level
+            const xform = new XRRigidTransform({y: -1.6});
+            this.xrRefSpace = refSpace.getOffsetReferenceSpace(xform);
 
-            // Inform the session that we're ready to begin drawing.
             session.requestAnimationFrame(this.onXRFrame.bind(this));
         });
-    }
-
-    // Called when the user clicks the 'Exit XR' button. In response we end
-    // the session.
-    onEndSession(session) {
-        session.end();
     }
 
     // Called either when the user has explicitly ended the session (like in
@@ -202,21 +162,26 @@ export class Game {
             this.gl.clear(GL.COLOR_BUFFER_BIT | GL.DEPTH_BUFFER_BIT);
 
             this.renderer.clear([0.5, 0.8, 1, 1]);
+
+            this.scene.updateInputSources(frame, this.xrRefSpace);
+
             // Loop through each of the views reported by the frame and draw them
             // into the corresponding viewport.
             for (let view of pose.views) {
                 let viewport = glLayer.getViewport(view)!;
                 this.gl.viewport(viewport.x, viewport.y, viewport.width, viewport.height);
 
-                this.planeMaterial.setProjection(view.projectionMatrix);
-                this.planeMaterial.setView(view.transform.inverse.matrix);
+                this.scene.render(view.projectionMatrix, view.transform);
 
-                this.renderer.draw(this.planeMesh, this.planeMaterial);
+                // this.planeMaterial.setProjection(view.projectionMatrix);
+                // this.planeMaterial.setView(view.transform.inverse.matrix);
 
-                this.cubeMaterial.setProjection(view.projectionMatrix);
-                this.cubeMaterial.setView(view.transform.inverse.matrix);
+                // this.renderer.draw(this.planeMesh, this.planeMaterial);
 
-                this.renderer.draw(this.cubeMesh, this.cubeMaterial);
+                // this.cubeMaterial.setProjection(view.projectionMatrix);
+                // this.cubeMaterial.setView(view.transform.inverse.matrix);
+
+                // this.renderer.draw(this.cubeMesh, this.cubeMaterial);
                 //scene.draw(view.projectionMatrix, view.transform);
             }
         } else {
