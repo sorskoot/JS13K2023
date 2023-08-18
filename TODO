@@ -2,7 +2,12 @@
 
 ✔ Setting up the development environment
 Creating a WebXR engine:
-    ✔ Node @done(23-08-18 18:06)
+    Node:
+        ☐ basic implementation
+        ☐ translation
+        ☐ rotation
+        ☐ scale
+
     ✔ Geometry Node @done(23-08-18 18:06)
     ✔ Scene @done(23-08-18 18:06)
     ✔ Camera @done(23-08-18 18:06)

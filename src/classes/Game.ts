@@ -6,6 +6,7 @@ import {Scene} from '../lib/Scene';
 import {MeshNode} from '../lib/MeshNode';
 import {identityMatrix, offsetMatrix} from '../lib/Consts';
 import {cube} from './Consts';
+import {Quaternion} from '../lib/Quaternion';
 
 /**
  * Represents the game object.
@@ -22,7 +23,7 @@ export class Game {
     planeMaterial!: Material;
     cubeMesh!: Mesh;
     cubeMaterial!: Material;
-
+    cube!: MeshNode;
     scene!: Scene;
 
     constructor() {
@@ -103,12 +104,13 @@ export class Game {
         this.cubeMesh.loadFromData(cube);
 
         this.cubeMaterial = new Material(this.gl);
-        this.cubeMaterial.setProjection(identityMatrix);
-        this.cubeMaterial.setView(identityMatrix);
-        this.cubeMaterial.setModel(offsetMatrix);
 
         this.cubeMaterial.setColor([0.4, 0.4, 0.4, 1]);
-        this.scene.addNode(new MeshNode(this.cubeMesh, this.cubeMaterial));
+        this.cube = new MeshNode(this.cubeMesh, this.cubeMaterial);
+        this.cube.translation.set(0, 1, -2);
+        this.cube.scale.set(0.25, 0.25, 0.25);
+        this.cube.rotation = new Quaternion().fromEuler(0, 0, 0);
+        this.scene.addNode(this.cube);
 
         session.updateRenderState({baseLayer: new XRWebGLLayer(session, this.gl)});
 
@@ -131,7 +133,8 @@ export class Game {
         // rendering anything else to the screen with it.
         // renderer = null;
     }
-
+    ang = 0;
+    prev = 0;
     // Called every time the XRSession requests that a new frame be drawn.
     onXRFrame(t: DOMHighResTimeStamp, frame: XRFrame) {
         let session = frame.session;
@@ -144,6 +147,10 @@ export class Game {
         // Get the XRDevice pose relative to the Frame of Reference we created
         // earlier.
         let pose = frame.getViewerPose(this.xrRefSpace);
+
+        this.ang += (t - this.prev) / 2500;
+        this.prev = t;
+        this.cube.rotation = new Quaternion().fromEuler(0, this.ang, 0);
 
         // Getting the pose may fail if, for example, tracking is lost. So we
         // have to check to make sure that we got a valid pose before attempting
