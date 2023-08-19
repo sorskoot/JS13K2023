@@ -55,7 +55,7 @@ export class Renderer {
                 gl_Position = u_Projection * u_View * u_Model * vec4(a_Position, 1.0);
                 v_TexCoord = a_TexCoord;
                 v_TexCoord.y = 1.0 - v_TexCoord.y;
-                v_Normal = mat3(u_View * u_Model) * a_Normal;
+                v_Normal = mat3(transpose(inverse(u_View*u_Model))) * a_Normal;
             }`
         );
         (Renderer.fSS = new SubShader(

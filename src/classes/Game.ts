@@ -11,7 +11,6 @@ import {Quaternion} from '../lib/Quaternion';
 /**
  * Represents the game object.
  */
-
 export class Game {
     // XR globals.
     xrButton!: HTMLButtonElement;
@@ -31,8 +30,10 @@ export class Game {
         this.initXR();
     }
 
-    // Checks to see if WebXR is available and, if so, queries a list of
-    // XRDevices that are connected to the system.
+    /**
+     * Checks to see if WebXR is available and, if so, queries a list of
+     * XRDevices that are connected to the system.
+     */
     initXR() {
         // Adds a helper button to the page that indicates if any XRDevices are
         // available and let's the user pick between them if there's multiple.
@@ -49,16 +50,20 @@ export class Game {
         }
     }
 
-    // Called when the user selects a device to present to. In response we
-    // will request an exclusive session from that device.
+    /**
+     *  Called when the user selects a device to present to. In response we
+     * will request an exclusive session from that device.
+     */
     onRequestSession() {
         return navigator
             .xr!.requestSession('immersive-vr')
             .then(this.onSessionStarted.bind(this));
     }
 
-    // Called when we've successfully acquired a XRSession. In response we
-    // will set up the necessary session state and kick off the frame loop.
+    /**
+     * Called when we've successfully acquired a XRSession. In response we
+     * will set up the necessary session state and kick off the frame loop.
+     */
     onSessionStarted(session: XRSession) {
         // This informs the 'Enter XR' button that the session has started and
         // that it should display 'Exit XR' instead.
@@ -100,9 +105,7 @@ export class Game {
         this.planeMaterial.setColor([0.0, 0.5, 0.2, 1]);
 
         this.cubeMesh = new Mesh(this.gl);
-
         this.cubeMesh.loadFromData(cube);
-
         this.cubeMaterial = new Material(this.gl);
 
         this.cubeMaterial.setColor([1, 0.0, 0.0, 1]);
@@ -112,6 +115,19 @@ export class Game {
         this.cube.rotation = new Quaternion().fromEuler(0, 0, 0);
         this.scene.addNode(this.cube);
 
+        const handL = new Mesh(this.gl);
+        handL.loadFromData(cube);
+        const handm = new Material(this.gl);
+        handm.setColor([0.0, 0.0, 1.0, 1]);
+        const handR = new Mesh(this.gl);
+        handR.loadFromData(cube);
+
+        this.scene.leftHand = new MeshNode(handL, handm);
+        this.scene.leftHand.scale.set(0.1, 0.1, 0.1);
+        this.scene.leftHand.setRenderer(this.renderer);
+        this.scene.rightHand = new MeshNode(handR, handm);
+        this.scene.rightHand.setRenderer(this.renderer);
+        this.scene.rightHand.scale.set(0.1, 0.1, 0.1);
         session.updateRenderState({baseLayer: new XRWebGLLayer(session, this.gl)});
 
         session.requestReferenceSpace('local').then((refSpace) => {
@@ -123,19 +139,25 @@ export class Game {
         });
     }
 
-    // Called either when the user has explicitly ended the session (like in
-    // onEndSession()) or when the UA has ended the session for any reason.
-    // At this point the session object is no longer usable and should be
-    // discarded.
+    /**
+     * Called either when the user has explicitly ended the session (like in
+     * onEndSession()) or when the UA has ended the session for any reason.
+     * At this point the session object is no longer usable and should be
+     * discarded.
+     * @param event The event that caused the session to end.
+     */
     onSessionEnded(event) {
         //xrButton.setSession(null);
         // In this simple case discard the WebGL context too, since we're not
         // rendering anything else to the screen with it.
         // renderer = null;
     }
+
     ang = 0;
     prev = 0;
-    // Called every time the XRSession requests that a new frame be drawn.
+    /**
+     * Called every time the XRSession requests that a new frame be drawn.
+     */
     onXRFrame(t: DOMHighResTimeStamp, frame: XRFrame) {
         let session = frame.session;
 
@@ -147,6 +169,8 @@ export class Game {
         // Get the XRDevice pose relative to the Frame of Reference we created
         // earlier.
         let pose = frame.getViewerPose(this.xrRefSpace);
+
+        this.scene.updateInputSources(frame, this.xrRefSpace);
 
         this.ang += (t - this.prev) / 2500;
         this.prev = t;
@@ -179,19 +203,7 @@ export class Game {
                 this.gl.viewport(viewport.x, viewport.y, viewport.width, viewport.height);
 
                 this.scene.render(view.projectionMatrix, view.transform);
-
-                // this.planeMaterial.setProjection(view.projectionMatrix);
-                // this.planeMaterial.setView(view.transform.inverse.matrix);
-
-                // this.renderer.draw(this.planeMesh, this.planeMaterial);
-
-                // this.cubeMaterial.setProjection(view.projectionMatrix);
-                // this.cubeMaterial.setView(view.transform.inverse.matrix);
-
-                // this.renderer.draw(this.cubeMesh, this.cubeMaterial);
-                //scene.draw(view.projectionMatrix, view.transform);
             }
-        } else {
         }
 
         // Per-frame scene teardown. Nothing WebXR specific here.
