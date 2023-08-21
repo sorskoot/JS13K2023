@@ -1,4 +1,5 @@
 import {GL} from './GL';
+import {Material} from './Material';
 import {SubShader} from './SubShader';
 import {Vector3} from './Vector3';
 

@@ -1,24 +1,18 @@
 import {Renderer} from '../lib/Renderer';
 import {Matrix4} from './Matrix4';
-import {Node} from './Node';
+import {Object3D} from './Object3D';
 
 /**
  * Represents a scene in the game.
  */
-export class Scene extends Node {
-    leftHand!: Node;
-    rightHand!: Node;
+export class Scene extends Object3D {
+    leftHand!: Object3D;
+    rightHand!: Object3D;
 
-    nodes: Node[];
     constructor(renderer: Renderer) {
         super();
+        this.name = 'scene';
         this.renderer = renderer;
-        this.nodes = [];
-    }
-
-    addNode(node: Node) {
-        node.setRenderer(this.renderer!);
-        this.nodes.push(node);
     }
 
     updateInputSources(frame: XRFrame, refSpace: XRReferenceSpace) {
@@ -28,11 +22,13 @@ export class Scene extends Node {
             const rot = gripPose.transform.orientation;
 
             if (inputSource.handedness == 'left') {
-                this.leftHand.translation.set(pos.x, pos.y, pos.z);
-                this.leftHand.rotation.set(rot.x, rot.y, rot.z, rot.w);
+                this.leftHand.position.set(pos.x, pos.y, pos.z);
+                this.leftHand.quaternion.set(rot.x, rot.y, rot.z, rot.w);
+                this.leftHand.updateMatrix();
             } else {
-                this.rightHand.translation.set(pos.x, pos.y, pos.z);
-                this.rightHand.rotation.set(rot.x, rot.y, rot.z, rot.w);
+                this.rightHand.position.set(pos.x, pos.y, pos.z);
+                this.rightHand.quaternion.set(rot.x, rot.y, rot.z, rot.w);
+                this.rightHand.updateMatrix();
             }
         }
     }
@@ -43,8 +39,8 @@ export class Scene extends Node {
         this.leftHand.render(projectionMatrix, transform);
         this.rightHand.render(projectionMatrix, transform);
 
-        for (let index = 0; index < this.nodes.length; index++) {
-            const element = this.nodes[index];
+        for (let index = 0; index < this.children.length; index++) {
+            const element = this.children[index];
             element.render(projectionMatrix, transform);
         }
     }

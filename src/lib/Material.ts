@@ -46,17 +46,17 @@ export class Material {
         this.shader.free();
     }
 
-    setProjection(mat) {
+    setProjection(mat: Float32List) {
         this.shader.bind();
         this.shader.set4x4f('u_Projection', mat);
         this.shader.unbind();
     }
-    setView(mat) {
+    setView(mat: Float32List) {
         this.shader.bind();
         this.shader.set4x4f('u_View', mat);
         this.shader.unbind();
     }
-    setModel(mat) {
+    setModel(mat: Float32List) {
         this.shader.bind();
         this.shader.set4x4f('u_Model', mat);
         this.shader.unbind();

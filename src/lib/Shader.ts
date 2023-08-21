@@ -56,7 +56,7 @@ export class Shader {
         this.gl.uniform4f(this.gl.getUniformLocation(this.program, name), x, y, z, w);
         return this;
     }
-    set4x4f(name, mat) {
+    set4x4f(name: string, mat: Float32List) {
         // for matrices (projection, view, model)
         this.gl.uniformMatrix4fv(
             this.gl.getUniformLocation(this.program, name),

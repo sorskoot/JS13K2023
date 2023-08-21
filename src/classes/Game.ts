@@ -110,9 +110,9 @@ export class Game {
 
         this.cubeMaterial.setColor([1, 0.0, 0.0, 1]);
         this.cube = new MeshNode(this.cubeMesh, this.cubeMaterial);
-        this.cube.translation.set(0, 1, -2);
+        this.cube.position.set(0, 1, -2);
         this.cube.scale.set(0.25, 0.25, 0.25);
-        this.cube.rotation = new Quaternion().fromEuler(0, 0, 0);
+        this.cube.quaternion.fromEuler(0, 0, 0);
         this.scene.addNode(this.cube);
 
         const handL = new Mesh(this.gl);
@@ -123,8 +123,19 @@ export class Game {
         handR.loadFromData(cube);
 
         this.scene.leftHand = new MeshNode(handL, handm);
-        this.scene.leftHand.scale.set(0.1, 0.1, 0.1);
+        this.scene.leftHand.scale.set(0.01, 0.01, 0.1);
         this.scene.leftHand.setRenderer(this.renderer);
+
+        const minim = new Material(this.gl);
+        minim.setColor([0.0, 1.0, 0.0, 1]);
+        const mini = new MeshNode(handL, minim);
+        mini.scale.set(1.2, 1.2, 2);
+        mini.position.set(0, 0, -2.5);
+        this.scene.leftHand.addNode(mini);
+        const mini2 = new MeshNode(handL, minim);
+        mini2.scale.set(1.2, 1.2, 2);
+        mini2.position.set(0, 0, 2.5);
+        this.scene.leftHand.addNode(mini2);
         this.scene.rightHand = new MeshNode(handR, handm);
         this.scene.rightHand.setRenderer(this.renderer);
         this.scene.rightHand.scale.set(0.1, 0.1, 0.1);
@@ -171,10 +182,11 @@ export class Game {
         let pose = frame.getViewerPose(this.xrRefSpace);
 
         this.scene.updateInputSources(frame, this.xrRefSpace);
+        this.scene.updateMatrix();
 
         this.ang += (t - this.prev) / 2500;
         this.prev = t;
-        this.cube.rotation = new Quaternion().fromEuler(0, this.ang, 0);
+        this.cube.quaternion.fromEuler(0, this.ang, 0);
 
         // Getting the pose may fail if, for example, tracking is lost. So we
         // have to check to make sure that we got a valid pose before attempting
