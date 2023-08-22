@@ -361,8 +361,30 @@ export class Matrix4 extends Array<number> {
             1
         );
     }
-
-    /**
+    scale(v: Vector3) {
+        let x = v[0],
+            y = v[1],
+            z = v[2];
+        return this.set(
+            this[0] * x,
+            this[1] * x,
+            this[2] * x,
+            this[3] * x,
+            this[4] * y,
+            this[5] * y,
+            this[6] * y,
+            this[7] * y,
+            this[8] * z,
+            this[9] * z,
+            this[10] * z,
+            this[11] * z,
+            this[12],
+            this[13],
+            this[14],
+            this[15]
+        );
+    }
+    /*,
      * Calculates a normal matrix from a model-view matrix.
      */
     normal(m: Matrix4): this {

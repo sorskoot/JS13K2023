@@ -2,6 +2,7 @@ import {Material} from './Material';
 import {Matrix4} from './Matrix4';
 import {Mesh} from './Mesh';
 import {Object3D} from './Object3D';
+import {Quaternion} from './Quaternion';
 import {Vector3} from './Vector3';
 
 export class MeshNode extends Object3D {
@@ -26,7 +27,7 @@ export class MeshNode extends Object3D {
 
         // Compute model-view matrix by multiplying inverse camera transform with object transform
         //let modelViewMatrix = inv.multiply(this.matrix);
-
+        // this.matrix.compose(this.position, this.quaternion, this.scale);
         this.material.setModel(this.absoluteTransform);
         this.material.setView(inv);
 

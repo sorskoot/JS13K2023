@@ -166,13 +166,13 @@ export class Quaternion extends Array<number> {
     /**
      * Sets this quaternion's components from a Euler angle in radians (assumes XYZ order).
      */
-    fromEuler(x: number, y: number, z: number): this {
-        const sx = Math.sin(x);
-        const cx = Math.cos(x);
-        const sy = Math.sin(y);
-        const cy = Math.cos(y);
-        const sz = Math.sin(z);
-        const cz = Math.cos(z);
+    fromEuler(...e: number[]): this {
+        const sx = Math.sin(e[0]);
+        const cx = Math.cos(e[0]);
+        const sy = Math.sin(e[1]);
+        const cy = Math.cos(e[1]);
+        const sz = Math.sin(e[2]);
+        const cz = Math.cos(e[2]);
 
         return this.set(
             sx * cy * cz + cx * sy * sz,

@@ -42,7 +42,7 @@ export class Vector3 extends Array<number> {
     /**
      * Sets this vector's x, y, and z properties.
      */
-    set(...v: Vector3Tuple): this {
+    set(...v: Vector3Tuple | number[]): this {
         for (let i = 0; i < 3; i++) {
             this[i] = v[i];
         }

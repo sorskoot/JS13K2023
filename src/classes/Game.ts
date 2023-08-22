@@ -4,9 +4,10 @@ import {Material} from '../lib/Material';
 import {Mesh} from '../lib/Mesh';
 import {Scene} from '../lib/Scene';
 import {MeshNode} from '../lib/MeshNode';
-import {identityMatrix, offsetMatrix} from '../lib/Consts';
+import {PI} from '../lib/Consts';
 import {cube} from './Consts';
-import {Quaternion} from '../lib/Quaternion';
+import {Object3D} from '../lib/Object3D';
+import {Bow} from './Models';
 
 /**
  * Represents the game object.
@@ -122,23 +123,21 @@ export class Game {
         const handR = new Mesh(this.gl);
         handR.loadFromData(cube);
 
-        this.scene.leftHand = new MeshNode(handL, handm);
-        this.scene.leftHand.scale.set(0.01, 0.01, 0.1);
+        this.scene.leftHand = new Object3D();
         this.scene.leftHand.setRenderer(this.renderer);
+        let nodes = Bow.map((props) => {
+            const node = new MeshNode(handL, handm);
+            node.scale.set(...props[1]);
+            node.position.set(...props[0]);
+            node.quaternion.fromEuler(...props[2]);
+            return node;
+        });
+        this.scene.leftHand.addNode(...nodes);
 
-        const minim = new Material(this.gl);
-        minim.setColor([0.0, 1.0, 0.0, 1]);
-        const mini = new MeshNode(handL, minim);
-        mini.scale.set(1.2, 1.2, 2);
-        mini.position.set(0, 0, -2.5);
-        this.scene.leftHand.addNode(mini);
-        const mini2 = new MeshNode(handL, minim);
-        mini2.scale.set(1.2, 1.2, 2);
-        mini2.position.set(0, 0, 2.5);
-        this.scene.leftHand.addNode(mini2);
         this.scene.rightHand = new MeshNode(handR, handm);
         this.scene.rightHand.setRenderer(this.renderer);
         this.scene.rightHand.scale.set(0.1, 0.1, 0.1);
+
         session.updateRenderState({baseLayer: new XRWebGLLayer(session, this.gl)});
 
         session.requestReferenceSpace('local').then((refSpace) => {

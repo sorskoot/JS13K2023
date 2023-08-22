@@ -49,10 +49,12 @@ export class Object3D {
         this.renderer = renderer;
     }
 
-    addNode(node: Object3D) {
-        let l = this.children.push(node);
-        this.children[l - 1].setRenderer(this.renderer!);
-        this.children[l - 1].parent = this;
+    addNode(...children: Object3D[]): void {
+        for (const child of children) {
+            this.children.push(child);
+            child.parent = this;
+            child.setRenderer(this.renderer!);
+        }
     }
 
     updateMatrix(): void {
@@ -60,6 +62,8 @@ export class Object3D {
         for (const child of this.children) child.updateMatrix();
     }
 
-    render(projectionMatrix: Float32Array, transform: XRRigidTransform) {}
+    render(projectionMatrix: Float32Array, transform: XRRigidTransform) {
+        this.children.forEach((c) => c.render(projectionMatrix, transform));
+    }
     //render(parentWorldMatrix: Matrix4): void {}
 }
