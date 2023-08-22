@@ -7,7 +7,8 @@ import {MeshNode} from '../lib/MeshNode';
 import {PI} from '../lib/Consts';
 import {cube} from './Consts';
 import {Object3D} from '../lib/Object3D';
-import {Bow} from './Models';
+import {BowModel} from './Models';
+import {Bow} from './Bow';
 
 /**
  * Represents the game object.
@@ -25,6 +26,7 @@ export class Game {
     cubeMaterial!: Material;
     cube!: MeshNode;
     scene!: Scene;
+    bow: Bow;
 
     constructor() {
         console.log('Game started');
@@ -125,18 +127,22 @@ export class Game {
 
         this.scene.leftHand = new Object3D();
         this.scene.leftHand.setRenderer(this.renderer);
-        let nodes = Bow.map((props) => {
+
+        let nodes = BowModel.map((props) => {
             const node = new MeshNode(handL, handm);
             node.scale.set(...props[1]);
             node.position.set(...props[0]);
             node.quaternion.fromEuler(...props[2]);
             return node;
         });
+
         this.scene.leftHand.addNode(...nodes);
 
         this.scene.rightHand = new MeshNode(handR, handm);
         this.scene.rightHand.setRenderer(this.renderer);
-        this.scene.rightHand.scale.set(0.1, 0.1, 0.1);
+        this.scene.rightHand.scale.set(0.01, 0.01, 0.01);
+
+        this.bow = new Bow();
 
         session.updateRenderState({baseLayer: new XRWebGLLayer(session, this.gl)});
 
@@ -180,7 +186,6 @@ export class Game {
         // earlier.
         let pose = frame.getViewerPose(this.xrRefSpace);
 
-        this.scene.updateInputSources(frame, this.xrRefSpace);
         this.scene.updateMatrix();
 
         this.ang += (t - this.prev) / 2500;
@@ -206,6 +211,19 @@ export class Game {
             this.renderer.clear([0.5, 0.8, 1, 1]);
 
             this.scene.updateInputSources(frame, this.xrRefSpace);
+
+            this.bow.update(
+                {
+                    orientation: this.scene.leftHand.quaternion,
+                    position: this.scene.leftHand.position,
+                    isGripping: false,
+                },
+                {
+                    orientation: this.scene.rightHand.quaternion,
+                    position: this.scene.rightHand.position,
+                    isGripping: false,
+                }
+            );
 
             // Loop through each of the views reported by the frame and draw them
             // into the corresponding viewport.
