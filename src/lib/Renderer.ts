@@ -1,5 +1,7 @@
 import {GL} from './GL';
 import {Material} from './Material';
+import {Matrix4} from './Matrix4';
+import {Shader} from './Shader';
 import {SubShader} from './SubShader';
 import {Vector3} from './Vector3';
 

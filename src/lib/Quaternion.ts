@@ -255,4 +255,44 @@ export class Quaternion extends Array<number> {
             return this.set((sm31 + sm13) / S, (sm23 + sm32) / S, S / 4, (sm12 - sm21) / S);
         }
     }
+
+    rotationTo(a: Vector3, b: Vector3) {
+        let tmpvec3 = new Vector3();
+        let xUnitVec3 = new Vector3(1, 0, 0);
+        let yUnitVec3 = new Vector3(0, 1, 0);
+        let dot = a.dot(b);
+        if (dot < -0.999999) {
+            tmpvec3.copy(xUnitVec3);
+            tmpvec3.cross(a);
+            if (tmpvec3.length < 0.000001) {
+                tmpvec3.copy(yUnitVec3).cross(a);
+            }
+            tmpvec3.normalize();
+            this.setAxisAngle(tmpvec3, Math.PI);
+            return this;
+        } else if (dot > 0.999999) {
+            this[0] = 0;
+            this[1] = 0;
+            this[2] = 0;
+            this[3] = 1;
+            return this;
+        } else {
+            tmpvec3.copy(a).cross(b);
+            this[0] = tmpvec3[0];
+            this[1] = tmpvec3[1];
+            this[2] = tmpvec3[2];
+            this[3] = 1 + dot;
+            return this.normalize();
+        }
+    }
+
+    setAxisAngle(axis: Vector3, rad: number) {
+        rad = rad * 0.5;
+        let s = Math.sin(rad);
+        this[0] = s * axis[0];
+        this[1] = s * axis[1];
+        this[2] = s * axis[2];
+        this[3] = Math.cos(rad);
+        return this;
+    }
 }

@@ -4,11 +4,12 @@ import {Material} from '../lib/Material';
 import {Mesh} from '../lib/Mesh';
 import {Scene} from '../lib/Scene';
 import {MeshNode} from '../lib/MeshNode';
-import {PI} from '../lib/Consts';
 import {cube} from './Consts';
 import {Object3D} from '../lib/Object3D';
 import {BowModel} from './Models';
-import {Bow} from './Bow';
+import {Bow, StringPart} from './Bow';
+import {Controller} from './Controller';
+import {Vector3} from '../lib/Vector3';
 
 /**
  * Represents the game object.
@@ -27,6 +28,8 @@ export class Game {
     cube!: MeshNode;
     scene!: Scene;
     bow: Bow;
+    stringPart1: StringPart;
+    stringPart2: StringPart;
 
     constructor() {
         console.log('Game started');
@@ -124,8 +127,10 @@ export class Game {
         handm.setColor([0.0, 0.0, 1.0, 1]);
         const handR = new Mesh(this.gl);
         handR.loadFromData(cube);
+        const handRm = new Material(this.gl);
+        handRm.setColor([0.0, 0.0, 1.0, 1]);
 
-        this.scene.leftHand = new Object3D();
+        this.scene.leftHand = new Controller('left');
         this.scene.leftHand.setRenderer(this.renderer);
 
         let nodes = BowModel.map((props) => {
@@ -138,11 +143,30 @@ export class Game {
 
         this.scene.leftHand.addNode(...nodes);
 
-        this.scene.rightHand = new MeshNode(handR, handm);
+        this.scene.rightHand = new Controller('right');
         this.scene.rightHand.setRenderer(this.renderer);
-        this.scene.rightHand.scale.set(0.01, 0.01, 0.01);
+        const rightHandMesh = new MeshNode(handR, handRm);
+        rightHandMesh.scale.set(0.01, 0.01, 0.01);
+        this.scene.rightHand.addNode(rightHandMesh);
 
         this.bow = new Bow();
+
+        const stringM = new Material(this.gl);
+        stringM.setColor([0.8, 0.8, 0.8, 1]);
+        this.stringPart1 = new StringPart(handL, stringM);
+        this.stringPart1.scale.set(0.01, 0.01, 0.01);
+        this.scene.leftHand.addNode(this.stringPart1);
+        this.stringPart2 = new StringPart(handL, stringM);
+        this.stringPart2.scale.set(0.01, 0.01, 0.01);
+        this.scene.leftHand.addNode(this.stringPart2);
+
+        this.scene.rightHand.onTrigger.on((value) => {
+            if (value) {
+                handRm.setColor([1.0, 0.0, 0.0, 1]);
+            } else {
+                handRm.setColor([0.0, 0.0, 1.0, 1]);
+            }
+        });
 
         session.updateRenderState({baseLayer: new XRWebGLLayer(session, this.gl)});
 
@@ -192,6 +216,9 @@ export class Game {
         this.prev = t;
         this.cube.quaternion.fromEuler(0, this.ang, 0);
 
+        this.scene.leftHand.children[7].position.y =
+            Math.sin(this.ang * 5) / 10 + (0.19 + 0.1);
+
         // Getting the pose may fail if, for example, tracking is lost. So we
         // have to check to make sure that we got a valid pose before attempting
         // to render with it. If not in this case we'll just leave the
@@ -223,6 +250,15 @@ export class Game {
                     position: this.scene.rightHand.position,
                     isGripping: false,
                 }
+            );
+
+            this.stringPart1.recalculate(
+                this.scene.leftHand.children[5],
+                this.scene.leftHand.children[7]
+            );
+            this.stringPart2.recalculate(
+                this.scene.leftHand.children[6],
+                this.scene.leftHand.children[7]
             );
 
             // Loop through each of the views reported by the frame and draw them

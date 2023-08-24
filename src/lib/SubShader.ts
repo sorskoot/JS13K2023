@@ -11,6 +11,7 @@ export class SubShader {
 
         const message = this.gl.getShaderInfoLog(this.shader)!;
         if (message.length > 0) {
+            console.log(message);
             throw message;
         }
     }

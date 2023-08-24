@@ -160,3 +160,51 @@ export class Arrow {
         this.state = ArrowState.IN_FLIGHT;
     }
 }
+
+export class StringPart extends MeshNode {
+    constructor(mesh: Mesh, material: Material) {
+        super(mesh, material);
+    }
+
+    recalculate(node1: Object3D, node2: Object3D) {
+        // update position, rotation and scale to create a line between the 2 nodes
+        const posA = node1.position;
+        const posB = node2.position;
+
+        const diff = new Vector3();
+        diff.copy(posB);
+        diff.sub(posA);
+        diff.multiply(0.5);
+        const dist = diff.getLength();
+
+        this.scale.set(0.003, 0.003, dist);
+        this.position.copy(diff);
+        this.position.add(posA);
+
+        const dir = new Vector3();
+        dir.copy(diff).normalize();
+        const q = new Quaternion();
+        this.quaternion.rotationTo(new Vector3(0, 0, 1), dir);
+    }
+    /*
+    update: function(dt) {
+        this.targetA.getTranslationWorld(this.posA);
+        this.targetB.getTranslationWorld(this.posB);
+        glMatrix.vec3.sub(this.diff, this.posB, this.posA);
+        glMatrix.vec3.scale(this.diff, this.diff, 0.5);
+
+        let dist = glMatrix.vec3.length(this.diff);
+        this.object.resetTransform();
+        this.object.scale([this.thickness, this.lengthPercentage*dist, this.thickness]);
+
+        glMatrix.quat2.conjugate(this.invParent, this.object.parent.transformWorld);
+
+        glMatrix.vec3.normalize(this.dir, this.diff);
+        glMatrix.quat.rotationTo(this.object.transformLocal, [0, 1, 0], this.dir);
+        glMatrix.vec3.add(this.diff, this.posA, this.diff);
+        this.object.translate(this.diff);
+
+        glMatrix.quat2.mul(this.object.transformLocal, this.invParent, this.object.transformLocal);
+    },   
+*/
+}
