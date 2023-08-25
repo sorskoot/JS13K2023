@@ -1,4 +1,5 @@
 import {Material} from '../lib/Material.js';
+import {Matrix4} from '../lib/Matrix4.js';
 import {Mesh} from '../lib/Mesh.js';
 import {MeshNode} from '../lib/MeshNode.js';
 import {Object3D} from '../lib/Object3D.js';
@@ -21,6 +22,9 @@ export class Bow {
     // The current state of the bow (e.g., DRAWN or IDLE)
     private state: State;
 
+    public readyToDraw: boolean = false;
+    public drawDistance: number = 0;
+
     // Force multiplier for drawing the bow.
     DRAW_FORCE_MULTIPLIER = 10;
 
@@ -35,16 +39,31 @@ export class Bow {
      * @param bowHandState The state of the hand holding the bow.
      * @param arrowHandState The state of the hand holding the arrow.
      */
-    update(bowHandState: HandState, arrowHandState: HandState) {
+    update(
+        bowHandState: HandState,
+        arrowHandState: HandState,
+        stringCenter: Object3D,
+        stringMin: Object3D,
+        stringMax: Object3D
+    ) {
         // Update hand positions based on controller input.
         this.bowHandPosition = bowHandState.position;
         this.bowHandOrientation = bowHandState.orientation;
 
+        this.arrowHandPosition = arrowHandState.position;
+        this.arrowHandOrientation = arrowHandState.orientation;
+
+        const stringCenterWorld = stringCenter.absoluteTransform.toVector3();
+
+        if (this.arrowHandPosition.distanceTo(stringCenterWorld) < 0.05) {
+            this.readyToDraw = true;
+        } else {
+            this.readyToDraw = false;
+        }
         switch (this.state) {
             case State.IDLE:
-                if (arrowHandState.isGripping) {
+                if (arrowHandState.isGripping && this.readyToDraw) {
                     this.state = State.DRAWN;
-                    this.arrowHandPosition = arrowHandState.position;
                 }
                 break;
 
@@ -64,9 +83,35 @@ export class Bow {
                         this.DRAW_FORCE_MULTIPLIER;
 
                     fireArrow(direction, force);
+                    this.drawDistance = 0;
                 } else {
-                    // If still gripping update the arrow hand position for next calculations
-                    this.arrowHandPosition = arrowHandState.position;
+                    // // If still gripping update string center
+                    // let v1 = this.arrowHandPosition.slice();
+                    // let v2 = stringCenterWorld.slice();
+
+                    // Your 3 vectors
+                    const v1 = stringMin.absoluteTransform.toVector3();
+                    const v2 = stringMax.absoluteTransform.toVector3();
+                    const p = arrowHandState.position;
+
+                    // Calculate direction vector d
+                    const d = new Vector3();
+                    d.copy(v2).sub(v1);
+
+                    // Calculate vector difference between p and v1
+                    const pv = new Vector3();
+                    pv.copy(p).sub(v1);
+
+                    // Scalar projection formula: (pv . d) / ||d||^2 which gives us t.
+                    // If t<0 => closest is v1; if t>1 => closest is v2; else closest is on the line
+                    let t = pv.dot(d) / (d.getLength() * d.getLength());
+                    t = Math.max(0, Math.min(1, t));
+
+                    // Closest point calculation
+                    const closestPointOnLine = new Vector3();
+                    closestPointOnLine.copy(v1).lerp(v2, t);
+
+                    this.drawDistance = closestPointOnLine.distanceTo(v1);
                 }
 
                 break;
@@ -90,6 +135,7 @@ function calculateForce(bowPos: Vector3, arrowPos: Vector3): number {
 
 function fireArrow(direction: Vector3, force: number) {
     // TODO: implement
+    console.log('Firing arrow with direction: ' + direction + ' and force: ' + force);
 }
 
 export enum State {

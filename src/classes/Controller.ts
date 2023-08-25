@@ -11,7 +11,7 @@ export class Controller extends Object3D {
     }
     public set triggerPressed(value: boolean) {
         if (value != this._triggerPressed) {
-            console.log(`triggerPressed(${this.handedness})=${value}`);
+            //console.log(`triggerPressed(${this.handedness})=${value}`);
             this.onTrigger.emit(value);
             this._triggerPressed = value;
         }

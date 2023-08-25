@@ -41,4 +41,14 @@ export const BowModel = [
         [0.01, 0.01, 0.01], // scale
         [0, 0, 0], // rotation
     ],
+    [
+        [0, 0.19, 0], // position
+        [0, 0, 0], // scale
+        [0, 0, 0], // rotation
+    ],
+    [
+        [0, 0.59, 0], // position
+        [0, 0, 0], // scale
+        [0, 0, 0], // rotation
+    ],
 ];

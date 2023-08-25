@@ -30,6 +30,7 @@ export class Game {
     bow: Bow;
     stringPart1: StringPart;
     stringPart2: StringPart;
+    handRm: any;
 
     constructor() {
         console.log('Game started');
@@ -127,8 +128,8 @@ export class Game {
         handm.setColor([0.0, 0.0, 1.0, 1]);
         const handR = new Mesh(this.gl);
         handR.loadFromData(cube);
-        const handRm = new Material(this.gl);
-        handRm.setColor([0.0, 0.0, 1.0, 1]);
+        this.handRm = new Material(this.gl);
+        this.handRm.setColor([0.0, 0.0, 1.0, 1]);
 
         this.scene.leftHand = new Controller('left');
         this.scene.leftHand.setRenderer(this.renderer);
@@ -145,7 +146,7 @@ export class Game {
 
         this.scene.rightHand = new Controller('right');
         this.scene.rightHand.setRenderer(this.renderer);
-        const rightHandMesh = new MeshNode(handR, handRm);
+        const rightHandMesh = new MeshNode(handR, this.handRm);
         rightHandMesh.scale.set(0.01, 0.01, 0.01);
         this.scene.rightHand.addNode(rightHandMesh);
 
@@ -162,9 +163,9 @@ export class Game {
 
         this.scene.rightHand.onTrigger.on((value) => {
             if (value) {
-                handRm.setColor([1.0, 0.0, 0.0, 1]);
+                this.handRm.setColor([1.0, 0.0, 0.0, 1]);
             } else {
-                handRm.setColor([0.0, 0.0, 1.0, 1]);
+                this.handRm.setColor([0.0, 0.0, 1.0, 1]);
             }
         });
 
@@ -216,9 +217,6 @@ export class Game {
         this.prev = t;
         this.cube.quaternion.fromEuler(0, this.ang, 0);
 
-        this.scene.leftHand.children[7].position.y =
-            Math.sin(this.ang * 5) / 10 + (0.19 + 0.1);
-
         // Getting the pose may fail if, for example, tracking is lost. So we
         // have to check to make sure that we got a valid pose before attempting
         // to render with it. If not in this case we'll just leave the
@@ -243,13 +241,16 @@ export class Game {
                 {
                     orientation: this.scene.leftHand.quaternion,
                     position: this.scene.leftHand.position,
-                    isGripping: false,
+                    isGripping: this.scene.leftHand.triggerPressed,
                 },
                 {
                     orientation: this.scene.rightHand.quaternion,
                     position: this.scene.rightHand.position,
-                    isGripping: false,
-                }
+                    isGripping: this.scene.rightHand.triggerPressed,
+                },
+                this.scene.leftHand.children[7],
+                this.scene.leftHand.children[8],
+                this.scene.leftHand.children[9]
             );
 
             this.stringPart1.recalculate(
@@ -259,6 +260,17 @@ export class Game {
             this.stringPart2.recalculate(
                 this.scene.leftHand.children[6],
                 this.scene.leftHand.children[7]
+            );
+
+            if (this.bow.readyToDraw) {
+                this.handRm.setColor([0.0, 1.0, 0.0, 1]);
+            } else {
+                this.handRm.setColor([0.0, 0.0, 1.0, 1]);
+            }
+            this.scene.leftHand.children[7].position.set(
+                0,
+                0.19 + this.bow.drawDistance,
+                0
             );
 
             // Loop through each of the views reported by the frame and draw them

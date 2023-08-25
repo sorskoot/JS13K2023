@@ -151,7 +151,10 @@ export class Vector3 extends Array<number> {
      * Lerps between another {@link Vector3} with a given alpha — `t`.
      */
     lerp(v: Vector3, t: number): this {
-        return this.set(v.x - this.x, v.y - this.y, v.z - this.z).multiply(t);
+        let ax = this.x;
+        let ay = this.y;
+        let az = this.z;
+        return this.set(ax + t * (v.x - ax), ay + t * (v.y - ay), az + t * (v.z - az));
     }
 
     /**

@@ -1,4 +1,4 @@
-import type {Vector3} from './Vector3';
+import {Vector3} from './Vector3';
 import type {Quaternion} from './Quaternion';
 /**
  * Represents the components of a {@link Matrix4}.
@@ -454,5 +454,9 @@ export class Matrix4 extends Array<number> {
         this[11] += this[15] /= 2;
 
         return this;
+    }
+
+    toVector3(): Vector3 {
+        return new Vector3(this[12], this[13], this[14]);
     }
 }
