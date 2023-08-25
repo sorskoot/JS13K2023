@@ -16,7 +16,7 @@ export class MeshNode extends Object3D {
     }
 
     override render(projectionMatrix: Float32Array, transform: XRRigidTransform) {
-        if (!this.renderer) return;
+        if (!this.renderer || !this.active) return;
 
         // set translation, rotation, and scale
         // let transformMatrix = Matrix4.Identity;

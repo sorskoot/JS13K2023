@@ -20,8 +20,7 @@ export class Bow {
     private arrowHandPosition: Vector3;
     private arrowHandOrientation: Quaternion;
     // The current state of the bow (e.g., DRAWN or IDLE)
-    private state: State;
-
+    public state: State;
     public readyToDraw: boolean = false;
     public drawDistance: number = 0;
 
@@ -85,9 +84,7 @@ export class Bow {
                     fireArrow(direction, force);
                     this.drawDistance = 0;
                 } else {
-                    // // If still gripping update string center
-                    // let v1 = this.arrowHandPosition.slice();
-                    // let v2 = stringCenterWorld.slice();
+                    // If still gripping update string center
 
                     // Your 3 vectors
                     const v1 = stringMin.absoluteTransform.toVector3();

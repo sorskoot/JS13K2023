@@ -7,7 +7,7 @@ import {MeshNode} from '../lib/MeshNode';
 import {cube} from './Consts';
 import {Object3D} from '../lib/Object3D';
 import {BowModel} from './Models';
-import {Bow, StringPart} from './Bow';
+import {Bow, State, StringPart} from './Bow';
 import {Controller} from './Controller';
 import {Vector3} from '../lib/Vector3';
 
@@ -31,6 +31,9 @@ export class Game {
     stringPart1: StringPart;
     stringPart2: StringPart;
     handRm: any;
+    placedArrow: MeshNode;
+    arrowMat: Material;
+    arrowMesh: Mesh;
 
     constructor() {
         console.log('Game started');
@@ -134,15 +137,7 @@ export class Game {
         this.scene.leftHand = new Controller('left');
         this.scene.leftHand.setRenderer(this.renderer);
 
-        let nodes = BowModel.map((props) => {
-            const node = new MeshNode(handL, handm);
-            node.scale.set(...props[1]);
-            node.position.set(...props[0]);
-            node.quaternion.fromEuler(...props[2]);
-            return node;
-        });
-
-        this.scene.leftHand.addNode(...nodes);
+        let nodes = this.getModel(BowModel, handL, handm);
 
         this.scene.rightHand = new Controller('right');
         this.scene.rightHand.setRenderer(this.renderer);
@@ -156,10 +151,23 @@ export class Game {
         stringM.setColor([0.8, 0.8, 0.8, 1]);
         this.stringPart1 = new StringPart(handL, stringM);
         this.stringPart1.scale.set(0.01, 0.01, 0.01);
-        this.scene.leftHand.addNode(this.stringPart1);
+
         this.stringPart2 = new StringPart(handL, stringM);
         this.stringPart2.scale.set(0.01, 0.01, 0.01);
-        this.scene.leftHand.addNode(this.stringPart2);
+
+        this.arrowMesh = new Mesh(this.gl);
+        this.arrowMat = new Material(this.gl);
+        this.arrowMat.setColor([0.5, 0.35, 0.2, 1]);
+        this.placedArrow = new MeshNode(handL, this.arrowMat);
+        this.placedArrow.scale.set(0.005, 0.4, 0.005);
+        this.placedArrow.position.set(0, -0.4 + 0.19, 0);
+
+        this.scene.leftHand.addNode(
+            ...nodes,
+            this.stringPart1,
+            this.stringPart2,
+            this.placedArrow
+        );
 
         this.scene.rightHand.onTrigger.on((value) => {
             if (value) {
@@ -267,6 +275,16 @@ export class Game {
             } else {
                 this.handRm.setColor([0.0, 0.0, 1.0, 1]);
             }
+
+            if (this.bow.state == State.DRAWN) {
+                this.placedArrow!.position.set(0, -0.4 + 0.19 + this.bow.drawDistance, 0);
+                this.placedArrow!.active = true;
+            } else if (this.bow.state == State.IDLE) {
+                this.placedArrow!.active = false;
+                //this.placedArrow = null;
+                //this.scene.leftHand.removeNode(12);
+            }
+
             this.scene.leftHand.children[7].position.set(
                 0,
                 0.19 + this.bow.drawDistance,
@@ -285,5 +303,15 @@ export class Game {
 
         // Per-frame scene teardown. Nothing WebXR specific here.
         //scene.endFrame();
+    }
+
+    getModel(model: number[][][], mesh: Mesh, material: Material) {
+        return model.map((props) => {
+            const node = new MeshNode(mesh, material);
+            node.scale.set(...props[1]);
+            node.position.set(...props[0]);
+            node.quaternion.fromEuler(...props[2]);
+            return node;
+        });
     }
 }

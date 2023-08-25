@@ -14,6 +14,7 @@ export class Object3D {
     readonly scale = new Vector3(1, 1, 1);
     readonly children: Object3D[] = [];
     public parent: Object3D | null = null;
+    public active = true;
     // translation: Vector3;
     // rotation: Quaternion;
     // scale: Vector3;
@@ -55,6 +56,9 @@ export class Object3D {
             child.parent = this;
             child.setRenderer(this.renderer!);
         }
+    }
+    removeNode(index: number) {
+        this.children.splice(index, 1);
     }
 
     updateMatrix(): void {

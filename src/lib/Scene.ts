@@ -19,6 +19,7 @@ export class Scene extends Object3D {
     updateInputSources(frame: XRFrame, refSpace: XRReferenceSpace) {
         for (const inputSource of frame.session.inputSources) {
             let gripPose = frame.getPose(inputSource.gripSpace!, refSpace)!;
+            if (!gripPose) continue;
             const pos = gripPose.transform.position;
             const rot = gripPose.transform.orientation;
             let buttons = inputSource.gamepad?.buttons;
