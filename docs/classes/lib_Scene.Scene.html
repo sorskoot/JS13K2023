@@ -46,6 +46,7 @@
 <a href="lib_Scene.Scene.html#name" class="tsd-index-link tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>name</span></a>
 <a href="lib_Scene.Scene.html#parent" class="tsd-index-link tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>parent</span></a>
 <a href="lib_Scene.Scene.html#position" class="tsd-index-link tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>position</span></a>
+<a href="lib_Scene.Scene.html#prevTime" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>prev<wbr/>Time</span></a>
 <a href="lib_Scene.Scene.html#quaternion" class="tsd-index-link tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>quaternion</span></a>
 <a href="lib_Scene.Scene.html#renderer" class="tsd-index-link tsd-is-protected tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>renderer?</span></a>
 <a href="lib_Scene.Scene.html#rightHand" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>right<wbr/>Hand</span></a>
@@ -61,6 +62,7 @@
 <a href="lib_Scene.Scene.html#removeNode" class="tsd-index-link tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>remove<wbr/>Node</span></a>
 <a href="lib_Scene.Scene.html#render" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>render</span></a>
 <a href="lib_Scene.Scene.html#setRenderer" class="tsd-index-link tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>set<wbr/>Renderer</span></a>
+<a href="lib_Scene.Scene.html#update" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>update</span></a>
 <a href="lib_Scene.Scene.html#updateInputSources" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>update<wbr/>Input<wbr/>Sources</span></a>
 <a href="lib_Scene.Scene.html#updateMatrix" class="tsd-index-link tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>update<wbr/>Matrix</span></a>
 </div></section></div></details></section></section>
@@ -123,6 +125,11 @@
 <p>Inherited from <a href="lib_Object3D.Object3D.html">Object3D</a>.<a href="lib_Object3D.Object3D.html#position">position</a></p>
 <ul>
 <li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/8d762ce/src/lib/Object3D.ts#L13">src/lib/Object3D.ts:13</a></li></ul></aside></section>
+<section class="tsd-panel tsd-member"><a id="prevTime" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>prev<wbr/>Time</span><a href="#prevTime" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">prev<wbr/>Time</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/8d762ce/src/lib/Scene.ts#L39">src/lib/Scene.ts:39</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited"><a id="quaternion" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagReadonly">Readonly</code> <span>quaternion</span><a href="#quaternion" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">quaternion</span><span class="tsd-signature-symbol">:</span> <a href="lib_Quaternion.Quaternion.html" class="tsd-signature-type tsd-kind-class">Quaternion</a><span class="tsd-signature-symbol"> = ...</span></div><aside class="tsd-sources">
@@ -134,7 +141,7 @@
 <div class="tsd-signature"><span class="tsd-kind-property">renderer</span><span class="tsd-signature-symbol">?:</span> <a href="lib_Renderer.Renderer.html" class="tsd-signature-type tsd-kind-class">Renderer</a></div><aside class="tsd-sources">
 <p>Inherited from <a href="lib_Object3D.Object3D.html">Object3D</a>.<a href="lib_Object3D.Object3D.html#renderer">renderer</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/8d762ce/src/lib/Object3D.ts#L38">src/lib/Object3D.ts:38</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/8d762ce/src/lib/Object3D.ts#L30">src/lib/Object3D.ts:30</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member"><a id="rightHand" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>right<wbr/>Hand</span><a href="#rightHand" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">right<wbr/>Hand</span><span class="tsd-signature-symbol">:</span> <a href="classes_Controller.Controller.html" class="tsd-signature-type tsd-kind-class">Controller</a></div><aside class="tsd-sources">
@@ -156,7 +163,7 @@
 <h4 class="tsd-returns-title">Returns <a href="lib_Matrix4.Matrix4.html" class="tsd-signature-type tsd-kind-class">Matrix4</a></h4><aside class="tsd-sources">
 <p>Inherited from Object3D.absoluteTransform</p>
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/8d762ce/src/lib/Object3D.ts#L29">src/lib/Object3D.ts:29</a></li></ul></aside></li></ul></section></section>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/8d762ce/src/lib/Object3D.ts#L21">src/lib/Object3D.ts:21</a></li></ul></aside></li></ul></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Methods</h2>
 <section class="tsd-panel tsd-member tsd-is-inherited"><a id="addNode" class="tsd-anchor"></a>
@@ -172,7 +179,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <p>Inherited from <a href="lib_Object3D.Object3D.html">Object3D</a>.<a href="lib_Object3D.Object3D.html#addNode">addNode</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/8d762ce/src/lib/Object3D.ts#L53">src/lib/Object3D.ts:53</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/8d762ce/src/lib/Object3D.ts#L45">src/lib/Object3D.ts:45</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-inherited"><a id="removeNode" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>remove<wbr/>Node</span><a href="#removeNode" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-inherited">
@@ -186,7 +193,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <p>Inherited from <a href="lib_Object3D.Object3D.html">Object3D</a>.<a href="lib_Object3D.Object3D.html#removeNode">removeNode</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/8d762ce/src/lib/Object3D.ts#L60">src/lib/Object3D.ts:60</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/8d762ce/src/lib/Object3D.ts#L52">src/lib/Object3D.ts:52</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="render" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>render</span><a href="#render" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -202,7 +209,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <p>Overrides <a href="lib_Object3D.Object3D.html">Object3D</a>.<a href="lib_Object3D.Object3D.html#render">render</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/8d762ce/src/lib/Scene.ts#L40">src/lib/Scene.ts:40</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/8d762ce/src/lib/Scene.ts#L46">src/lib/Scene.ts:46</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-inherited"><a id="setRenderer" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>set<wbr/>Renderer</span><a href="#setRenderer" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-inherited">
@@ -216,7 +223,21 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <p>Inherited from <a href="lib_Object3D.Object3D.html">Object3D</a>.<a href="lib_Object3D.Object3D.html#setRenderer">setRenderer</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/8d762ce/src/lib/Object3D.ts#L49">src/lib/Object3D.ts:49</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/8d762ce/src/lib/Object3D.ts#L41">src/lib/Object3D.ts:41</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member"><a id="update" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>update</span><a href="#update" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="tsd-signature tsd-anchor-link" id="update.update-1"><span class="tsd-kind-call-signature">update</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">time</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#update.update-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5><span class="tsd-kind-parameter">time</span>: <span class="tsd-signature-type">number</span></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
+<p>Overrides <a href="lib_Object3D.Object3D.html">Object3D</a>.<a href="lib_Object3D.Object3D.html#update">update</a></p>
+<ul>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/8d762ce/src/lib/Scene.ts#L40">src/lib/Scene.ts:40</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="updateInputSources" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>update<wbr/>Input<wbr/>Sources</span><a href="#updateInputSources" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -240,7 +261,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <p>Inherited from <a href="lib_Object3D.Object3D.html">Object3D</a>.<a href="lib_Object3D.Object3D.html#updateMatrix">updateMatrix</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/8d762ce/src/lib/Object3D.ts#L64">src/lib/Object3D.ts:64</a></li></ul></aside></li></ul></section></section></div>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/8d762ce/src/lib/Object3D.ts#L56">src/lib/Object3D.ts:56</a></li></ul></aside></li></ul></section></section></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">
@@ -268,6 +289,7 @@
 <li><a href="#name" class="tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>name</span></a></li>
 <li><a href="#parent" class="tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>parent</span></a></li>
 <li><a href="#position" class="tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>position</span></a></li>
+<li><a href="#prevTime" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>prev<wbr/>Time</span></a></li>
 <li><a href="#quaternion" class="tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>quaternion</span></a></li>
 <li><a href="#renderer" class="tsd-is-protected tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>renderer</span></a></li>
 <li><a href="#rightHand" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>right<wbr/>Hand</span></a></li>
@@ -277,6 +299,7 @@
 <li><a href="#removeNode" class="tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>remove<wbr/>Node</span></a></li>
 <li><a href="#render" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>render</span></a></li>
 <li><a href="#setRenderer" class="tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>set<wbr/>Renderer</span></a></li>
+<li><a href="#update" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>update</span></a></li>
 <li><a href="#updateInputSources" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>update<wbr/>Input<wbr/>Sources</span></a></li>
 <li><a href="#updateMatrix" class="tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>update<wbr/>Matrix</span></a></li></ul></div></details></div>
 <div class="site-menu">

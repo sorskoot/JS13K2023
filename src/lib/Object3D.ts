@@ -15,14 +15,6 @@ export class Object3D {
     readonly children: Object3D[] = [];
     public parent: Object3D | null = null;
     public active = true;
-    // translation: Vector3;
-    // rotation: Quaternion;
-    // scale: Vector3;
-    // worldMatrix: Matrix4;
-    // localTransform: Matrix4;
-    // name: string = '';
-    // children: Object3D[] = [];
-    // parent: Object3D | null = null;
 
     private _absoluteTransform: Matrix4;
 
@@ -69,5 +61,5 @@ export class Object3D {
     render(projectionMatrix: Float32Array, transform: XRRigidTransform) {
         this.children.forEach((c) => c.render(projectionMatrix, transform));
     }
-    //render(parentWorldMatrix: Matrix4): void {}
+    update(dt: number): void {}
 }

@@ -1,3 +1,4 @@
+import {EventEmitter} from '../lib/EventEmitter.js';
 import {Material} from '../lib/Material.js';
 import {Matrix4} from '../lib/Matrix4.js';
 import {Mesh} from '../lib/Mesh.js';
@@ -5,8 +6,6 @@ import {MeshNode} from '../lib/MeshNode.js';
 import {Object3D} from '../lib/Object3D.js';
 import {Quaternion} from '../lib/Quaternion.js';
 import {Vector3} from '../lib/Vector3.js';
-
-const G = 9.8; // m/s^2
 
 /**
  * Represents a bow object that can be used to fire arrows.
@@ -24,8 +23,10 @@ export class Bow {
     public readyToDraw: boolean = false;
     public drawDistance: number = 0;
 
+    public onFire: EventEmitter<ArrowData> = new EventEmitter();
+
     // Force multiplier for drawing the bow.
-    DRAW_FORCE_MULTIPLIER = 10;
+    DRAW_FORCE_MULTIPLIER = 45;
 
     constructor() {
         this.state = State.IDLE;
@@ -69,19 +70,20 @@ export class Bow {
             case State.DRAWN:
                 if (!arrowHandState.isGripping) {
                     this.state = State.IDLE;
-
+                    if (this.drawDistance < 0.1) {
+                        this.drawDistance = 0;
+                        return;
+                    }
                     // Calculate direction and force
-                    let direction = calculateDirection(
+                    let direction = this.calculateDirection(this.bowHandOrientation);
+                    let force = this.drawDistance * this.DRAW_FORCE_MULTIPLIER;
+
+                    this.fireArrow(
                         this.bowHandPosition,
-                        this.arrowHandPosition,
-                        this.bowHandOrientation
+                        this.bowHandOrientation,
+                        direction,
+                        force
                     );
-
-                    let force =
-                        calculateForce(this.bowHandPosition, this.arrowHandPosition) *
-                        this.DRAW_FORCE_MULTIPLIER;
-
-                    fireArrow(direction, force);
                     this.drawDistance = 0;
                 } else {
                     // If still gripping update string center
@@ -114,25 +116,26 @@ export class Bow {
                 break;
         }
     }
-}
+    calculateDirection(orientation: Quaternion): Vector3 {
+        // Return forward vector of bow orientation
+        const forward = new Vector3(0, -1, 0);
+        forward.applyQuaternion(orientation);
+        return forward;
+    }
 
-function calculateDirection(
-    bowPos: Vector3,
-    arrowPos: Vector3,
-    orientation: Quaternion
-): Vector3 {
-    // do calculation:
-    return new Vector3(0, 0, 0);
-}
+    calculateForce(bowPos: Vector3, arrowPos: Vector3): number {
+        // d0 calculation
+        return 0;
+    }
 
-function calculateForce(bowPos: Vector3, arrowPos: Vector3): number {
-    // d0 calculation
-    return 0;
-}
-
-function fireArrow(direction: Vector3, force: number) {
-    // TODO: implement
-    console.log('Firing arrow with direction: ' + direction + ' and force: ' + force);
+    fireArrow(
+        position: Vector3,
+        orientation: Quaternion,
+        direction: Vector3,
+        force: number
+    ) {
+        this.onFire.emit(new ArrowData(position, orientation, direction, force));
+    }
 }
 
 export enum State {
@@ -149,58 +152,66 @@ export interface HandState {
     isGripping: boolean;
 }
 
-enum ArrowState {
+export enum ArrowState {
     HELD,
     IN_FLIGHT,
     HIT_TARGET,
 }
 
-export class Arrow {
+export class ArrowData {
+    position: Vector3;
+    orientation: Quaternion;
+    direction: Vector3;
+    force: number;
+    constructor(
+        position: Vector3,
+        orientation: Quaternion,
+        direction: Vector3,
+        force: number
+    ) {
+        this.position = position;
+        this.orientation = orientation;
+        this.direction = direction;
+        this.force = force;
+    }
+}
+
+export class Arrow extends MeshNode {
     // The current state of the arrow.
     private state: ArrowState;
+    velocity: Vector3;
 
-    // Position and velocity of the arrow.
-    private position: Vector3;
-    private velocity: Vector3;
-
-    constructor() {
+    constructor(arrowMesh, arrowMat) {
+        super(arrowMesh, arrowMat);
+        this.scale.set(0.005, 0.005, 0.4);
+        this.position.set(0, -0.4 + 0.19, 0);
         this.state = ArrowState.HELD;
-        this.position = new Vector3(0, 0, 0);
         this.velocity = new Vector3(0, 0, 0);
     }
 
     update(dt: number) {
-        switch (this.state) {
-            case ArrowState.HELD:
-                // If held, position should be updated to match hand position
-                break;
+        // switch (this.state) {
+        //     case ArrowState.HELD:
+        //         // If held, position should be updated to match hand position
+        //         break;
+        //     case ArrowState.IN_FLIGHT:
+        // If in flight, update based on physics
 
-            case ArrowState.IN_FLIGHT:
-                // If in flight, update based on physics
-                this.position.x += this.velocity.x * dt;
-                this.position.y += this.velocity.y * dt - 0.5 * G * dt * dt; // subtract gravity
-                this.position.z += this.velocity.z * dt;
+        // this.position.x += 0.01 * dt;
+        //this.velocity.multiply(0.999);
+        const old = new Vector3();
+        old.copy(this.position);
+        this.position.x += this.velocity.x * dt;
+        this.position.y += this.velocity.y * dt - 0.5 * 9.8 * dt * dt; // subtract gravity, sort of
+        this.position.z += this.velocity.z * dt;
 
-                // Check for collision with enemy here and if so set state to HIT_TARGET
-
-                break;
-
-            case ArrowState.HIT_TARGET:
-                // Handle logic after hitting a target e.g., play sound effect or animation etc.
-
-                break;
-        }
-    }
-
-    fire(direction: Vector3, force: number) {
-        // Set velocity based on direction and force
-        // then change state to IN_FLIGHT
-
-        this.velocity.x = direction.x * force;
-        this.velocity.y = direction.y * force;
-        this.velocity.z = direction.z * force;
-
-        this.state = ArrowState.IN_FLIGHT;
+        this.quaternion.lookAt(old, this.position, new Vector3(0, -1, 0));
+        // Check for collision with enemy here and if so set state to HIT_TARGET
+        //         break;
+        //     case ArrowState.HIT_TARGET:
+        //         // Handle logic after hitting a target e.g., play sound effect or animation etc.
+        //         break;
+        // }
     }
 }
 

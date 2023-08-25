@@ -7,7 +7,7 @@ import {MeshNode} from '../lib/MeshNode';
 import {cube} from './Consts';
 import {Object3D} from '../lib/Object3D';
 import {BowModel} from './Models';
-import {Bow, State, StringPart} from './Bow';
+import {Arrow, ArrowData, Bow, State, StringPart} from './Bow';
 import {Controller} from './Controller';
 import {Vector3} from '../lib/Vector3';
 
@@ -34,6 +34,7 @@ export class Game {
     placedArrow: MeshNode;
     arrowMat: Material;
     arrowMesh: Mesh;
+    arrowList: Arrow[] = [];
 
     constructor() {
         console.log('Game started');
@@ -146,7 +147,7 @@ export class Game {
         this.scene.rightHand.addNode(rightHandMesh);
 
         this.bow = new Bow();
-
+        this.bow.onFire.on((arrow) => this.spawnArrow(arrow));
         const stringM = new Material(this.gl);
         stringM.setColor([0.8, 0.8, 0.8, 1]);
         this.stringPart1 = new StringPart(handL, stringM);
@@ -156,9 +157,10 @@ export class Game {
         this.stringPart2.scale.set(0.01, 0.01, 0.01);
 
         this.arrowMesh = new Mesh(this.gl);
+        this.arrowMesh.loadFromData(cube);
         this.arrowMat = new Material(this.gl);
-        this.arrowMat.setColor([0.5, 0.35, 0.2, 1]);
-        this.placedArrow = new MeshNode(handL, this.arrowMat);
+        this.arrowMat.setColor([1, 0, 0, 1]);
+        this.placedArrow = new MeshNode(this.arrowMesh, this.arrowMat);
         this.placedArrow.scale.set(0.005, 0.4, 0.005);
         this.placedArrow.position.set(0, -0.4 + 0.19, 0);
 
@@ -218,6 +220,8 @@ export class Game {
         // Get the XRDevice pose relative to the Frame of Reference we created
         // earlier.
         let pose = frame.getViewerPose(this.xrRefSpace);
+
+        this.scene.update(t);
 
         this.scene.updateMatrix();
 
@@ -281,8 +285,6 @@ export class Game {
                 this.placedArrow!.active = true;
             } else if (this.bow.state == State.IDLE) {
                 this.placedArrow!.active = false;
-                //this.placedArrow = null;
-                //this.scene.leftHand.removeNode(12);
             }
 
             this.scene.leftHand.children[7].position.set(
@@ -313,5 +315,19 @@ export class Game {
             node.quaternion.fromEuler(...props[2]);
             return node;
         });
+    }
+
+    spawnArrow(arrowData: ArrowData) {
+        //const arrow = new MeshNode(this.arrowMesh, this.arrowMat);
+        const arrow = new Arrow(this.arrowMesh, this.arrowMat);
+        arrow.position.copy(arrowData.position);
+        arrow.quaternion.copy(arrowData.orientation);
+
+        // calculate velocity based on arrowData.force and arrowData.direction
+        arrow.velocity.copy(arrowData.direction).multiply(arrowData.force);
+        console.log(arrow.velocity);
+
+        this.arrowList.push(arrow);
+        this.scene.addNode(arrow);
     }
 }

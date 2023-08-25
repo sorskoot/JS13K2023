@@ -36,6 +36,12 @@ export class Scene extends Object3D {
             }
         }
     }
+    prevTime: number;
+    update(time: number): void {
+        const deltaTime = (time - this.prevTime) / 1000;
+        this.prevTime = time;
+        this.children.forEach((c) => c.update(deltaTime));
+    }
 
     render(projectionMatrix: Float32Array, transform: XRRigidTransform) {
         // render controllers
