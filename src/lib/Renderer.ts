@@ -1,6 +1,7 @@
 import {GL} from './GL';
 import {Material} from './Material';
 import {Matrix4} from './Matrix4';
+import {Mesh} from './Mesh';
 import {Shader} from './Shader';
 import {SubShader} from './SubShader';
 import {Vector3} from './Vector3';
@@ -16,6 +17,8 @@ export class Renderer {
     static fSSC1: string;
     static triangle: number[];
 
+    private lightDirection = new Vector3(-1, -0.75, -0.75);
+
     constructor(gl: WebGL2RenderingContext) {
         this.gl = gl;
 
@@ -24,16 +27,22 @@ export class Renderer {
 
         this.masks = gl.COLOR_BUFFER_BIT;
         this.depthTest = false;
+        this.lightDirection.normalize();
 
         Renderer.fSSC0 = `#version 300 es
             precision mediump float;
             
             out vec4 o_Color;
-            
-            in vec2 v_TexCoord;
+
             in vec3 v_Normal;
             uniform vec4 u_Color;
-            uniform sampler2D u_TexID[16];`;
+            
+            uniform vec3 uAmbientColor;
+            uniform vec3 uLightingDirection;
+            uniform vec3 uDirectionalColor;
+            uniform mat4 u_View;
+
+            `;
         Renderer.fSSC1 = `void main() {
                 o_Color = shader();
             }`;
@@ -50,15 +59,18 @@ export class Renderer {
             uniform mat4 u_Projection;
             uniform mat4 u_View;
             uniform mat4 u_Model;
-            
-            out vec2 v_TexCoord;
-            out vec3 v_Normal;
 
+            out vec3 v_Normal;  
+            out vec4 v_Position;          
+            
             void main() {
-                gl_Position = u_Projection * u_View * u_Model * vec4(a_Position, 1.0);
-                v_TexCoord = a_TexCoord;
-                v_TexCoord.y = 1.0 - v_TexCoord.y;
-                v_Normal = mat3(transpose(inverse(u_View*u_Model))) * a_Normal;
+                mat4 modelViewMatrix = u_View * u_Model;
+
+                mat3 normalMatrix = transpose(inverse(mat3(modelViewMatrix)));
+
+                v_Normal = normalMatrix * a_Normal;
+                v_Position = modelViewMatrix * vec4(a_Position, 1.0);
+                gl_Position = u_Projection * v_Position;
             }`
         );
         (Renderer.fSS = new SubShader(
@@ -67,12 +79,21 @@ export class Renderer {
             Renderer.fSSC0 +
                 `
                 vec4 shader() { 
-                    vec3 lightDirection = normalize(vec3(0.3, 1.0, 0.5));
-                    float diff = max(dot(v_Normal, lightDirection), 0.0);
-                    vec3 diffuse = u_Color.rgb * diff;
+                    vec3 ambientLightWeighting = uAmbientColor;
+
+                    mat3 viewRotation = mat3(u_View);
+                    vec3 lightDirectionInViewSpace = viewRotation * uLightingDirection; 
+    
+                    // Calculate directional lighting
+                    vec3 lightDirection = normalize(-lightDirectionInViewSpace);
+                    float directionalLightWeighting = max(dot(v_Normal, lightDirection), 0.0);
+                
+                    // Combine the lighting calculations into final color value for this fragment.
+                    vec3 light = ambientLightWeighting + directionalLightWeighting * uDirectionalColor;
+
+                    vec3 diffuse = u_Color.rgb * light;
                 
                     return vec4(diffuse, 1.0);
-                    // return u_Color; 
                 }` +
                 Renderer.fSSC1
         )),
@@ -101,11 +122,26 @@ export class Renderer {
         }
         this.gl.clear(this.masks);
     }
-    draw(mesh, material) {
+
+    setupLight(shader: Shader) {
+        shader.set3f('uAmbientColor', 0.2, 0.2, 0.2);
+        shader.set3f(
+            'uLightingDirection',
+            this.lightDirection.x,
+            this.lightDirection.y,
+            this.lightDirection.z
+        );
+        shader.set3f('uDirectionalColor', 0.8, 0.8, 0.8);
+    }
+
+    draw(mesh: Mesh, material: Material) {
         material.shader.bind();
-        for (let i = 0; i < material.textures.size; i++) {
-            material.textures[i].bind(i);
-        }
+
+        this.setupLight(material.shader);
+
+        // for (let i = 0; i < material.textures.size; i++) {
+        //     material.textures[i].bind(i);
+        // }
         mesh.vertexbuffer.draw();
         material.shader.unbind();
     }

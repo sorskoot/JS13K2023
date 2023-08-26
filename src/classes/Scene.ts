@@ -1,7 +1,6 @@
-import {Controller} from '../classes/Controller';
+import {Controller} from './Controller';
 import {Renderer} from '../lib/Renderer';
-import {Matrix4} from './Matrix4';
-import {Object3D} from './Object3D';
+import {Object3D} from '../lib/Object3D';
 
 /**
  * Represents a scene in the game.

@@ -2,7 +2,7 @@ import {GL} from '../lib/GL';
 import {Renderer} from '../lib/Renderer';
 import {Material} from '../lib/Material';
 import {Mesh} from '../lib/Mesh';
-import {Scene} from '../lib/Scene';
+import {Scene} from './Scene';
 import {MeshNode} from '../lib/MeshNode';
 import {cube} from './Consts';
 import {Object3D} from '../lib/Object3D';
