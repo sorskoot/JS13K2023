@@ -56,16 +56,25 @@
 <ul class="tsd-signatures">
 <li class="tsd-signature tsd-anchor-link" id="constructor.new_Material"><span class="tsd-kind-constructor-signature">new <wbr/>Material</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">gl</span>, <span class="tsd-kind-parameter">customShader</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="lib_Material.Material.html" class="tsd-signature-type tsd-kind-class">Material</a><a href="#constructor.new_Material" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Creates a new Material object.</p>
+</div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
-<h5><span class="tsd-kind-parameter">gl</span>: <span class="tsd-signature-type ">WebGL2RenderingContext</span></h5></li>
+<h5><span class="tsd-kind-parameter">gl</span>: <span class="tsd-signature-type ">WebGL2RenderingContext</span></h5>
+<div class="tsd-comment tsd-typography"><p>The WebGL2 rendering context.</p>
+</div>
+<div class="tsd-comment tsd-typography"></div></li>
 <li>
-<h5><span class="tsd-kind-parameter">customShader</span>: <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> = null</span></h5></li></ul></div>
-<h4 class="tsd-returns-title">Returns <a href="lib_Material.Material.html" class="tsd-signature-type tsd-kind-class">Material</a></h4><aside class="tsd-sources">
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-parameter">customShader</span>: <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> = null</span></h5>
+<div class="tsd-comment tsd-typography"><p>A custom shader to use instead of the default one.</p>
+</div>
+<div class="tsd-comment tsd-typography"></div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="lib_Material.Material.html" class="tsd-signature-type tsd-kind-class">Material</a></h4>
+<div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/e4af4d2/src/lib/Material.ts#L16">src/lib/Material.ts:16</a></li></ul></aside></li></ul></section></section>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/e4af4d2/src/lib/Material.ts#L22">src/lib/Material.ts:22</a></li></ul></aside></li></ul></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Properties</h2>
 <section class="tsd-panel tsd-member"><a id="shader" class="tsd-anchor"></a>
@@ -85,76 +94,113 @@
 <ul class="tsd-signatures">
 <li class="tsd-signature tsd-anchor-link" id="free.free-1"><span class="tsd-kind-call-signature">free</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#free.free-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
+<div class="tsd-comment tsd-typography"><p>Frees the resources used by this material.
+This method should be called when the material is no longer needed to prevent memory leaks.</p>
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+<div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/e4af4d2/src/lib/Material.ts#L45">src/lib/Material.ts:45</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/e4af4d2/src/lib/Material.ts#L55">src/lib/Material.ts:55</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="setColor" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>set<wbr/>Color</span><a href="#setColor" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
-<li class="tsd-signature tsd-anchor-link" id="setColor.setColor-1"><span class="tsd-kind-call-signature">set<wbr/>Color</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">rgba</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#setColor.setColor-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-signature tsd-anchor-link" id="setColor.setColor-1"><span class="tsd-kind-call-signature">set<wbr/>Color</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">rgb</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#setColor.setColor-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Sets the color of the material.</p>
+</div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
-<h5><span class="tsd-kind-parameter">rgba</span>: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = ...</span></h5></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
+<h5><span class="tsd-kind-parameter">rgb</span>: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = ...</span></h5>
+<div class="tsd-comment tsd-typography"><p>color in RGB format, each value ranging from 0 to 255</p>
+</div>
+<div class="tsd-comment tsd-typography"></div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+<div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/e4af4d2/src/lib/Material.ts#L65">src/lib/Material.ts:65</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/e4af4d2/src/lib/Material.ts#L92">src/lib/Material.ts:92</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="setModel" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>set<wbr/>Model</span><a href="#setModel" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
 <li class="tsd-signature tsd-anchor-link" id="setModel.setModel-1"><span class="tsd-kind-call-signature">set<wbr/>Model</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">mat</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#setModel.setModel-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Sets the model matrix for this material.</p>
+</div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
-<h5><span class="tsd-kind-parameter">mat</span>: <span class="tsd-signature-type ">Float32List</span></h5></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
+<h5><span class="tsd-kind-parameter">mat</span>: <span class="tsd-signature-type ">Float32List</span></h5>
+<div class="tsd-comment tsd-typography"><p>The model matrix to set.</p>
+</div>
+<div class="tsd-comment tsd-typography"></div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+<div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/e4af4d2/src/lib/Material.ts#L59">src/lib/Material.ts:59</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/e4af4d2/src/lib/Material.ts#L83">src/lib/Material.ts:83</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="setProjection" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>set<wbr/>Projection</span><a href="#setProjection" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
 <li class="tsd-signature tsd-anchor-link" id="setProjection.setProjection-1"><span class="tsd-kind-call-signature">set<wbr/>Projection</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">mat</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#setProjection.setProjection-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Sets the projection matrix for this material.</p>
+</div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
-<h5><span class="tsd-kind-parameter">mat</span>: <span class="tsd-signature-type ">Float32List</span></h5></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
+<h5><span class="tsd-kind-parameter">mat</span>: <span class="tsd-signature-type ">Float32List</span></h5>
+<div class="tsd-comment tsd-typography"><p>The projection matrix to set.</p>
+</div>
+<div class="tsd-comment tsd-typography"></div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+<div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/e4af4d2/src/lib/Material.ts#L49">src/lib/Material.ts:49</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/e4af4d2/src/lib/Material.ts#L63">src/lib/Material.ts:63</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="setTexture" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>set<wbr/>Texture</span><a href="#setTexture" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
 <li class="tsd-signature tsd-anchor-link" id="setTexture.setTexture-1"><span class="tsd-kind-call-signature">set<wbr/>Texture</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">texture</span>, <span class="tsd-kind-parameter">slot</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#setTexture.setTexture-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Sets a texture for this material.</p>
+</div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
-<h5><span class="tsd-kind-parameter">texture</span>: <a href="lib_Texture.Texture.html" class="tsd-signature-type tsd-kind-class">Texture</a></h5></li>
+<h5><span class="tsd-kind-parameter">texture</span>: <a href="lib_Texture.Texture.html" class="tsd-signature-type tsd-kind-class">Texture</a></h5>
+<div class="tsd-comment tsd-typography"><p>The texture to set.</p>
+</div>
+<div class="tsd-comment tsd-typography"></div></li>
 <li>
-<h5><span class="tsd-kind-parameter">slot</span>: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></h5></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
+<h5><span class="tsd-kind-parameter">slot</span>: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></h5>
+<div class="tsd-comment tsd-typography"><p>The texture slot to set the texture to. Defaults to 0.</p>
+</div>
+<div class="tsd-comment tsd-typography"></div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+<div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/e4af4d2/src/lib/Material.ts#L70">src/lib/Material.ts:70</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/e4af4d2/src/lib/Material.ts#L103">src/lib/Material.ts:103</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="setView" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>set<wbr/>View</span><a href="#setView" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
 <li class="tsd-signature tsd-anchor-link" id="setView.setView-1"><span class="tsd-kind-call-signature">set<wbr/>View</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">mat</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#setView.setView-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Sets the view matrix for this material.</p>
+</div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
-<h5><span class="tsd-kind-parameter">mat</span>: <span class="tsd-signature-type ">Float32List</span></h5></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
+<h5><span class="tsd-kind-parameter">mat</span>: <span class="tsd-signature-type ">Float32List</span></h5>
+<div class="tsd-comment tsd-typography"><p>The view matrix to set.</p>
+</div>
+<div class="tsd-comment tsd-typography"></div></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+<div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/e4af4d2/src/lib/Material.ts#L54">src/lib/Material.ts:54</a></li></ul></aside></li></ul></section></section></div>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/e4af4d2/src/lib/Material.ts#L73">src/lib/Material.ts:73</a></li></ul></aside></li></ul></section></section></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

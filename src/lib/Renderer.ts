@@ -1,6 +1,5 @@
 import {GL} from './GL';
 import {Material} from './Material';
-import {Matrix4} from './Matrix4';
 import {Mesh} from './Mesh';
 import {Shader} from './Shader';
 import {SubShader} from './SubShader';
@@ -17,7 +16,8 @@ export class Renderer {
     static fSSC1: string;
     static triangle: number[];
 
-    private lightDirection = new Vector3(-1, -0.75, -0.75);
+    // light shing down from the south east
+    private lightDirection = new Vector3(-1, -1, -1);
 
     constructor(gl: WebGL2RenderingContext) {
         this.gl = gl;
@@ -68,7 +68,7 @@ export class Renderer {
 
                 mat3 normalMatrix = transpose(inverse(mat3(modelViewMatrix)));
 
-                v_Normal = normalMatrix * a_Normal;
+                v_Normal = normalize(normalMatrix * a_Normal);
                 v_Position = modelViewMatrix * vec4(a_Position, 1.0);
                 gl_Position = u_Projection * v_Position;
             }`
@@ -83,16 +83,11 @@ export class Renderer {
 
                     mat3 viewRotation = mat3(u_View);
                     vec3 lightDirectionInViewSpace = viewRotation * uLightingDirection; 
-    
-                    // Calculate directional lighting
                     vec3 lightDirection = normalize(-lightDirectionInViewSpace);
                     float directionalLightWeighting = max(dot(v_Normal, lightDirection), 0.0);
-                
-                    // Combine the lighting calculations into final color value for this fragment.
-                    vec3 light = ambientLightWeighting + directionalLightWeighting * uDirectionalColor;
 
-                    vec3 diffuse = u_Color.rgb * light;
-                
+                    vec3 light = ambientLightWeighting + directionalLightWeighting * uDirectionalColor;
+                    vec3 diffuse = u_Color.rgb* light;
                     return vec4(diffuse, 1.0);
                 }` +
                 Renderer.fSSC1
@@ -124,14 +119,14 @@ export class Renderer {
     }
 
     setupLight(shader: Shader) {
-        shader.set3f('uAmbientColor', 0.2, 0.2, 0.2);
+        shader.set3f('uAmbientColor', 0.3, 0.3, 0.3);
         shader.set3f(
             'uLightingDirection',
             this.lightDirection.x,
             this.lightDirection.y,
             this.lightDirection.z
         );
-        shader.set3f('uDirectionalColor', 0.8, 0.8, 0.8);
+        shader.set3f('uDirectionalColor', 0.9, 0.9, 0.9);
     }
 
     draw(mesh: Mesh, material: Material) {

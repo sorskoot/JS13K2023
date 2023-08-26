@@ -14,10 +14,14 @@ Creating a WebXR engine:
     ✔ Renderer @done(23-08-18 18:06)
     ✔ Controllers @done(23-08-19 21:12)
     ☐ Lights
-    ☐ Textures
+    ✘ ~Textures~ @cancelled(23-08-26 20:17)
+    ☐ Easy to use color palette
+        ~ just an array with X color that are referenced by index
+    
 Game:
-    ☐ Shooting arrows
+    ✔ Shooting arrows @done(23-08-26 20:12)
     ☐ Hitting enemies
+    ☐ Some design
 
 Overall:
     ☐ Finalizing game design details
