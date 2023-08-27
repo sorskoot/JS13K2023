@@ -6,7 +6,7 @@ import {Scene} from './Scene';
 import {MeshNode} from '../lib/MeshNode';
 import {cube, palette, paletteIndex} from './Consts';
 import {Object3D} from '../lib/Object3D';
-import {BowModel} from './Models';
+import {BowModel, TowerModel} from './Models';
 import {Arrow, ArrowData, Bow, State, StringPart} from './Bow';
 import {Controller} from './Controller';
 import {Vector3} from '../lib/Vector3';
@@ -123,7 +123,7 @@ export class Game {
 
         //this.planeMaterial = new Material(this.gl);
         const ground = new MeshNode(this.cubeMesh, this.materials[paletteIndex.green]);
-        ground.scale.set(10, 0.1, 10);
+        ground.scale.set(50, 0.1, 50);
         this.scene.addNode(ground);
 
         // this.cubeMaterial.setColor([1, 0.0, 0.0, 1]);
@@ -193,6 +193,18 @@ export class Game {
         //     }
         // });
 
+        const tower = new Object3D();
+        tower.setRenderer(this.renderer);
+        tower.addNode(...this.getModel(TowerModel, this.cubeMesh));
+        tower.position.set(-15, 0, -15);
+        const tower2 = new Object3D();
+
+        tower2.setRenderer(this.renderer);
+        tower2.addNode(...this.getModel(TowerModel, this.cubeMesh));
+        tower2.position.set(15, 0, -15);
+
+        this.scene.addNode(tower);
+        this.scene.addNode(tower2);
         session.updateRenderState({baseLayer: new XRWebGLLayer(session, this.gl)});
 
         session.requestReferenceSpace('local').then((refSpace) => {

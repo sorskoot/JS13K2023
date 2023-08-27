@@ -78,7 +78,16 @@ export class Renderer {
             gl.FRAGMENT_SHADER,
             Renderer.fSSC0 +
                 `
+                float fogFactorExp2(float dist, float density) {
+                    const float LOG2 = -1.442695;
+                    float d = density * dist;
+                    return 1.0 - clamp(exp2(d*d*LOG2), 0.0, 1.0);
+                }
                 vec4 shader() { 
+
+                    float dist = gl_FragCoord.z/gl_FragCoord.w;
+                    float fogFactor = fogFactorExp2(dist, 0.05);
+
                     vec3 ambientLightWeighting = uAmbientColor;
 
                     mat3 viewRotation = mat3(u_View);
@@ -88,7 +97,10 @@ export class Renderer {
 
                     vec3 light = ambientLightWeighting + directionalLightWeighting * uDirectionalColor;
                     vec3 diffuse = u_Color.rgb* light;
-                    return vec4(diffuse, 1.0);
+                    vec4 final = mix(vec4(diffuse,1.0), vec4(0.5, 0.8, 1., 1.), fogFactor);
+                    return final;
+                    //return vec4(diffuse, 1.0);
+                    //return vec4(fogFactor,fogFactor,fogFactor,1.0);
                 }` +
                 Renderer.fSSC1
         )),

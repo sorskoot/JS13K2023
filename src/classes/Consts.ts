@@ -8,6 +8,7 @@ export enum paletteIndex {
     darkRed = 6,
     brown = 7,
     orange = 8,
+    gray = 9,
 }
 
 export const palette = [

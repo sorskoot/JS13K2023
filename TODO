@@ -13,15 +13,18 @@ Creating a WebXR engine:
     ✔ Camera @done(23-08-18 18:06)
     ✔ Renderer @done(23-08-18 18:06)
     ✔ Controllers @done(23-08-19 21:12)
-    ☐ Lights
+    ✔ Lights @done(23-08-27 22:34)
     ✘ ~Textures~ @cancelled(23-08-26 20:17)
-    ☐ Easy to use color palette
+    ✔ Easy to use color palette @done(23-08-27 22:34)
         ~ just an array with X color that are referenced by index
     
 Game:
     ✔ Shooting arrows @done(23-08-26 20:12)
     ☐ Hitting enemies
-    ☐ Some design
+    ☐ Waves of enemies
+        ~ similar to Back to Space
+    Some design:
+        ☐ simple towers and walls
 
 Overall:
     ☐ Finalizing game design details
