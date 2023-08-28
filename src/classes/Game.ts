@@ -6,7 +6,7 @@ import {Scene} from './Scene';
 import {MeshNode} from '../lib/MeshNode';
 import {cube, palette, paletteIndex} from './Consts';
 import {Object3D} from '../lib/Object3D';
-import {BowModel, TowerModel} from './Models';
+import {BowModel, EnemyModel, TowerModel} from './Models';
 import {Arrow, ArrowData, Bow, State, StringPart} from './Bow';
 import {Controller} from './Controller';
 import {Vector3} from '../lib/Vector3';
@@ -25,7 +25,7 @@ export class Game {
     //planeMaterial!: Material;
     cubeMesh!: Mesh;
     //cubeMaterial!: Material;
-    cube!: MeshNode;
+    cube!: Object3D;
     scene!: Scene;
     bow: Bow;
     stringPart1: StringPart;
@@ -36,6 +36,9 @@ export class Game {
     //arrowMesh: Mesh;
     arrowList: Arrow[] = [];
     materials: Material[] = [];
+
+    army: MeshNode[] = [];
+    battlefield: Object3D;
 
     constructor() {
         console.log('Game started');
@@ -109,12 +112,12 @@ export class Game {
             this.materials[i].setColor(palette[i]);
         }
 
-        this.planeMesh = new Mesh(this.gl);
-        this.planeMesh.loadFromData([
-            10, 0, 10, 5.5, -4.5, 0, 1, 0, -10, 0, -10, -4.5, 5.5, 0, 1, 0, -10, 0, 10,
-            -4.5, -4.5, 0, 1, 0, 10, 0, 10, 5.5, -4.5, 0, 1, 0, 10, 0, -10, 5.5, 5.5, 0, 1,
-            0, -10, 0, -10, -4.5, 5.5, 0, 1, 0,
-        ]);
+        // this.planeMesh = new Mesh(this.gl);
+        // this.planeMesh.loadFromData([
+        //     10, 0, 10, 5.5, -4.5, 0, 1, 0, -10, 0, -10, -4.5, 5.5, 0, 1, 0, -10, 0, 10,
+        //     -4.5, -4.5, 0, 1, 0, 10, 0, 10, 5.5, -4.5, 0, 1, 0, 10, 0, -10, 5.5, 5.5, 0, 1,
+        //     0, -10, 0, -10, -4.5, 5.5, 0, 1, 0,
+        // ]);
 
         //this.planeMaterial.setColor([0.0, 0.5, 0.2, 1]);
 
@@ -124,14 +127,27 @@ export class Game {
         //this.planeMaterial = new Material(this.gl);
         const ground = new MeshNode(this.cubeMesh, this.materials[paletteIndex.green]);
         ground.scale.set(50, 0.1, 50);
+        ground.position.set(0, -5, 0);
         this.scene.addNode(ground);
 
+        this.battlefield = new Object3D();
+        this.battlefield.name = 'battlefield';
+        this.battlefield.position.set(0, -5, 0);
+        this.scene.addNode(this.battlefield);
+
         // this.cubeMaterial.setColor([1, 0.0, 0.0, 1]);
-        this.cube = new MeshNode(this.cubeMesh, this.materials[paletteIndex.red]);
-        this.cube.position.set(0, 1, -2);
-        this.cube.scale.set(0.25, 0.25, 0.25);
-        this.cube.quaternion.fromEuler(0, 0, 0);
-        this.scene.addNode(this.cube);
+        for (let j = 0; j < 5; j++) {
+            for (let i = 0; i < 10; i++) {
+                let cube = new Object3D();
+                this.battlefield.addNode(cube);
+
+                let man = this.getModel(EnemyModel, this.cubeMesh);
+                cube.addNode(...man);
+                cube.scale.set(0.15, 0.15, 0.15);
+                cube.position.set(10 - i * 2, 0.25 - 5, -8 - j * 2);
+            }
+        }
+        //this.battlefield.addNode(this.cube);
 
         const handL = new Mesh(this.gl);
         handL.loadFromData(cube);
@@ -196,12 +212,12 @@ export class Game {
         const tower = new Object3D();
         tower.setRenderer(this.renderer);
         tower.addNode(...this.getModel(TowerModel, this.cubeMesh));
-        tower.position.set(-15, 0, -15);
+        tower.position.set(-15, -5, -15);
         const tower2 = new Object3D();
 
         tower2.setRenderer(this.renderer);
         tower2.addNode(...this.getModel(TowerModel, this.cubeMesh));
-        tower2.position.set(15, 0, -15);
+        tower2.position.set(15, -5, -15);
 
         this.scene.addNode(tower);
         this.scene.addNode(tower2);
@@ -251,9 +267,9 @@ export class Game {
 
         this.scene.updateMatrix();
 
-        this.ang += (t - this.prev) / 2500;
-        this.prev = t;
-        this.cube.quaternion.fromEuler(0, this.ang, 0);
+        // this.ang += (t - this.prev) / 2500;
+        // this.prev = t;
+        // this.cube.quaternion.fromEuler(0, this.ang, 0);
 
         // Getting the pose may fail if, for example, tracking is lost. So we
         // have to check to make sure that we got a valid pose before attempting
