@@ -218,7 +218,7 @@ export class Game {
         // Check if any Arrow is close to any Knight
         this.army.forEach((knight) => {
             this.arrowList.forEach((arrow) => {
-                if (arrow.position.distanceTo(knight.position) < 5) {
+                if (arrow.position.distanceTo(knight.position) < 2) {
                     this.battlefield.removeNode(this.battlefield.children.indexOf(knight));
                     this.army.splice(this.army.indexOf(knight), 1);
                     this.battlefield.removeNode(this.battlefield.children.indexOf(arrow));

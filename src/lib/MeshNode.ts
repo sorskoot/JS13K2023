@@ -11,6 +11,9 @@ export class MeshNode extends Object3D {
 
     override render2(projectionMatrix: Float32Array, transform: XRRigidTransform): ObjectData {
         const ret: ObjectData = {m: [], c: []};
+        if (!this.active) {
+            return ret;
+        }
         ret.m = [this.absoluteTransform];
         ret.c = [this.colorIndex];
         this.children?.forEach((child) => {

@@ -60,6 +60,9 @@ export class Object3D {
 
     render2(projectionMatrix: Float32Array, transform: XRRigidTransform): ObjectData {
         let ret: ObjectData = {m: [], c: []};
+        if (!this.active) {
+            return ret;
+        }
         //const matrices: Matrix4[] = [];
         for (let index = 0; index < this.children.length; index++) {
             const element = this.children[index];
