@@ -38,17 +38,20 @@ export class SimpleShader {
     uniform mat4 uView;
     uniform vec3 uColors[10];
 
+    uniform vec3 uLightingDirection;
+
     out vec4 vPosition;
     out vec3 vColor;
     out vec3 vNormal;
-    
+    out vec4 vLightDirection;
+
     void main() {
         vColor = uColors[uint(aColor)];
         mat4 modelViewMatrix = uView * aModel;
         
         mat3 normalMatrix = transpose(inverse(mat3(modelViewMatrix)));
         vNormal = normalize(normalMatrix * aNormal);
-
+        vLightDirection = uView * vec4(uLightingDirection, 1.0);
         vPosition = modelViewMatrix * vec4(aPosition, 1.0);
         gl_Position = uProjection * vPosition;
     }
@@ -64,6 +67,7 @@ export class SimpleShader {
 
   in vec3 vColor;
   in vec3 vNormal;
+  in vec4 vLightDirection;
   out vec4 oColor;
 
   float fogFactorExp2(float dist, float density) {
@@ -76,12 +80,14 @@ export class SimpleShader {
     float dist = gl_FragCoord.z/gl_FragCoord.w;
     float fogFactor = fogFactorExp2(dist, 0.05);
 
-    vec3 ambientLightWeighting = uAmbientColor;
-    mat3 viewRotation = mat3(uView);
-    vec3 lightDirectionInViewSpace = viewRotation * uLightingDirection;
-    vec3 lightDirection = normalize(-lightDirectionInViewSpace);
-    float directionalLightWeighting = max(dot(vNormal, lightDirection), 0.0);
-    vec3 light = ambientLightWeighting + directionalLightWeighting * uDirectionalColor;
+    // vec3 ambientLightWeighting = uAmbientColor;
+    // mat3 viewRotation = mat3(uView);
+    // vec3 lightDirectionInViewSpace = viewRotation * uLightingDirection;
+    // vec3 lightDirection = normalize(-lightDirectionInViewSpace);
+    // float directionalLightWeighting = max(dot(vNormal, lightDirection), 0.0);
+    float directionalLightIntensity = max(0.0, dot(vNormal, normalize(-vLightDirection.xyz)));
+
+    vec3 light = uAmbientColor + directionalLightIntensity * uDirectionalColor;
     vec3 diffuse = vColor.rgb * light;
     oColor  = mix(vec4(diffuse,1.0), vec4(0.5, 0.8, 1., 1.), fogFactor);
   }
