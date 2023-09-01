@@ -77,7 +77,7 @@ export class SimpleShader {
 
   void main() {
     float dist = gl_FragCoord.z/gl_FragCoord.w;
-    float fogFactor = fogFactorExp2(dist, 0.05);
+    float fogFactor = fogFactorExp2(dist, 0.035);
 
     float directionalLightIntensity = max(0.0, dot(vNormal, normalize(-vLightDirection.xyz)));
 
