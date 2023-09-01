@@ -151,6 +151,15 @@ export class Renderer {
             palette.flat().map((x) => x / 255)
         );
 
+        gl.uniform3f(this.shader.ambientColorLoc!, 0.3, 0.3, 0.3);
+        gl.uniform3f(
+            this.shader.lightingDirectionLoc!,
+            this.lightDirection.x,
+            this.lightDirection.y,
+            this.lightDirection.z
+        );
+        gl.uniform3f(this.shader.directionalColorLoc!, 0.9, 0.9, 0.9);
+
         // this.gl.bufferData(
         //     this.gl.ARRAY_BUFFER,
         //     new Float32Array([0.5, 0.5, 0, -0.5, 0.5, 0, 0.5, -0.5, 0, -0.5, -0.5, 0]),

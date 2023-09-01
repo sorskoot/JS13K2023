@@ -4,6 +4,9 @@ export class SimpleShader {
 
     projectionLoc?: WebGLUniformLocation;
     viewLoc?: WebGLUniformLocation;
+    ambientColorLoc?: WebGLUniformLocation;
+    lightingDirectionLoc?: WebGLUniformLocation;
+    directionalColorLoc?: WebGLUniformLocation;
 
     positionLoc = 0;
     texCoordLoc = 1;
@@ -37,18 +40,30 @@ export class SimpleShader {
 
     out vec4 vPosition;
     out vec3 vColor;
+    out vec3 vNormal;
     
     void main() {
-        vColor = uColors[uint(aColor)];//vec3(1.0,0.0,0.0);//;
+        vColor = uColors[uint(aColor)];
         mat4 modelViewMatrix = uView * aModel;
+        
+        mat3 normalMatrix = transpose(inverse(mat3(modelViewMatrix)));
+        vNormal = normalize(normalMatrix * aNormal);
+
         vPosition = modelViewMatrix * vec4(aPosition, 1.0);
         gl_Position = uProjection * vPosition;
     }
 `;
         const fs = `#version 300 es
         #pragma vscode_glsllint_stage: frag
-  precision highp float;
+  precision mediump float;
+
+  uniform vec3 uAmbientColor;
+  uniform vec3 uLightingDirection;
+  uniform vec3 uDirectionalColor;
+  uniform mat4 uView;
+
   in vec3 vColor;
+  in vec3 vNormal;
   out vec4 oColor;
 
   float fogFactorExp2(float dist, float density) {
@@ -60,8 +75,15 @@ export class SimpleShader {
   void main() {
     float dist = gl_FragCoord.z/gl_FragCoord.w;
     float fogFactor = fogFactorExp2(dist, 0.05);
-    oColor = mix(vec4(vColor,1.0), vec4(0.5, 0.8, 1., 1.), fogFactor);
-    //oColor = vec4(vColor,1.0);
+
+    vec3 ambientLightWeighting = uAmbientColor;
+    mat3 viewRotation = mat3(uView);
+    vec3 lightDirectionInViewSpace = viewRotation * uLightingDirection;
+    vec3 lightDirection = normalize(-lightDirectionInViewSpace);
+    float directionalLightWeighting = max(dot(vNormal, lightDirection), 0.0);
+    vec3 light = ambientLightWeighting + directionalLightWeighting * uDirectionalColor;
+    vec3 diffuse = vColor.rgb * light;
+    oColor  = mix(vec4(diffuse,1.0), vec4(0.5, 0.8, 1., 1.), fogFactor);
   }
 `;
 
@@ -95,6 +117,9 @@ export class SimpleShader {
         this.projectionLoc = this.gl.getUniformLocation(program, 'uProjection')!;
         this.viewLoc = this.gl.getUniformLocation(program, 'uView')!;
         this.colorsLoc = this.gl.getUniformLocation(program, 'uColors')!;
+        this.ambientColorLoc = this.gl.getUniformLocation(program, 'uAmbientColor')!;
+        this.lightingDirectionLoc = this.gl.getUniformLocation(program, 'uLightingDirection')!;
+        this.directionalColorLoc = this.gl.getUniformLocation(program, 'uDirectionalColor')!;
 
         this.debugListAttrib(program);
 
