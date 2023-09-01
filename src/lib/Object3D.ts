@@ -61,5 +61,22 @@ export class Object3D {
     render(projectionMatrix: Float32Array, transform: XRRigidTransform) {
         this.children.forEach((c) => c.render(projectionMatrix, transform));
     }
+
+    render2(projectionMatrix: Float32Array, transform: XRRigidTransform): ObjectData {
+        let ret: ObjectData = {m: [], c: []};
+        //const matrices: Matrix4[] = [];
+        for (let index = 0; index < this.children.length; index++) {
+            const element = this.children[index];
+            const data = element.render2(projectionMatrix, transform);
+            if (data) {
+                ret.m.push(...data.m);
+                ret.c.push(...data.c);
+            }
+        }
+        return ret;
+    }
+
     update(dt: number): void {}
 }
+
+export type ObjectData = {m: Matrix4[]; c: number[]};

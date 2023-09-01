@@ -1,6 +1,8 @@
 import {Controller} from './Controller';
 import {Renderer} from '../lib/Renderer';
-import {Object3D} from '../lib/Object3D';
+import {Object3D, ObjectData} from '../lib/Object3D';
+import {Matrix4} from '../lib/Matrix4';
+import {Material} from '../lib/Material';
 
 /**
  * Represents a scene in the game.
@@ -36,13 +38,13 @@ export class Scene extends Object3D {
         }
     }
     prevTime: number;
-    update(time: number): void {
+    override update(time: number): void {
         const deltaTime = (time - this.prevTime) / 1000;
         this.prevTime = time;
         this.children.forEach((c) => c.update(deltaTime));
     }
 
-    render(projectionMatrix: Float32Array, transform: XRRigidTransform) {
+    override render(projectionMatrix: Float32Array, transform: XRRigidTransform) {
         // render controllers
 
         this.leftHand.render(projectionMatrix, transform);
@@ -52,5 +54,38 @@ export class Scene extends Object3D {
             const element = this.children[index];
             element.render(projectionMatrix, transform);
         }
+    }
+
+    override render2(projectionMatrix: Float32Array, transform: XRRigidTransform): ObjectData {
+        const ret: ObjectData = {m: [], c: []};
+
+        for (let index = 0; index < this.children.length; index++) {
+            const element = this.children[index];
+            const data = element.render2(projectionMatrix, transform);
+            if (data) {
+                ret.m.push(...data.m);
+                ret.c.push(...data.c);
+            }
+        }
+        const matrix: Float32Array[] = [];
+        const numInstances = ret.m.length;
+        let matrixData = new Float32Array(numInstances * 16);
+
+        for (let i = 0; i < numInstances; ++i) {
+            let matrix = ret.m[i]; // Generate or get the matrix for instance i
+
+            // Put this matrix data into the Float32Array
+            matrixData.set(matrix, i * 16);
+        }
+        // const matrixData = new Float32Array(numInstances * 16);
+        // for (let i = 0; i < numInstances; ++i) {
+        //     const byteOffsetToMatrix = i * 16 * 4;
+        //     const numFloatsForView = 16;
+        //     matrix.push(
+        //         new Float32Array(matrixData.buffer, byteOffsetToMatrix, numFloatsForView)
+        //     );
+        // }
+        this.renderer!.draw2(ret.c, matrixData, numInstances, projectionMatrix, transform);
+        return ret;
     }
 }

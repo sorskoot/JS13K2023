@@ -1,10 +1,11 @@
 {
     "compilerOptions": {
         "forceConsistentCasingInFileNames": true,
-        "strict": false,
         "pretty": true,
+        "strict":false,
         "noEmit": true,
         "noImplicitAny": false,
+        "noImplicitOverride": true,
         "strictNullChecks": true,
         "target": "esnext",
         "module": "esnext",

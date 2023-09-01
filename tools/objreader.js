@@ -59,12 +59,12 @@ function insertVertex(dest, positions, texcoords, normals, vertstr) {
     dest.push(getY(positions, indexPos));
     dest.push(getZ(positions, indexPos));
 
-    dest.push(getU(texcoords, indexTex));
-    dest.push(getV(texcoords, indexTex));
+    // dest.push(getU(texcoords, indexTex));
+    // dest.push(getV(texcoords, indexTex));
 
-    dest.push(getX(normals, indexNor));
-    dest.push(getY(normals, indexNor));
-    dest.push(getZ(normals, indexNor));
+    // dest.push(getX(normals, indexNor));
+    // dest.push(getY(normals, indexNor));
+    // dest.push(getZ(normals, indexNor));
 }
 function load(obj) {
     let dest = [];
@@ -76,16 +76,17 @@ function load(obj) {
     for (let i = 0; i < lines.length; i++) {
         const line = lines[i].split(' ');
 
-        if (line[0] == 'vt') {
-            insertUV(texcoords, parseFloat(line[1]), parseFloat(line[2]));
-        } else if (line[0] == 'vn') {
-            insertXYZ(
-                normals,
-                parseFloat(line[1]),
-                parseFloat(line[2]),
-                parseFloat(line[3])
-            );
-        } else if (line[0] == 'v') {
+        // if (line[0] == 'vt') {
+        //     insertUV(texcoords, parseFloat(line[1]), parseFloat(line[2]));
+        // } else if (line[0] == 'vn') {
+        //     insertXYZ(
+        //         normals,
+        //         parseFloat(line[1]),
+        //         parseFloat(line[2]),
+        //         parseFloat(line[3])
+        //     );
+        // } else
+        if (line[0] == 'v') {
             insertXYZ(
                 positions,
                 parseFloat(line[1]),

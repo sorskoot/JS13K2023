@@ -75,8 +75,8 @@ export class VertexBuffer {
         this.gl.bindVertexArray(this.va);
         this.gl.bindBuffer(GL.ARRAY_BUFFER, this.vb);
 
-        this.gl.drawArrays(GL.TRIANGLES, 0, this.vertices);
-
+        //this.gl.drawArrays(GL.TRIANGLES, 0, this.vertices);
+        this.gl.drawArraysInstanced(GL.TRIANGLES, 0, this.vertices, 1);
         this.gl.bindBuffer(GL.ARRAY_BUFFER, null);
         this.gl.bindVertexArray(null);
     }

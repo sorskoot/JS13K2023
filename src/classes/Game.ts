@@ -70,9 +70,7 @@ export class Game {
      * will request an exclusive session from that device.
      */
     onRequestSession() {
-        return navigator
-            .xr!.requestSession('immersive-vr')
-            .then(this.onSessionStarted.bind(this));
+        return navigator.xr!.requestSession('immersive-vr').then(this.onSessionStarted.bind(this));
     }
 
     /**
@@ -108,8 +106,8 @@ export class Game {
         this.scene = new Scene(this.renderer);
 
         for (let i = 0; i < palette.length; i++) {
-            this.materials.push(new Material(this.gl));
-            this.materials[i].setColor(palette[i]);
+            //this.materials.push(new Material(this.gl));
+            //this.materials[i].setColor(palette[i]);
         }
 
         // this.planeMesh = new Mesh(this.gl);
@@ -125,7 +123,7 @@ export class Game {
         this.cubeMesh.loadFromData(cube);
 
         //this.planeMaterial = new Material(this.gl);
-        const ground = new MeshNode(this.cubeMesh, this.materials[paletteIndex.green]);
+        const ground = new MeshNode(this.cubeMesh, paletteIndex.green);
         ground.scale.set(50, 0.1, 50);
         ground.position.set(0, -5, 0);
         this.scene.addNode(ground);
@@ -135,8 +133,8 @@ export class Game {
         this.battlefield.position.set(0, -5, 0);
         this.scene.addNode(this.battlefield);
 
-        // this.cubeMaterial.setColor([1, 0.0, 0.0, 1]);
-        for (let j = 0; j < 5; j++) {
+        //this.cubeMaterial.setColor([1, 0.0, 0.0, 1]);
+        for (let j = 0; j < 25; j++) {
             for (let i = 0; i < 10; i++) {
                 let cube = new Object3D();
                 this.battlefield.addNode(cube);
@@ -165,41 +163,27 @@ export class Game {
 
         this.scene.rightHand = new Controller('right');
         this.scene.rightHand.setRenderer(this.renderer);
-        const rightHandMesh = new MeshNode(
-            this.cubeMesh,
-            this.materials[paletteIndex.orange]
-        );
+        const rightHandMesh = new MeshNode(this.cubeMesh, paletteIndex.orange);
         rightHandMesh.scale.set(0.01, 0.01, 0.01);
         this.scene.rightHand.addNode(rightHandMesh);
 
         this.bow = new Bow();
         this.bow.onFire.on((arrow) => this.spawnArrow(arrow));
 
-        this.stringPart1 = new StringPart(
-            this.cubeMesh,
-            this.materials[paletteIndex.black]
-        );
+        this.stringPart1 = new StringPart(this.cubeMesh, paletteIndex.black);
         this.stringPart1.scale.set(0.003, 0.003, 0.1);
 
-        this.stringPart2 = new StringPart(
-            this.cubeMesh,
-            this.materials[paletteIndex.black]
-        );
+        this.stringPart2 = new StringPart(this.cubeMesh, paletteIndex.black);
         this.stringPart2.scale.set(0.003, 0.003, 0.1);
 
         // this.arrowMesh = new Mesh(this.gl);
         // this.arrowMesh.loadFromData(cube);
 
-        this.placedArrow = new MeshNode(this.cubeMesh, this.materials[paletteIndex.brown]);
+        this.placedArrow = new MeshNode(this.cubeMesh, paletteIndex.brown);
         this.placedArrow.scale.set(0.005, 0.4, 0.005);
         this.placedArrow.position.set(0, -0.4 + 0.19, 0);
 
-        this.scene.leftHand.addNode(
-            ...nodes,
-            this.stringPart1,
-            this.stringPart2,
-            this.placedArrow
-        );
+        this.scene.leftHand.addNode(...nodes, this.stringPart1, this.stringPart2, this.placedArrow);
 
         // this.scene.rightHand.onTrigger.on((value) => {
         //     if (value) {
@@ -213,8 +197,8 @@ export class Game {
         tower.setRenderer(this.renderer);
         tower.addNode(...this.getModel(TowerModel, this.cubeMesh));
         tower.position.set(-15, -5, -15);
-        const tower2 = new Object3D();
 
+        const tower2 = new Object3D();
         tower2.setRenderer(this.renderer);
         tower2.addNode(...this.getModel(TowerModel, this.cubeMesh));
         tower2.position.set(15, -5, -15);
@@ -267,10 +251,6 @@ export class Game {
 
         this.scene.updateMatrix();
 
-        // this.ang += (t - this.prev) / 2500;
-        // this.prev = t;
-        // this.cube.quaternion.fromEuler(0, this.ang, 0);
-
         // Getting the pose may fail if, for example, tracking is lost. So we
         // have to check to make sure that we got a valid pose before attempting
         // to render with it. If not in this case we'll just leave the
@@ -307,14 +287,8 @@ export class Game {
                 this.scene.leftHand.children[9]
             );
 
-            this.stringPart1.recalculate(
-                this.scene.leftHand.children[5],
-                this.scene.leftHand.children[7]
-            );
-            this.stringPart2.recalculate(
-                this.scene.leftHand.children[6],
-                this.scene.leftHand.children[7]
-            );
+            this.stringPart1.recalculate(this.scene.leftHand.children[5], this.scene.leftHand.children[7]);
+            this.stringPart2.recalculate(this.scene.leftHand.children[6], this.scene.leftHand.children[7]);
 
             // if (this.bow.readyToDraw) {
             //     this.handRm.setColor([0.0, 1.0, 0.0, 1]);
@@ -329,11 +303,7 @@ export class Game {
                 this.placedArrow!.active = false;
             }
 
-            this.scene.leftHand.children[7].position.set(
-                0,
-                0.19 + this.bow.drawDistance,
-                0
-            );
+            this.scene.leftHand.children[7].position.set(0, 0.19 + this.bow.drawDistance, 0);
 
             // Loop through each of the views reported by the frame and draw them
             // into the corresponding viewport.
@@ -341,7 +311,7 @@ export class Game {
                 let viewport = glLayer.getViewport(view)!;
                 this.gl.viewport(viewport.x, viewport.y, viewport.width, viewport.height);
 
-                this.scene.render(view.projectionMatrix, view.transform);
+                this.scene.render2(view.projectionMatrix, view.transform);
             }
         }
 
@@ -351,7 +321,7 @@ export class Game {
 
     getModel(model: number[][][], mesh: Mesh) {
         return model.map((props) => {
-            const node = new MeshNode(mesh, this.materials[props[3][0]]);
+            const node = new MeshNode(mesh, props[3][0]);
             node.scale.set(...props[1]);
             node.position.set(...props[0]);
             node.quaternion.fromEuler(...props[2]);

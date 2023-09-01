@@ -78,12 +78,7 @@ export class Bow {
                     let direction = this.calculateDirection(this.bowHandOrientation);
                     let force = this.drawDistance * this.DRAW_FORCE_MULTIPLIER;
 
-                    this.fireArrow(
-                        this.bowHandPosition,
-                        this.bowHandOrientation,
-                        direction,
-                        force
-                    );
+                    this.fireArrow(this.bowHandPosition, this.bowHandOrientation, direction, force);
                     this.drawDistance = 0;
                 } else {
                     // If still gripping update string center
@@ -128,12 +123,7 @@ export class Bow {
         return 0;
     }
 
-    fireArrow(
-        position: Vector3,
-        orientation: Quaternion,
-        direction: Vector3,
-        force: number
-    ) {
+    fireArrow(position: Vector3, orientation: Quaternion, direction: Vector3, force: number) {
         this.onFire.emit(new ArrowData(position, orientation, direction, force));
     }
 }
@@ -163,12 +153,7 @@ export class ArrowData {
     orientation: Quaternion;
     direction: Vector3;
     force: number;
-    constructor(
-        position: Vector3,
-        orientation: Quaternion,
-        direction: Vector3,
-        force: number
-    ) {
+    constructor(position: Vector3, orientation: Quaternion, direction: Vector3, force: number) {
         this.position = position;
         this.orientation = orientation;
         this.direction = direction;
@@ -189,7 +174,7 @@ export class Arrow extends MeshNode {
         this.velocity = new Vector3(0, 0, 0);
     }
 
-    update(dt: number) {
+    override update(dt: number) {
         // switch (this.state) {
         //     case ArrowState.HELD:
         //         // If held, position should be updated to match hand position
@@ -216,8 +201,8 @@ export class Arrow extends MeshNode {
 }
 
 export class StringPart extends MeshNode {
-    constructor(mesh: Mesh, material: Material) {
-        super(mesh, material);
+    constructor(mesh: Mesh, colorIndex: number) {
+        super(mesh, colorIndex);
     }
 
     recalculate(node1: Object3D, node2: Object3D) {

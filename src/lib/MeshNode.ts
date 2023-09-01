@@ -1,18 +1,20 @@
 import {Material} from './Material';
 import {Matrix4} from './Matrix4';
 import {Mesh} from './Mesh';
-import {Object3D} from './Object3D';
+import {Object3D, ObjectData} from './Object3D';
 import {Quaternion} from './Quaternion';
 import {Vector3} from './Vector3';
 
 export class MeshNode extends Object3D {
     mesh: Mesh;
     material: Material;
-    constructor(mesh: Mesh, material: Material) {
+    colorIndex: number = 0;
+
+    constructor(mesh: Mesh, colorIndex: number) {
         super();
         this.name = 'mesh';
         this.mesh = mesh;
-        this.material = material;
+        this.colorIndex = colorIndex;
     }
 
     override render(projectionMatrix: Float32Array, transform: XRRigidTransform) {
@@ -40,5 +42,17 @@ export class MeshNode extends Object3D {
 
             child.render(projectionMatrix, transform);
         });
+    }
+
+    override render2(projectionMatrix: Float32Array, transform: XRRigidTransform): ObjectData {
+        const ret: ObjectData = {m: [], c: []};
+        ret.m = [this.absoluteTransform];
+        ret.c = [this.colorIndex];
+        this.children?.forEach((child) => {
+            const data = child.render2(projectionMatrix, transform);
+            ret.m.push(...data.m);
+            ret.c.push(...data.c);
+        });
+        return ret;
     }
 }
