@@ -72,7 +72,9 @@ export class Object3D {
         return ret;
     }
 
-    update(dt: number): void {}
+    update(dt: number): void {
+        this.children.forEach((child) => child.update(dt));
+    }
 }
 
 export type ObjectData = {m: Matrix4[]; c: number[]};

@@ -35,7 +35,7 @@ export class Scene extends Object3D {
             }
         }
     }
-    prevTime: number;
+    prevTime: number = 0;
     override update(time: number): void {
         const deltaTime = (time - this.prevTime) / 1000;
         this.prevTime = time;

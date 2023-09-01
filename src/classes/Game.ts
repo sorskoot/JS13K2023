@@ -2,11 +2,12 @@ import {GL} from '../lib/GL';
 import {Renderer} from '../lib/Renderer';
 import {Scene} from './Scene';
 import {MeshNode} from '../lib/MeshNode';
-import {paletteIndex} from './Consts';
+import {Waves, paletteIndex} from './Consts';
 import {Object3D} from '../lib/Object3D';
 import {BowModel, EnemyModel, TowerModel} from './Models';
 import {Arrow, ArrowData, Bow, State, StringPart} from './Bow';
 import {Controller} from './Controller';
+import {knightNode} from './Knight';
 
 /**
  * Represents the game object.
@@ -28,8 +29,10 @@ export class Game {
     //arrowMesh: Mesh;
     arrowList: Arrow[] = [];
 
-    army: MeshNode[] = [];
+    army: knightNode[] = [];
     battlefield: Object3D;
+
+    currentwave = 0;
 
     constructor() {
         console.log('Game started');
@@ -107,17 +110,19 @@ export class Game {
         this.scene.addNode(this.battlefield);
 
         //this.cubeMaterial.setColor([1, 0.0, 0.0, 1]);
-        for (let j = 0; j < 5; j++) {
-            for (let i = 0; i < 11; i++) {
-                let cube = new Object3D();
-                this.battlefield.addNode(cube);
+        // for (let j = 0; j < 5; j++) {
+        //     for (let i = 0; i < 11; i++) {
+        //         let cube = new Object3D();
+        //         this.battlefield.addNode(cube);
 
-                let man = this.getModel(EnemyModel);
-                cube.addNode(...man);
-                cube.scale.set(0.15, 0.15, 0.15);
-                cube.position.set(11 - i * 2, 0.25 - 5, -8 - j * 2);
-            }
-        }
+        //         let man = this.getModel(EnemyModel);
+        //         cube.addNode(...man);
+        //         cube.scale.set(0.15, 0.15, 0.15);
+        //         cube.position.set(11 - i * 2, 0.25 - 5, -8 - j * 2);
+        //     }
+        // }
+
+        this.spawnKnightWave();
 
         this.scene.leftHand = new Controller('left');
         this.scene.leftHand.setRenderer(this.renderer);
@@ -209,6 +214,18 @@ export class Game {
         // Get the XRDevice pose relative to the Frame of Reference we created
         // earlier.
         let pose = frame.getViewerPose(this.xrRefSpace);
+
+        // Check if any Arrow is close to any Knight
+        this.army.forEach((knight) => {
+            this.arrowList.forEach((arrow) => {
+                if (arrow.position.distanceTo(knight.position) < 5) {
+                    this.battlefield.removeNode(this.battlefield.children.indexOf(knight));
+                    this.army.splice(this.army.indexOf(knight), 1);
+                    this.battlefield.removeNode(this.battlefield.children.indexOf(arrow));
+                    this.arrowList.splice(this.arrowList.indexOf(arrow), 1);
+                }
+            });
+        });
 
         this.scene.update(t);
 
@@ -304,5 +321,30 @@ export class Game {
 
         this.arrowList.push(arrow);
         this.scene.addNode(arrow);
+    }
+
+    spawnKnightWave() {
+        let spawned = 0;
+        for (let i = 0; i < 5; i++) {
+            // wave rows
+            for (let j = 0; j < 11; j++) {
+                // wave columns
+                if (Waves[this.currentwave][i][j] > 0) {
+                    spawned++;
+                    this.spawnKnight(j, i, Waves[this.currentwave][i][j]);
+                }
+            }
+        }
+        return spawned;
+    }
+    spawnKnight(j: number, i: number, arg2: number) {
+        let knight = new knightNode();
+        knight.setRenderer(this.renderer);
+        knight.addNode(...this.getModel(EnemyModel));
+        knight.position.set(11 - j * 2, 0.25 - 5, -25 - i * 2);
+        knight.scale.set(0.15, 0.15, 0.15);
+        knight.name = 'knight';
+        this.army.push(knight);
+        this.battlefield.addNode(knight);
     }
 }
