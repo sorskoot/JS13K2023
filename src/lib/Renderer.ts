@@ -134,10 +134,6 @@ export class Renderer {
         this.gl.enableVertexAttribArray(matloc + 2);
         this.gl.enableVertexAttribArray(matloc + 3);
 
-        if (this.gl.getError()) {
-            console.log(this.gl.getError());
-        }
-
         this.gl.drawArraysInstanced(GL.TRIANGLES, 0, 36, numCubes);
     }
 }

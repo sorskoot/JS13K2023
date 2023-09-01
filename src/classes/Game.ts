@@ -2,7 +2,7 @@ import {GL} from '../lib/GL';
 import {Renderer} from '../lib/Renderer';
 import {Scene} from './Scene';
 import {MeshNode} from '../lib/MeshNode';
-import {cube, paletteIndex} from './Consts';
+import {paletteIndex} from './Consts';
 import {Object3D} from '../lib/Object3D';
 import {BowModel, EnemyModel, TowerModel} from './Models';
 import {Arrow, ArrowData, Bow, State, StringPart} from './Bow';
@@ -107,15 +107,15 @@ export class Game {
         this.scene.addNode(this.battlefield);
 
         //this.cubeMaterial.setColor([1, 0.0, 0.0, 1]);
-        for (let j = 0; j < 25; j++) {
-            for (let i = 0; i < 10; i++) {
+        for (let j = 0; j < 5; j++) {
+            for (let i = 0; i < 11; i++) {
                 let cube = new Object3D();
                 this.battlefield.addNode(cube);
 
                 let man = this.getModel(EnemyModel);
                 cube.addNode(...man);
                 cube.scale.set(0.15, 0.15, 0.15);
-                cube.position.set(10 - i * 2, 0.25 - 5, -8 - j * 2);
+                cube.position.set(11 - i * 2, 0.25 - 5, -8 - j * 2);
             }
         }
 
