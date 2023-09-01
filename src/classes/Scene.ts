@@ -45,6 +45,14 @@ export class Scene extends Object3D {
     override render2(projectionMatrix: Float32Array, transform: XRRigidTransform): ObjectData {
         const ret: ObjectData = {m: [], c: []};
 
+        const lhData = this.leftHand.render2(projectionMatrix, transform);
+        ret.m.push(...lhData.m);
+        ret.c.push(...lhData.c);
+
+        const rhData = this.rightHand.render2(projectionMatrix, transform);
+        ret.m.push(...rhData.m);
+        ret.c.push(...rhData.c);
+
         for (let index = 0; index < this.children.length; index++) {
             const element = this.children[index];
             const data = element.render2(projectionMatrix, transform);
