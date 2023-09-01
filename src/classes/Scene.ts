@@ -1,8 +1,6 @@
 import {Controller} from './Controller';
 import {Renderer} from '../lib/Renderer';
 import {Object3D, ObjectData} from '../lib/Object3D';
-import {Matrix4} from '../lib/Matrix4';
-import {Material} from '../lib/Material';
 
 /**
  * Represents a scene in the game.
@@ -42,18 +40,6 @@ export class Scene extends Object3D {
         const deltaTime = (time - this.prevTime) / 1000;
         this.prevTime = time;
         this.children.forEach((c) => c.update(deltaTime));
-    }
-
-    override render(projectionMatrix: Float32Array, transform: XRRigidTransform) {
-        // render controllers
-
-        this.leftHand.render(projectionMatrix, transform);
-        this.rightHand.render(projectionMatrix, transform);
-
-        for (let index = 0; index < this.children.length; index++) {
-            const element = this.children[index];
-            element.render(projectionMatrix, transform);
-        }
     }
 
     override render2(projectionMatrix: Float32Array, transform: XRRigidTransform): ObjectData {

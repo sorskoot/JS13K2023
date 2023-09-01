@@ -1,7 +1,4 @@
 import {EventEmitter} from '../lib/EventEmitter.js';
-import {Material} from '../lib/Material.js';
-import {Matrix4} from '../lib/Matrix4.js';
-import {Mesh} from '../lib/Mesh.js';
 import {MeshNode} from '../lib/MeshNode.js';
 import {Object3D} from '../lib/Object3D.js';
 import {Quaternion} from '../lib/Quaternion.js';
@@ -166,8 +163,8 @@ export class Arrow extends MeshNode {
     private state: ArrowState;
     velocity: Vector3;
 
-    constructor(arrowMesh, arrowMat) {
-        super(arrowMesh, arrowMat);
+    constructor(arrowMat) {
+        super(arrowMat);
         this.scale.set(0.005, 0.005, 0.4);
         this.position.set(0, -0.4 + 0.19, 0);
         this.state = ArrowState.HELD;
@@ -201,8 +198,8 @@ export class Arrow extends MeshNode {
 }
 
 export class StringPart extends MeshNode {
-    constructor(mesh: Mesh, colorIndex: number) {
-        super(mesh, colorIndex);
+    constructor(colorIndex: number) {
+        super(colorIndex);
     }
 
     recalculate(node1: Object3D, node2: Object3D) {

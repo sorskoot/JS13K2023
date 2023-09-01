@@ -58,10 +58,6 @@ export class Object3D {
         for (const child of this.children) child.updateMatrix();
     }
 
-    render(projectionMatrix: Float32Array, transform: XRRigidTransform) {
-        this.children.forEach((c) => c.render(projectionMatrix, transform));
-    }
-
     render2(projectionMatrix: Float32Array, transform: XRRigidTransform): ObjectData {
         let ret: ObjectData = {m: [], c: []};
         //const matrices: Matrix4[] = [];

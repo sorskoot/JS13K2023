@@ -61,7 +61,6 @@ export class SimpleShader {
   precision mediump float;
 
   uniform vec3 uAmbientColor;
-  uniform vec3 uLightingDirection;
   uniform vec3 uDirectionalColor;
   uniform mat4 uView;
 
@@ -80,11 +79,6 @@ export class SimpleShader {
     float dist = gl_FragCoord.z/gl_FragCoord.w;
     float fogFactor = fogFactorExp2(dist, 0.05);
 
-    // vec3 ambientLightWeighting = uAmbientColor;
-    // mat3 viewRotation = mat3(uView);
-    // vec3 lightDirectionInViewSpace = viewRotation * uLightingDirection;
-    // vec3 lightDirection = normalize(-lightDirectionInViewSpace);
-    // float directionalLightWeighting = max(dot(vNormal, lightDirection), 0.0);
     float directionalLightIntensity = max(0.0, dot(vNormal, normalize(-vLightDirection.xyz)));
 
     vec3 light = uAmbientColor + directionalLightIntensity * uDirectionalColor;

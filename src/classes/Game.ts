@@ -1,15 +1,12 @@
 import {GL} from '../lib/GL';
 import {Renderer} from '../lib/Renderer';
-import {Material} from '../lib/Material';
-import {Mesh} from '../lib/Mesh';
 import {Scene} from './Scene';
 import {MeshNode} from '../lib/MeshNode';
-import {cube, palette, paletteIndex} from './Consts';
+import {cube, paletteIndex} from './Consts';
 import {Object3D} from '../lib/Object3D';
 import {BowModel, EnemyModel, TowerModel} from './Models';
 import {Arrow, ArrowData, Bow, State, StringPart} from './Bow';
 import {Controller} from './Controller';
-import {Vector3} from '../lib/Vector3';
 
 /**
  * Represents the game object.
@@ -21,10 +18,6 @@ export class Game {
     xrSession!: XRSession;
     gl!: WebGL2RenderingContext;
     renderer!: Renderer;
-    planeMesh!: Mesh;
-    //planeMaterial!: Material;
-    cubeMesh!: Mesh;
-    //cubeMaterial!: Material;
     cube!: Object3D;
     scene!: Scene;
     bow: Bow;
@@ -32,10 +25,8 @@ export class Game {
     stringPart2: StringPart;
     //handRm: any;
     placedArrow: MeshNode;
-    //arrowMat: Material;
     //arrowMesh: Mesh;
     arrowList: Arrow[] = [];
-    materials: Material[] = [];
 
     army: MeshNode[] = [];
     battlefield: Object3D;
@@ -105,25 +96,7 @@ export class Game {
 
         this.scene = new Scene(this.renderer);
 
-        for (let i = 0; i < palette.length; i++) {
-            //this.materials.push(new Material(this.gl));
-            //this.materials[i].setColor(palette[i]);
-        }
-
-        // this.planeMesh = new Mesh(this.gl);
-        // this.planeMesh.loadFromData([
-        //     10, 0, 10, 5.5, -4.5, 0, 1, 0, -10, 0, -10, -4.5, 5.5, 0, 1, 0, -10, 0, 10,
-        //     -4.5, -4.5, 0, 1, 0, 10, 0, 10, 5.5, -4.5, 0, 1, 0, 10, 0, -10, 5.5, 5.5, 0, 1,
-        //     0, -10, 0, -10, -4.5, 5.5, 0, 1, 0,
-        // ]);
-
-        //this.planeMaterial.setColor([0.0, 0.5, 0.2, 1]);
-
-        this.cubeMesh = new Mesh(this.gl);
-        this.cubeMesh.loadFromData(cube);
-
-        //this.planeMaterial = new Material(this.gl);
-        const ground = new MeshNode(this.cubeMesh, paletteIndex.green);
+        const ground = new MeshNode(paletteIndex.green);
         ground.scale.set(50, 0.1, 50);
         ground.position.set(0, -5, 0);
         this.scene.addNode(ground);
@@ -139,47 +112,37 @@ export class Game {
                 let cube = new Object3D();
                 this.battlefield.addNode(cube);
 
-                let man = this.getModel(EnemyModel, this.cubeMesh);
+                let man = this.getModel(EnemyModel);
                 cube.addNode(...man);
                 cube.scale.set(0.15, 0.15, 0.15);
                 cube.position.set(10 - i * 2, 0.25 - 5, -8 - j * 2);
             }
         }
-        //this.battlefield.addNode(this.cube);
-
-        const handL = new Mesh(this.gl);
-        handL.loadFromData(cube);
-        // const handm = new Material(this.gl);
-        // handm.set Color([0.0, 0.0, 1.0, 1]);
-        const handR = new Mesh(this.gl);
-        handR.loadFromData(cube);
-        // this.handRm = new Material(this.gl);
-        // this.handRm.set Color([0.0, 0.0, 1.0, 1]);
 
         this.scene.leftHand = new Controller('left');
         this.scene.leftHand.setRenderer(this.renderer);
 
-        let nodes = this.getModel(BowModel, this.cubeMesh);
+        let nodes = this.getModel(BowModel);
 
         this.scene.rightHand = new Controller('right');
         this.scene.rightHand.setRenderer(this.renderer);
-        const rightHandMesh = new MeshNode(this.cubeMesh, paletteIndex.orange);
+        const rightHandMesh = new MeshNode(paletteIndex.orange);
         rightHandMesh.scale.set(0.01, 0.01, 0.01);
         this.scene.rightHand.addNode(rightHandMesh);
 
         this.bow = new Bow();
         this.bow.onFire.on((arrow) => this.spawnArrow(arrow));
 
-        this.stringPart1 = new StringPart(this.cubeMesh, paletteIndex.black);
+        this.stringPart1 = new StringPart(paletteIndex.black);
         this.stringPart1.scale.set(0.003, 0.003, 0.1);
 
-        this.stringPart2 = new StringPart(this.cubeMesh, paletteIndex.black);
+        this.stringPart2 = new StringPart(paletteIndex.black);
         this.stringPart2.scale.set(0.003, 0.003, 0.1);
 
         // this.arrowMesh = new Mesh(this.gl);
         // this.arrowMesh.loadFromData(cube);
 
-        this.placedArrow = new MeshNode(this.cubeMesh, paletteIndex.brown);
+        this.placedArrow = new MeshNode(paletteIndex.brown);
         this.placedArrow.scale.set(0.005, 0.4, 0.005);
         this.placedArrow.position.set(0, -0.4 + 0.19, 0);
 
@@ -195,12 +158,12 @@ export class Game {
 
         const tower = new Object3D();
         tower.setRenderer(this.renderer);
-        tower.addNode(...this.getModel(TowerModel, this.cubeMesh));
+        tower.addNode(...this.getModel(TowerModel));
         tower.position.set(-15, -5, -15);
 
         const tower2 = new Object3D();
         tower2.setRenderer(this.renderer);
-        tower2.addNode(...this.getModel(TowerModel, this.cubeMesh));
+        tower2.addNode(...this.getModel(TowerModel));
         tower2.position.set(15, -5, -15);
 
         this.scene.addNode(tower);
@@ -319,9 +282,9 @@ export class Game {
         //scene.endFrame();
     }
 
-    getModel(model: number[][][], mesh: Mesh) {
+    getModel(model: number[][][]) {
         return model.map((props) => {
-            const node = new MeshNode(mesh, props[3][0]);
+            const node = new MeshNode(props[3][0]);
             node.scale.set(...props[1]);
             node.position.set(...props[0]);
             node.quaternion.fromEuler(...props[2]);
@@ -331,7 +294,7 @@ export class Game {
 
     spawnArrow(arrowData: ArrowData) {
         //const arrow = new MeshNode(this.arrowMesh, this.arrowMat);
-        const arrow = new Arrow(this.cubeMesh, this.materials[paletteIndex.brown]);
+        const arrow = new Arrow(paletteIndex.brown);
         arrow.position.copy(arrowData.position);
         arrow.quaternion.copy(arrowData.orientation);
 
