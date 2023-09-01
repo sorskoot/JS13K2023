@@ -8,7 +8,7 @@ export class SimpleShader {
     positionLoc = 0;
     texCoordLoc = 1;
     normalLoc = 2;
-    colorLoc: WebGLUniformLocation;
+    colorLoc = 3;
     matrixLoc = 4;
     colorsLoc: WebGLUniformLocation;
 
@@ -28,9 +28,9 @@ export class SimpleShader {
     layout(location=0) in vec3 aPosition;
     layout(location=1) in vec2 aTexCoord;
     layout(location=2) in vec3 aNormal;
+    layout(location=3) in float aColor;
     layout(location=4) in mat4 aModel;
 
-    uniform int uColor;
     uniform mat4 uProjection;
     uniform mat4 uView;
     uniform vec3 uColors[10];
@@ -39,7 +39,7 @@ export class SimpleShader {
     out vec3 vColor;
     
     void main() {
-        vColor = uColors[uColor];//vec3(1.0,0.0,0.0);//;
+        vColor = uColors[uint(aColor)];//vec3(1.0,0.0,0.0);//;
         mat4 modelViewMatrix = uView * aModel;
         vPosition = modelViewMatrix * vec4(aPosition, 1.0);
         gl_Position = uProjection * vPosition;
@@ -95,7 +95,7 @@ export class SimpleShader {
         this.projectionLoc = this.gl.getUniformLocation(program, 'uProjection')!;
         this.viewLoc = this.gl.getUniformLocation(program, 'uView')!;
         this.colorsLoc = this.gl.getUniformLocation(program, 'uColors')!;
-        this.colorLoc = this.gl.getUniformLocation(program, 'uColor')!;
+
         this.debugListAttrib(program);
 
         // this.gl.enableVertexAttribArray(this.positionLoc);

@@ -232,6 +232,12 @@ export class Renderer {
         this.gl.uniformMatrix4fv(this.shader.projectionLoc!, false, projectionMatrix);
 
         // this.gl.bindVertexArray(this.vertexArray);
+        let colorbuffer = this.gl.createBuffer();
+        this.gl.bindBuffer(this.gl.ARRAY_BUFFER, colorbuffer);
+        this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(colorData), this.gl.STATIC_DRAW);
+        this.gl.vertexAttribPointer(this.shader.colorLoc, 1, this.gl.FLOAT, false, 4, 0);
+        this.gl.vertexAttribDivisor(this.shader.colorLoc, 1);
+        this.gl.enableVertexAttribArray(this.shader.colorLoc);
 
         let matrixBuffer = this.gl.createBuffer();
         this.gl.bindBuffer(this.gl.ARRAY_BUFFER, matrixBuffer);
@@ -255,7 +261,7 @@ export class Renderer {
         this.gl.enableVertexAttribArray(matloc + 2);
         this.gl.enableVertexAttribArray(matloc + 3);
 
-        this.gl.uniform1iv(this.shader.colorLoc!, colorData);
+        //this.gl.uniform1iv(this.shader.colorLoc!, colorData);
 
         if (this.gl.getError()) {
             console.log(this.gl.getError());
