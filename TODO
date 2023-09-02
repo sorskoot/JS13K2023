@@ -5,13 +5,15 @@ Must have:
         ~ standing on the castle wall
     ✔ Indication that you hit an enemy @done(23-09-02 21:46)
         ~ Stop moving and become red for a second and then they disappear
-    ☐ Keep track of score
-    ☐ Show score when game over
+    ✔ Keep track of score @done(23-09-02 22:27)
     ☐ Game over when knights reach the castle
-        ~ when they do you'll be kicked out of VR and see the score
-    ☐ Remove Arrow when below the ground
-    ☐ Remove Arrow after X seconds
     ☐ Next level when all knights are killed.
+
+    ☐ Show score when game over
+        ~ when they do you'll be kicked out of VR and see the score
+    General improvements:
+        ☐ Remove Arrow when below the ground
+        ☐ Remove Arrow after X seconds
 
     Title screen in HTML:
         ☐ Very basic HTML page with some CSS styling
@@ -53,7 +55,7 @@ Could have:
     ☐ Music
     ☐ power ups like flame bows
     ☐ Fights at night with fire effects
-    
+    ☐ Enable ESLint again
 
 Would like:
     ☐ Texture mapping

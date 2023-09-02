@@ -43,6 +43,7 @@
 <a href="classes_Game.Game.html#battlefield" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>battlefield?</span></a>
 <a href="classes_Game.Game.html#bow" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>bow?</span></a>
 <a href="classes_Game.Game.html#cube" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>cube</span></a>
+<a href="classes_Game.Game.html#currentScore" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>current<wbr/>Score</span></a>
 <a href="classes_Game.Game.html#currentwave" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>currentwave</span></a>
 <a href="classes_Game.Game.html#gl" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>gl</span></a>
 <a href="classes_Game.Game.html#placedArrow" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>placed<wbr/>Arrow?</span></a>
@@ -57,7 +58,9 @@
 </div></section>
 <section class="tsd-index-section">
 <h3 class="tsd-index-heading">Methods</h3>
-<div class="tsd-index-list"><a href="classes_Game.Game.html#getModel" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-2048"><rect fill="var(--color-icon-background)" stroke="#FF4DB8" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="12"></rect><path d="M9.162 16V7.24H10.578L11.514 10.072C11.602 10.328 11.674 10.584 11.73 10.84C11.794 11.088 11.842 11.28 11.874 11.416C11.906 11.28 11.954 11.088 12.018 10.84C12.082 10.584 12.154 10.324 12.234 10.06L13.122 7.24H14.538V16H13.482V12.82C13.482 12.468 13.49 12.068 13.506 11.62C13.53 11.172 13.558 10.716 13.59 10.252C13.622 9.78 13.654 9.332 13.686 8.908C13.726 8.476 13.762 8.1 13.794 7.78L12.366 12.16H11.334L9.894 7.78C9.934 8.092 9.97 8.456 10.002 8.872C10.042 9.28 10.078 9.716 10.11 10.18C10.142 10.636 10.166 11.092 10.182 11.548C10.206 12.004 10.218 12.428 10.218 12.82V16H9.162Z" fill="var(--color-text)"></path></g></svg><span>get<wbr/>Model</span></a>
+<div class="tsd-index-list"><a href="classes_Game.Game.html#checkKnightHits" class="tsd-index-link tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-2048"><rect fill="var(--color-icon-background)" stroke="#FF4DB8" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="12"></rect><path d="M9.162 16V7.24H10.578L11.514 10.072C11.602 10.328 11.674 10.584 11.73 10.84C11.794 11.088 11.842 11.28 11.874 11.416C11.906 11.28 11.954 11.088 12.018 10.84C12.082 10.584 12.154 10.324 12.234 10.06L13.122 7.24H14.538V16H13.482V12.82C13.482 12.468 13.49 12.068 13.506 11.62C13.53 11.172 13.558 10.716 13.59 10.252C13.622 9.78 13.654 9.332 13.686 8.908C13.726 8.476 13.762 8.1 13.794 7.78L12.366 12.16H11.334L9.894 7.78C9.934 8.092 9.97 8.456 10.002 8.872C10.042 9.28 10.078 9.716 10.11 10.18C10.142 10.636 10.166 11.092 10.182 11.548C10.206 12.004 10.218 12.428 10.218 12.82V16H9.162Z" fill="var(--color-text)"></path></g></svg><span>check<wbr/>Knight<wbr/>Hits</span></a>
+<a href="classes_Game.Game.html#createScene" class="tsd-index-link tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>create<wbr/>Scene</span></a>
+<a href="classes_Game.Game.html#getModel" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>get<wbr/>Model</span></a>
 <a href="classes_Game.Game.html#initXR" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>initXR</span></a>
 <a href="classes_Game.Game.html#onRequestSession" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>on<wbr/>Request<wbr/>Session</span></a>
 <a href="classes_Game.Game.html#onSessionEnded" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>on<wbr/>Session<wbr/>Ended</span></a>
@@ -76,14 +79,14 @@
 <li class="tsd-description">
 <h4 class="tsd-returns-title">Returns <a href="classes_Game.Game.html" class="tsd-signature-type tsd-kind-class">Game</a></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/57a3292/src/classes/Game.ts#L37">src/classes/Game.ts:37</a></li></ul></aside></li></ul></section></section>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/57a3292/src/classes/Game.ts#L39">src/classes/Game.ts:39</a></li></ul></aside></li></ul></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Properties</h2>
 <section class="tsd-panel tsd-member"><a id="ang" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>ang</span><a href="#ang" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ang</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/57a3292/src/classes/Game.ts#L194">src/classes/Game.ts:194</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/57a3292/src/classes/Game.ts#L204">src/classes/Game.ts:204</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member"><a id="army" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>army</span><a href="#army" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">army</span><span class="tsd-signature-symbol">:</span> <a href="classes_Knight.knightNode.html" class="tsd-signature-type tsd-kind-class">knightNode</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div><aside class="tsd-sources">
@@ -109,6 +112,11 @@
 <div class="tsd-signature"><span class="tsd-kind-property">cube</span><span class="tsd-signature-symbol">:</span> <a href="lib_Object3D.Object3D.html" class="tsd-signature-type tsd-kind-class">Object3D</a></div><aside class="tsd-sources">
 <ul>
 <li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/57a3292/src/classes/Game.ts#L22">src/classes/Game.ts:22</a></li></ul></aside></section>
+<section class="tsd-panel tsd-member"><a id="currentScore" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>current<wbr/>Score</span><a href="#currentScore" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">current<wbr/>Score</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></div><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/57a3292/src/classes/Game.ts#L37">src/classes/Game.ts:37</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member"><a id="currentwave" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>currentwave</span><a href="#currentwave" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">currentwave</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></div><aside class="tsd-sources">
@@ -128,7 +136,7 @@
 <h3 class="tsd-anchor-link"><span>prev</span><a href="#prev" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">prev</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/57a3292/src/classes/Game.ts#L195">src/classes/Game.ts:195</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/57a3292/src/classes/Game.ts#L205">src/classes/Game.ts:205</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member"><a id="renderer" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>renderer</span><a href="#renderer" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">renderer</span><span class="tsd-signature-symbol">:</span> <a href="lib_Renderer.Renderer.html" class="tsd-signature-type tsd-kind-class">Renderer</a></div><aside class="tsd-sources">
@@ -166,6 +174,25 @@
 <li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/57a3292/src/classes/Game.ts#L19">src/classes/Game.ts:19</a></li></ul></aside></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Methods</h2>
+<section class="tsd-panel tsd-member tsd-is-private"><a id="checkKnightHits" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>check<wbr/>Knight<wbr/>Hits</span><a href="#checkKnightHits" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-is-private">
+<li class="tsd-signature tsd-anchor-link" id="checkKnightHits.checkKnightHits-1"><span class="tsd-kind-call-signature">check<wbr/>Knight<wbr/>Hits</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#checkKnightHits.checkKnightHits-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-description">
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/57a3292/src/classes/Game.ts#L290">src/classes/Game.ts:290</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-is-private"><a id="createScene" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>create<wbr/>Scene</span><a href="#createScene" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-is-private">
+<li class="tsd-signature tsd-anchor-link" id="createScene.createScene-1"><span class="tsd-kind-call-signature">create<wbr/>Scene</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#createScene.createScene-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Creates the game scene with the ground, battlefield, controllers, bow, arrow, string, wall, and towers.</p>
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+<div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/57a3292/src/classes/Game.ts#L119">src/classes/Game.ts:119</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="getModel" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>get<wbr/>Model</span><a href="#getModel" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -178,7 +205,7 @@
 <h5><span class="tsd-kind-parameter">model</span>: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">[]</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="lib_MeshNode.MeshNode.html" class="tsd-signature-type tsd-kind-class">MeshNode</a><span class="tsd-signature-symbol">[]</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/57a3292/src/classes/Game.ts#L296">src/classes/Game.ts:296</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/57a3292/src/classes/Game.ts#L304">src/classes/Game.ts:304</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="initXR" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>initXR</span><a href="#initXR" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -190,7 +217,7 @@ XRDevices that are connected to the system.</p>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/57a3292/src/classes/Game.ts#L46">src/classes/Game.ts:46</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/57a3292/src/classes/Game.ts#L48">src/classes/Game.ts:48</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="onRequestSession" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>on<wbr/>Request<wbr/>Session</span><a href="#onRequestSession" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -202,7 +229,7 @@ will request an exclusive session from that device.</p>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type ">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/57a3292/src/classes/Game.ts#L66">src/classes/Game.ts:66</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/57a3292/src/classes/Game.ts#L68">src/classes/Game.ts:68</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="onSessionEnded" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>on<wbr/>Session<wbr/>Ended</span><a href="#onSessionEnded" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -224,7 +251,7 @@ discarded.</p>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/57a3292/src/classes/Game.ts#L187">src/classes/Game.ts:187</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/57a3292/src/classes/Game.ts#L197">src/classes/Game.ts:197</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="onSessionStarted" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>on<wbr/>Session<wbr/>Started</span><a href="#onSessionStarted" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -241,7 +268,7 @@ will set up the necessary session state and kick off the frame loop.</p>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/57a3292/src/classes/Game.ts#L74">src/classes/Game.ts:74</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/57a3292/src/classes/Game.ts#L76">src/classes/Game.ts:76</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="onXRFrame" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>onXRFrame</span><a href="#onXRFrame" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -259,7 +286,7 @@ will set up the necessary session state and kick off the frame loop.</p>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/57a3292/src/classes/Game.ts#L199">src/classes/Game.ts:199</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/57a3292/src/classes/Game.ts#L209">src/classes/Game.ts:209</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="spawnArrow" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>spawn<wbr/>Arrow</span><a href="#spawnArrow" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -272,7 +299,7 @@ will set up the necessary session state and kick off the frame loop.</p>
 <h5><span class="tsd-kind-parameter">arrowData</span>: <a href="classes_Bow.ArrowData.html" class="tsd-signature-type tsd-kind-class">ArrowData</a></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/57a3292/src/classes/Game.ts#L306">src/classes/Game.ts:306</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/57a3292/src/classes/Game.ts#L314">src/classes/Game.ts:314</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="spawnKnight" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>spawn<wbr/>Knight</span><a href="#spawnKnight" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -289,7 +316,7 @@ will set up the necessary session state and kick off the frame loop.</p>
 <h5><span class="tsd-kind-parameter">arg2</span>: <span class="tsd-signature-type">number</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/57a3292/src/classes/Game.ts#L334">src/classes/Game.ts:334</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/57a3292/src/classes/Game.ts#L342">src/classes/Game.ts:342</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="spawnKnightWave" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>spawn<wbr/>Knight<wbr/>Wave</span><a href="#spawnKnightWave" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -297,7 +324,7 @@ will set up the necessary session state and kick off the frame loop.</p>
 <li class="tsd-description">
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/57a3292/src/classes/Game.ts#L320">src/classes/Game.ts:320</a></li></ul></aside></li></ul></section></section></div>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/57a3292/src/classes/Game.ts#L328">src/classes/Game.ts:328</a></li></ul></aside></li></ul></section></section></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">
@@ -324,6 +351,7 @@ will set up the necessary session state and kick off the frame loop.</p>
 <li><a href="#battlefield" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>battlefield</span></a></li>
 <li><a href="#bow" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>bow</span></a></li>
 <li><a href="#cube" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>cube</span></a></li>
+<li><a href="#currentScore" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>current<wbr/>Score</span></a></li>
 <li><a href="#currentwave" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>currentwave</span></a></li>
 <li><a href="#gl" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>gl</span></a></li>
 <li><a href="#placedArrow" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>placed<wbr/>Arrow</span></a></li>
@@ -335,6 +363,8 @@ will set up the necessary session state and kick off the frame loop.</p>
 <li><a href="#xrButton" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>xr<wbr/>Button</span></a></li>
 <li><a href="#xrRefSpace" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>xr<wbr/>Ref<wbr/>Space</span></a></li>
 <li><a href="#xrSession" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>xr<wbr/>Session</span></a></li>
+<li><a href="#checkKnightHits" class="tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>check<wbr/>Knight<wbr/>Hits</span></a></li>
+<li><a href="#createScene" class="tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>create<wbr/>Scene</span></a></li>
 <li><a href="#getModel" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>get<wbr/>Model</span></a></li>
 <li><a href="#initXR" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>initXR</span></a></li>
 <li><a href="#onRequestSession" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>on<wbr/>Request<wbr/>Session</span></a></li>

@@ -58,6 +58,24 @@ If time allows you could consider introducing varied enemies with different tact
 
 These different enemy types would add depth and complexity providing even more challenge and strategic thinking for players.
 
+## Arrow Upgrade Mechanic
+
+During the course of the game, players will have the opportunity to acquire special arrows to aid them in defending Castle Ravenshaw. These arrow upgrades can provide different damage effects and aid in eliminating enemy troops more efficiently.
+
+### Exploding Arrows
+
+Exploding Arrows pack a powerful punch upon impact. When these arrows strike an enemy or siege tower, they cause a small explosion which can injure or kill multiple enemies within a certain radius of the explosion. This upgrade is particularly effective against tight formations of footmen or a clump of enemies emerging from a siege tower.
+
+### Burning Arrows
+
+Burning Arrows set enemies ablaze with enchanted fire that cannot be extinguished easily. The burning effect persists for some time after contact, causing continuous damage over time before eventually killing the enemy unit. It could also potentially spread to adjacent units if they are too close together.
+
+### Additional Upgrades 
+
+Further arrow upgrades may be considered for future versions of the game or expansions if time permits during development. Potential examples could include Frost Arrows which slow down enemies upon impact due to magical cold infused into them, or Piercing Arrows that can penetrate through multiple enemies aligned in its path.
+
+In terms of gameplay mechanics, arrow upgrades can be purchased using points earned by successfully hitting and eliminating enemies or bonus achievements throughout the game.
+
 ## Score Mechanic
 
 Each successful hit earns points which accumulate for final score comparison after each round.

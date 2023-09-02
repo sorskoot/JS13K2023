@@ -34,6 +34,8 @@ export class Game {
 
     currentwave = 0;
 
+    currentScore = 0;
+
     constructor() {
         console.log('Game started');
         this.initXR();
@@ -97,6 +99,24 @@ export class Game {
         this.renderer = new Renderer(this.gl);
         this.renderer.depthTesting(true); // if you don't know what that means - it means that our meshes will be rendered properly ¯\_(ツ)_/¯
 
+        this.createScene();
+
+        session.updateRenderState({baseLayer: new XRWebGLLayer(session, this.gl)});
+
+        session.requestReferenceSpace('local').then((refSpace) => {
+            // make sure the camera starts 1.6m below the floor level
+            const xform = new XRRigidTransform({y: -1.6});
+            this.xrRefSpace = refSpace.getOffsetReferenceSpace(xform);
+
+            session.requestAnimationFrame(this.onXRFrame.bind(this));
+        });
+    }
+
+    /**
+     * Creates the game scene with the ground, battlefield, controllers, bow, arrow, string, wall, and towers.
+     * @returns {void}
+     */
+    private createScene() {
         this.scene = new Scene(this.renderer);
 
         const ground = new MeshNode(paletteIndex.green);
@@ -110,6 +130,7 @@ export class Game {
         this.scene.addNode(this.battlefield);
 
         this.spawnKnightWave();
+        this.currentScore = 0;
 
         this.scene.leftHand = new Controller('left');
         this.scene.leftHand.setRenderer(this.renderer);
@@ -133,7 +154,6 @@ export class Game {
 
         // this.arrowMesh = new Mesh(this.gl);
         // this.arrowMesh.loadFromData(cube);
-
         this.placedArrow = new MeshNode(paletteIndex.brown);
         this.placedArrow.scale.set(0.005, 0.4, 0.005);
         this.placedArrow.position.set(0, -0.4 + 0.19, 0);
@@ -153,7 +173,6 @@ export class Game {
         //         this.handRm.setColor([0.0, 0.0, 1.0, 1]);
         //     }
         // });
-
         const tower = new Object3D();
         tower.setRenderer(this.renderer);
         tower.addNode(...this.getModel(TowerModel));
@@ -166,15 +185,6 @@ export class Game {
 
         this.scene.addNode(tower);
         this.scene.addNode(tower2);
-        session.updateRenderState({baseLayer: new XRWebGLLayer(session, this.gl)});
-
-        session.requestReferenceSpace('local').then((refSpace) => {
-            // make sure the camera starts 1.6m below the floor level
-            const xform = new XRRigidTransform({y: -1.6});
-            this.xrRefSpace = refSpace.getOffsetReferenceSpace(xform);
-
-            session.requestAnimationFrame(this.onXRFrame.bind(this));
-        });
     }
 
     /**
@@ -209,17 +219,7 @@ export class Game {
         let pose = frame.getViewerPose(this.xrRefSpace);
 
         // Check if any Arrow is close to any Knight
-        this.army.forEach((knight) => {
-            this.arrowList.forEach((arrow) => {
-                if (arrow.position.distanceTo(knight.position) < 2) {
-                    knight.hit();
-                    // this.battlefield.removeNode(this.battlefield.children.indexOf(knight));
-                    // this.army.splice(this.army.indexOf(knight), 1);
-                    this.battlefield!.removeNode(this.battlefield!.children.indexOf(arrow));
-                    this.arrowList.splice(this.arrowList.indexOf(arrow), 1);
-                }
-            });
-        });
+        this.checkKnightHits();
 
         this.scene.update(t);
 
@@ -264,12 +264,6 @@ export class Game {
             this.stringPart1!.recalculate(this.scene.leftHand.children[5], this.scene.leftHand.children[7]);
             this.stringPart2!.recalculate(this.scene.leftHand.children[6], this.scene.leftHand.children[7]);
 
-            // if (this.bow.readyToDraw) {
-            //     this.handRm.setColor([0.0, 1.0, 0.0, 1]);
-            // } else {
-            //     this.handRm.setColor([0.0, 0.0, 1.0, 1]);
-            // }
-
             if (this.bow!.state == State.DRAWN) {
                 this.placedArrow!.position.set(0, -0.4 + 0.19 + this.bow!.drawDistance, 0);
                 this.placedArrow!.active = true;
@@ -291,6 +285,20 @@ export class Game {
 
         // Per-frame scene teardown. Nothing WebXR specific here.
         //scene.endFrame();
+    }
+
+    private checkKnightHits() {
+        this.army.forEach((knight) => {
+            this.arrowList.forEach((arrow) => {
+                if (arrow.position.distanceTo(knight.position) < 2) {
+                    knight.hit();
+                    this.currentScore++;
+                    this.battlefield!.removeNode(this.battlefield!.children.indexOf(arrow));
+                    this.arrowList.splice(this.arrowList.indexOf(arrow), 1);
+                    return;
+                }
+            });
+        });
     }
 
     getModel(model: number[][][]) {
