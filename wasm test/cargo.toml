@@ -1,0 +1,12 @@
+[package]
+name = "js13kgames"
+version = "0.1.0"
+authors = ["Sorskoot <mental_c@hotmail.com>"]
+edition = "2021"
+
+[dependencies]
+wasm-bindgen = "0.2"
+
+[lib]
+crate-type = ["cdylib"]
+path = "data.rs"
