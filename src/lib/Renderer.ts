@@ -26,7 +26,7 @@ export class Renderer {
     vertexArray: WebGLVertexArrayObject | null;
     matrixBuffer: WebGLBuffer | null;
 
-    constructor(gl: WebGL2RenderingContext, cube) {
+    constructor(gl: WebGL2RenderingContext) {
         this.gl = gl;
 
         this.color = [0.3, 0.3, 0.3, 1];
