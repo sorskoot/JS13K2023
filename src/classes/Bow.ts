@@ -28,7 +28,9 @@ export class Bow {
     constructor() {
         this.state = State.IDLE;
         this.bowHandPosition = new Vector3(0, 0, 0);
+        this.bowHandOrientation = new Quaternion(0, 0, 0, 1);
         this.arrowHandPosition = new Vector3(0, 0, 0);
+        this.arrowHandOrientation = new Quaternion(0, 0, 0, 1);
     }
 
     /**

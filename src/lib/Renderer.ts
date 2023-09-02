@@ -20,11 +20,11 @@ export class Renderer {
     // light shing down from the south east
     private lightDirection = new Vector3(-1, -1, -1);
     //material: Material;
-    stride: number;
+    stride = 0;
     positionBuffer: WebGLBuffer | null;
     shader: SimpleShader;
-    vertexArray: WebGLVertexArrayObject | null;
-    matrixBuffer: WebGLBuffer | null;
+    vertexArray?: WebGLVertexArrayObject | null;
+    matrixBuffer?: WebGLBuffer | null;
 
     constructor(gl: WebGL2RenderingContext) {
         this.gl = gl;
@@ -38,7 +38,7 @@ export class Renderer {
 
         this.shader = new SimpleShader(gl);
 
-        this.gl.useProgram(this.shader.program);
+        this.gl.useProgram(this.shader.program!);
         this.positionBuffer = gl.createBuffer();
         this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.positionBuffer);
         this.gl.bufferData(this.gl.ARRAY_BUFFER, Cube2, this.gl.STATIC_DRAW);
@@ -51,7 +51,7 @@ export class Renderer {
         this.gl.enableVertexAttribArray(this.shader.normalLoc);
 
         gl.uniform3fv(
-            this.shader.colorsLoc,
+            this.shader.colorsLoc!,
             palette.flat().map((x) => x / 255)
         );
 
@@ -99,7 +99,7 @@ export class Renderer {
     ) {
         const numCubes = numInstances;
 
-        this.gl.useProgram(this.shader.program);
+        this.gl.useProgram(this.shader.program!);
 
         let inv = Matrix4.from(transform.inverse.matrix) as Matrix4;
         this.gl.uniformMatrix4fv(this.shader.viewLoc!, false, inv);

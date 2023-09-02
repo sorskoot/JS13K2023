@@ -2,7 +2,7 @@
     "compilerOptions": {
         "forceConsistentCasingInFileNames": true,
         "pretty": true,
-        "strict":false,
+        "strict":true,
         "noEmit": true,
         "noImplicitAny": false,
         "noImplicitOverride": true,

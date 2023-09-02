@@ -16,7 +16,7 @@ export class Object3D {
     public parent: Object3D | null = null;
     public active = true;
 
-    private _absoluteTransform: Matrix4;
+    private _absoluteTransform: Matrix4 = new Matrix4().set(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
 
     get absoluteTransform(): Matrix4 {
         if (!this.parent) return this.matrix;

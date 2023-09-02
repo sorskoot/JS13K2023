@@ -21,16 +21,16 @@ export class Game {
     renderer!: Renderer;
     cube!: Object3D;
     scene!: Scene;
-    bow: Bow;
-    stringPart1: StringPart;
-    stringPart2: StringPart;
+    bow?: Bow;
+    stringPart1?: StringPart;
+    stringPart2?: StringPart;
     //handRm: any;
-    placedArrow: MeshNode;
+    placedArrow?: MeshNode;
     //arrowMesh: Mesh;
     arrowList: Arrow[] = [];
 
     army: knightNode[] = [];
-    battlefield: Object3D;
+    battlefield?: Object3D;
 
     currentwave = 0;
 
@@ -215,7 +215,7 @@ export class Game {
                     knight.hit();
                     // this.battlefield.removeNode(this.battlefield.children.indexOf(knight));
                     // this.army.splice(this.army.indexOf(knight), 1);
-                    this.battlefield.removeNode(this.battlefield.children.indexOf(arrow));
+                    this.battlefield!.removeNode(this.battlefield!.children.indexOf(arrow));
                     this.arrowList.splice(this.arrowList.indexOf(arrow), 1);
                 }
             });
@@ -245,7 +245,7 @@ export class Game {
 
             this.scene.updateInputSources(frame, this.xrRefSpace);
 
-            this.bow.update(
+            this.bow!.update(
                 {
                     orientation: this.scene.leftHand.quaternion,
                     position: this.scene.leftHand.position,
@@ -261,8 +261,8 @@ export class Game {
                 this.scene.leftHand.children[9]
             );
 
-            this.stringPart1.recalculate(this.scene.leftHand.children[5], this.scene.leftHand.children[7]);
-            this.stringPart2.recalculate(this.scene.leftHand.children[6], this.scene.leftHand.children[7]);
+            this.stringPart1!.recalculate(this.scene.leftHand.children[5], this.scene.leftHand.children[7]);
+            this.stringPart2!.recalculate(this.scene.leftHand.children[6], this.scene.leftHand.children[7]);
 
             // if (this.bow.readyToDraw) {
             //     this.handRm.setColor([0.0, 1.0, 0.0, 1]);
@@ -270,14 +270,14 @@ export class Game {
             //     this.handRm.setColor([0.0, 0.0, 1.0, 1]);
             // }
 
-            if (this.bow.state == State.DRAWN) {
-                this.placedArrow!.position.set(0, -0.4 + 0.19 + this.bow.drawDistance, 0);
+            if (this.bow!.state == State.DRAWN) {
+                this.placedArrow!.position.set(0, -0.4 + 0.19 + this.bow!.drawDistance, 0);
                 this.placedArrow!.active = true;
-            } else if (this.bow.state == State.IDLE) {
+            } else if (this.bow!.state == State.IDLE) {
                 this.placedArrow!.active = false;
             }
 
-            this.scene.leftHand.children[7].position.set(0, 0.19 + this.bow.drawDistance, 0);
+            this.scene.leftHand.children[7].position.set(0, 0.19 + this.bow!.drawDistance, 0);
 
             // Loop through each of the views reported by the frame and draw them
             // into the corresponding viewport.
@@ -339,6 +339,6 @@ export class Game {
         knight.scale.set(0.15, 0.15, 0.15);
         knight.name = 'knight';
         this.army.push(knight);
-        this.battlefield.addNode(knight);
+        this.battlefield!.addNode(knight);
     }
 }

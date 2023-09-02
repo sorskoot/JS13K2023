@@ -1,6 +1,6 @@
 export class SimpleShader {
     gl: WebGL2RenderingContext;
-    program: WebGLProgram;
+    program?: WebGLProgram;
 
     projectionLoc?: WebGLUniformLocation;
     viewLoc?: WebGLUniformLocation;
@@ -13,7 +13,7 @@ export class SimpleShader {
     normalLoc = 2;
     colorLoc = 3;
     matrixLoc = 4;
-    colorsLoc: WebGLUniformLocation;
+    colorsLoc?: WebGLUniformLocation;
 
     constructor(gl: WebGL2RenderingContext) {
         this.gl = gl;
@@ -120,26 +120,7 @@ export class SimpleShader {
         this.ambientColorLoc = this.gl.getUniformLocation(program, 'uAmbientColor')!;
         this.lightingDirectionLoc = this.gl.getUniformLocation(program, 'uLightingDirection')!;
         this.directionalColorLoc = this.gl.getUniformLocation(program, 'uDirectionalColor')!;
-
-        this.debugListAttrib(program);
-
-        // this.gl.enableVertexAttribArray(this.positionLoc);
-        // this.gl.enableVertexAttribArray(this.colorLoc);
         this.gl.enableVertexAttribArray(this.matrixLoc);
-
-        // console.log(deb?.getTranslatedShaderSource(vShader));
         this.program = program;
-    }
-
-    private debugListAttrib(program: WebGLProgram) {
-        const attributeNames: string[] = [];
-        for (let i = 0; i < this.gl.getProgramParameter(program, this.gl.ACTIVE_ATTRIBUTES); i++)
-            attributeNames.push(this.gl.getActiveAttrib(program, i)!.name!);
-
-        // Print out their attribute location values
-        attributeNames
-            .reduce((c, attribName) => [...c, `${this.gl.getAttribLocation(program, attribName)}: ${attribName}`], [])
-            .sort()
-            .forEach((v) => console.log(v));
     }
 }
