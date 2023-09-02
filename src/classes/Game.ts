@@ -4,7 +4,7 @@ import {Scene} from './Scene';
 import {MeshNode} from '../lib/MeshNode';
 import {Waves, paletteIndex} from './Consts';
 import {Object3D} from '../lib/Object3D';
-import {BowModel, EnemyModel, TowerModel} from './Models';
+import {BowModel, EnemyModel, TowerModel, Wall} from './Models';
 import {Arrow, ArrowData, Bow, State, StringPart} from './Bow';
 import {Controller} from './Controller';
 import {knightNode} from './Knight';
@@ -152,6 +152,12 @@ export class Game {
         this.placedArrow.position.set(0, -0.4 + 0.19, 0);
 
         this.scene.leftHand.addNode(...nodes, this.stringPart1, this.stringPart2, this.placedArrow);
+
+        const wall = new Object3D();
+        wall.setRenderer(this.renderer);
+        wall.addNode(...this.getModel(Wall));
+        wall.position.set(0, -5, 4);
+        this.scene.addNode(wall);
 
         // this.scene.rightHand.onTrigger.on((value) => {
         //     if (value) {
