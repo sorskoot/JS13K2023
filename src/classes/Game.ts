@@ -114,7 +114,6 @@ export class Game {
 
     /**
      * Creates the game scene with the ground, battlefield, controllers, bow, arrow, string, wall, and towers.
-     * @returns {void}
      */
     private createScene() {
         this.scene = new Scene(this.renderer);

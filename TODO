@@ -16,11 +16,12 @@ Must have:
         ☐ Remove Arrow after X seconds
 
     Title screen in HTML:
-        ☐ Very basic HTML page with some CSS styling
-        ☐ VR/Start Button
-        ☐ Name of the game
+        ✔ Very basic HTML page with some CSS styling @done(23-09-03 00:18)
+        ✔ VR/Start Button @done(23-09-03 00:18)
+        ✔ Name of the game @done(23-09-03 00:18)
 
 Should have:
+    ☐ Error handling / disable VR button on desktop
     Title screen in VR:
             We could use a similar approach as with the `Back to Space` game
             with generated textures containing a text. The difficulty is that
