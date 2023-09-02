@@ -1,5 +1,6 @@
 import {palette} from '../classes/Consts';
 import {Cube2} from './Consts';
+//import {Cube2} from './Consts';
 import {GL} from './GL';
 import {Matrix4} from './Matrix4';
 import {SimpleShader} from './SimpleShader';
@@ -25,7 +26,7 @@ export class Renderer {
     vertexArray: WebGLVertexArrayObject | null;
     matrixBuffer: WebGLBuffer | null;
 
-    constructor(gl: WebGL2RenderingContext) {
+    constructor(gl: WebGL2RenderingContext, cube) {
         this.gl = gl;
 
         this.color = [0.3, 0.3, 0.3, 1];

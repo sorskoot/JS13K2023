@@ -19,7 +19,7 @@ export class Game {
     xrSession!: XRSession;
     gl!: WebGL2RenderingContext;
     renderer!: Renderer;
-    cube!: Object3D;
+    cube!: any;
     scene!: Scene;
     bow: Bow;
     stringPart1: StringPart;
@@ -37,6 +37,12 @@ export class Game {
     constructor() {
         console.log('Game started');
         this.initXR();
+        // fetch('CubeModel.bin')
+        //     .then((response) => response.arrayBuffer())
+        //     .then((arrayBuffer) => {
+        //         this.cube = new Float32Array(arrayBuffer);
+        //     })
+        //     .catch((error) => console.error('Error:', error));
     }
 
     /**
@@ -94,7 +100,7 @@ export class Game {
             baseLayer: new XRWebGLLayer(this.xrSession, this.gl),
         }); // this line simply sets our session's WebGL context to our WebGL2 context
 
-        this.renderer = new Renderer(this.gl);
+        this.renderer = new Renderer(this.gl, this.cube);
         this.renderer.depthTesting(true); // if you don't know what that means - it means that our meshes will be rendered properly ¯\_(ツ)_/¯
 
         this.scene = new Scene(this.renderer);
