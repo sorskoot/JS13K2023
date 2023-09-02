@@ -1,9 +1,9 @@
 # Development Plan
 
 Must have:
-    ☐ Some basic level design
+    ✔ Some basic level design @done(23-09-02 21:38)
         ~ standing on the castle wall
-    ☐ Indication that you hit an enemy
+    ✔ Indication that you hit an enemy @done(23-09-02 21:46)
         ~ Stop moving and become red for a second and then they disappear
     ☐ Keep track of score
     ☐ Show score when game over
@@ -11,6 +11,8 @@ Must have:
         ~ when they do you'll be kicked out of VR and see the score
     ☐ Remove Arrow when below the ground
     ☐ Remove Arrow after X seconds
+    ☐ Next level when all knights are killed.
+
     Title screen in HTML:
         ☐ Very basic HTML page with some CSS styling
         ☐ VR/Start Button
@@ -27,8 +29,15 @@ Should have:
         ☐ Exit button
     ☐ Better enemy animation
     ☐ Better enemy design
+    
+    Other enemies:
+        ☐ Archers that shoot back so you'll have to duck
+        ☐ Knights with shields that need to be hit twice
+        ☐ Red knights that are faster but spawn a little later
+
     ☐ nice level design    
         ~ some trees, grass, etc.
+    ☐ More levels
     Arrow improvements:        
         ☐ Arrows flying with an arc
         ☐ Arrow trail

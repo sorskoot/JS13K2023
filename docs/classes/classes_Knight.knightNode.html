@@ -27,7 +27,7 @@
 <ul class="tsd-hierarchy">
 <li><span class="target">knightNode</span></li></ul></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in src/classes/Knight.ts:4</li></ul></aside>
+<li>Defined in src/classes/Knight.ts:5</li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-index-accordion" open><summary class="tsd-accordion-summary tsd-index-summary">
@@ -41,6 +41,8 @@
 <h3 class="tsd-index-heading">Properties</h3>
 <div class="tsd-index-list"><a href="classes_Knight.knightNode.html#active" class="tsd-index-link tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-1024"><rect fill="var(--color-icon-background)" stroke="#FF984D" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="12"></rect><path d="M9.354 16V7.24H12.174C12.99 7.24 13.638 7.476 14.118 7.948C14.606 8.412 14.85 9.036 14.85 9.82C14.85 10.604 14.606 11.232 14.118 11.704C13.638 12.168 12.99 12.4 12.174 12.4H10.434V16H9.354ZM10.434 11.428H12.174C12.646 11.428 13.022 11.284 13.302 10.996C13.59 10.7 13.734 10.308 13.734 9.82C13.734 9.324 13.59 8.932 13.302 8.644C13.022 8.356 12.646 8.212 12.174 8.212H10.434V11.428Z" fill="var(--color-text)"></path></g></svg><span>active</span></a>
 <a href="classes_Knight.knightNode.html#children" class="tsd-index-link tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>children</span></a>
+<a href="classes_Knight.knightNode.html#deathTimer" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>death<wbr/>Timer</span></a>
+<a href="classes_Knight.knightNode.html#isHit" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>is<wbr/>Hit</span></a>
 <a href="classes_Knight.knightNode.html#jump" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>jump</span></a>
 <a href="classes_Knight.knightNode.html#matrix" class="tsd-index-link tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>matrix</span></a>
 <a href="classes_Knight.knightNode.html#name" class="tsd-index-link tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>name</span></a>
@@ -60,6 +62,7 @@
 <section class="tsd-index-section">
 <h3 class="tsd-index-heading">Methods</h3>
 <div class="tsd-index-list"><a href="classes_Knight.knightNode.html#addNode" class="tsd-index-link tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-2048"><rect fill="var(--color-icon-background)" stroke="#FF4DB8" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="12"></rect><path d="M9.162 16V7.24H10.578L11.514 10.072C11.602 10.328 11.674 10.584 11.73 10.84C11.794 11.088 11.842 11.28 11.874 11.416C11.906 11.28 11.954 11.088 12.018 10.84C12.082 10.584 12.154 10.324 12.234 10.06L13.122 7.24H14.538V16H13.482V12.82C13.482 12.468 13.49 12.068 13.506 11.62C13.53 11.172 13.558 10.716 13.59 10.252C13.622 9.78 13.654 9.332 13.686 8.908C13.726 8.476 13.762 8.1 13.794 7.78L12.366 12.16H11.334L9.894 7.78C9.934 8.092 9.97 8.456 10.002 8.872C10.042 9.28 10.078 9.716 10.11 10.18C10.142 10.636 10.166 11.092 10.182 11.548C10.206 12.004 10.218 12.428 10.218 12.82V16H9.162Z" fill="var(--color-text)"></path></g></svg><span>add<wbr/>Node</span></a>
+<a href="classes_Knight.knightNode.html#hit" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>hit</span></a>
 <a href="classes_Knight.knightNode.html#removeNode" class="tsd-index-link tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>remove<wbr/>Node</span></a>
 <a href="classes_Knight.knightNode.html#render2" class="tsd-index-link tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>render2</span></a>
 <a href="classes_Knight.knightNode.html#setRenderer" class="tsd-index-link tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>set<wbr/>Renderer</span></a>
@@ -76,7 +79,7 @@
 <h4 class="tsd-returns-title">Returns <a href="classes_Knight.knightNode.html" class="tsd-signature-type tsd-kind-class">knightNode</a></h4><aside class="tsd-sources">
 <p>Overrides <a href="lib_Object3D.Object3D.html">Object3D</a>.<a href="lib_Object3D.Object3D.html#constructor">constructor</a></p>
 <ul>
-<li>Defined in src/classes/Knight.ts:10</li></ul></aside></li></ul></section></section>
+<li>Defined in src/classes/Knight.ts:13</li></ul></aside></li></ul></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Properties</h2>
 <section class="tsd-panel tsd-member tsd-is-inherited"><a id="active" class="tsd-anchor"></a>
@@ -91,11 +94,21 @@
 <p>Inherited from <a href="lib_Object3D.Object3D.html">Object3D</a>.<a href="lib_Object3D.Object3D.html#children">children</a></p>
 <ul>
 <li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/57a3292/src/lib/Object3D.ts#L15">src/lib/Object3D.ts:15</a></li></ul></aside></section>
+<section class="tsd-panel tsd-member"><a id="deathTimer" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>death<wbr/>Timer</span><a href="#deathTimer" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">death<wbr/>Timer</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 1</span></div><aside class="tsd-sources">
+<ul>
+<li>Defined in src/classes/Knight.ts:11</li></ul></aside></section>
+<section class="tsd-panel tsd-member"><a id="isHit" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>is<wbr/>Hit</span><a href="#isHit" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">is<wbr/>Hit</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div><aside class="tsd-sources">
+<ul>
+<li>Defined in src/classes/Knight.ts:10</li></ul></aside></section>
 <section class="tsd-panel tsd-member"><a id="jump" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>jump</span><a href="#jump" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">jump</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in src/classes/Knight.ts:5</li></ul></aside></section>
+<li>Defined in src/classes/Knight.ts:6</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited"><a id="matrix" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagReadonly">Readonly</code> <span>matrix</span><a href="#matrix" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">matrix</span><span class="tsd-signature-symbol">:</span> <a href="lib_Matrix4.Matrix4.html" class="tsd-signature-type tsd-kind-class">Matrix4</a><span class="tsd-signature-symbol"> = ...</span></div><aside class="tsd-sources">
@@ -112,7 +125,7 @@
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagOptional">Optional</code> <span>org<wbr/>Pos</span><a href="#orgPos" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">org<wbr/>Pos</span><span class="tsd-signature-symbol">?:</span> <a href="lib_Vector3.Vector3.html" class="tsd-signature-type tsd-kind-class">Vector3</a></div><aside class="tsd-sources">
 <ul>
-<li>Defined in src/classes/Knight.ts:7</li></ul></aside></section>
+<li>Defined in src/classes/Knight.ts:8</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited"><a id="parent" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>parent</span><a href="#parent" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">parent</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="lib_Object3D.Object3D.html" class="tsd-signature-type tsd-kind-class">Object3D</a><span class="tsd-signature-symbol"> = null</span></div><aside class="tsd-sources">
@@ -135,7 +148,7 @@
 <h3 class="tsd-anchor-link"><span>random</span><a href="#random" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">random</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in src/classes/Knight.ts:8</li></ul></aside></section>
+<li>Defined in src/classes/Knight.ts:9</li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-protected tsd-is-inherited"><a id="renderer" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagProtected">Protected</code> <code class="tsd-tag ts-flagOptional">Optional</code> <span>renderer</span><a href="#renderer" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">renderer</span><span class="tsd-signature-symbol">?:</span> <a href="lib_Renderer.Renderer.html" class="tsd-signature-type tsd-kind-class">Renderer</a></div><aside class="tsd-sources">
@@ -152,7 +165,7 @@
 <h3 class="tsd-anchor-link"><span>temp<wbr/>Pos</span><a href="#tempPos" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">temp<wbr/>Pos</span><span class="tsd-signature-symbol">:</span> <a href="lib_Vector3.Vector3.html" class="tsd-signature-type tsd-kind-class">Vector3</a><span class="tsd-signature-symbol"> = ...</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in src/classes/Knight.ts:6</li></ul></aside></section></section>
+<li>Defined in src/classes/Knight.ts:7</li></ul></aside></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Accessors</h2>
 <section class="tsd-panel tsd-member tsd-is-inherited"><a id="absoluteTransform" class="tsd-anchor"></a>
@@ -180,6 +193,14 @@
 <p>Inherited from <a href="lib_Object3D.Object3D.html">Object3D</a>.<a href="lib_Object3D.Object3D.html#addNode">addNode</a></p>
 <ul>
 <li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/57a3292/src/lib/Object3D.ts#L45">src/lib/Object3D.ts:45</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member"><a id="hit" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>hit</span><a href="#hit" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<ul class="tsd-signatures">
+<li class="tsd-signature tsd-anchor-link" id="hit.hit-1"><span class="tsd-kind-call-signature">hit</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><a href="#hit.hit-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-description">
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in src/classes/Knight.ts:18</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-inherited"><a id="removeNode" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>remove<wbr/>Node</span><a href="#removeNode" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-inherited">
@@ -237,7 +258,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <p>Overrides <a href="lib_Object3D.Object3D.html">Object3D</a>.<a href="lib_Object3D.Object3D.html#update">update</a></p>
 <ul>
-<li>Defined in src/classes/Knight.ts:15</li></ul></aside></li></ul></section>
+<li>Defined in src/classes/Knight.ts:23</li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-is-inherited"><a id="updateMatrix" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>update<wbr/>Matrix</span><a href="#updateMatrix" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-is-inherited">
@@ -269,6 +290,8 @@
 <li><a href="#constructor" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-512"></use></svg><span>constructor</span></a></li>
 <li><a href="#active" class="tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>active</span></a></li>
 <li><a href="#children" class="tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>children</span></a></li>
+<li><a href="#deathTimer" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>death<wbr/>Timer</span></a></li>
+<li><a href="#isHit" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>is<wbr/>Hit</span></a></li>
 <li><a href="#jump" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>jump</span></a></li>
 <li><a href="#matrix" class="tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>matrix</span></a></li>
 <li><a href="#name" class="tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>name</span></a></li>
@@ -282,6 +305,7 @@
 <li><a href="#tempPos" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>temp<wbr/>Pos</span></a></li>
 <li><a href="#absoluteTransform" class="tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-262144"></use></svg><span>absolute<wbr/>Transform</span></a></li>
 <li><a href="#addNode" class="tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>add<wbr/>Node</span></a></li>
+<li><a href="#hit" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>hit</span></a></li>
 <li><a href="#removeNode" class="tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>remove<wbr/>Node</span></a></li>
 <li><a href="#render2" class="tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>render2</span></a></li>
 <li><a href="#setRenderer" class="tsd-is-inherited"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>set<wbr/>Renderer</span></a></li>

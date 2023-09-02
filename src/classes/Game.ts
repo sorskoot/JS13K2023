@@ -143,7 +143,7 @@ export class Game {
         const wall = new Object3D();
         wall.setRenderer(this.renderer);
         wall.addNode(...this.getModel(Wall));
-        wall.position.set(0, -5, 4);
+        wall.position.set(8, -5, 4);
         this.scene.addNode(wall);
 
         // this.scene.rightHand.onTrigger.on((value) => {
@@ -157,12 +157,12 @@ export class Game {
         const tower = new Object3D();
         tower.setRenderer(this.renderer);
         tower.addNode(...this.getModel(TowerModel));
-        tower.position.set(-15, -5, -15);
+        tower.position.set(-15, -2, -2);
 
         const tower2 = new Object3D();
         tower2.setRenderer(this.renderer);
         tower2.addNode(...this.getModel(TowerModel));
-        tower2.position.set(15, -5, -15);
+        tower2.position.set(15, -2, -2);
 
         this.scene.addNode(tower);
         this.scene.addNode(tower2);
@@ -212,8 +212,9 @@ export class Game {
         this.army.forEach((knight) => {
             this.arrowList.forEach((arrow) => {
                 if (arrow.position.distanceTo(knight.position) < 2) {
-                    this.battlefield.removeNode(this.battlefield.children.indexOf(knight));
-                    this.army.splice(this.army.indexOf(knight), 1);
+                    knight.hit();
+                    // this.battlefield.removeNode(this.battlefield.children.indexOf(knight));
+                    // this.army.splice(this.army.indexOf(knight), 1);
                     this.battlefield.removeNode(this.battlefield.children.indexOf(arrow));
                     this.arrowList.splice(this.arrowList.indexOf(arrow), 1);
                 }
@@ -334,7 +335,7 @@ export class Game {
         let knight = new knightNode();
         knight.setRenderer(this.renderer);
         knight.addNode(...this.getModel(EnemyModel));
-        knight.position.set(11 - j * 2, 0.25 - 5, -25 - i * 2);
+        knight.position.set(11 - j * 2, 0.25 - 5, -40 - i * 2);
         knight.scale.set(0.15, 0.15, 0.15);
         knight.name = 'knight';
         this.army.push(knight);

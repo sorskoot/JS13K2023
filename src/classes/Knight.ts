@@ -1,3 +1,4 @@
+import {MeshNode} from '../lib/MeshNode';
 import {Object3D} from '../lib/Object3D';
 import {Vector3} from '../lib/Vector3';
 
@@ -6,13 +7,29 @@ export class knightNode extends Object3D {
     tempPos = new Vector3();
     orgPos?: Vector3;
     random: number;
+    isHit = false;
+    deathTimer = 1;
 
     constructor() {
         super();
         this.random = Math.random() * Math.PI;
     }
 
+    hit() {
+        this.children.forEach((child) => ((child as MeshNode).colorIndex = 5));
+        this.isHit = true;
+    }
+
     override update(dt: number): void {
+        if (this.isHit) {
+            if (this.deathTimer > 0) {
+                this.deathTimer -= dt;
+                if (this.deathTimer <= 0) {
+                    this.active = false;
+                }
+            }
+            return;
+        }
         if (!this.orgPos) {
             this.orgPos = new Vector3(this.position.x, this.position.y, this.position.z);
         }
