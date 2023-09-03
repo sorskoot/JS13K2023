@@ -26,7 +26,7 @@ export class SimpleShader {
     private compileShader() {
         const vs = `#version 300 es
     #pragma vscode_glsllint_stage: vert
-    precision mediump float;
+    precision highp float;
 
     layout(location=0) in vec3 aPosition;
     layout(location=1) in vec2 aTexCoord;
@@ -39,11 +39,13 @@ export class SimpleShader {
     uniform vec3 uColors[10];
 
     uniform vec3 uLightingDirection;
-
+    
     out vec4 vPosition;
     out vec3 vColor;
     out vec3 vNormal;
     out vec4 vLightDirection;
+    out vec2 vTexCoord;
+    out vec3 vScale;
 
     void main() {
         vColor = uColors[uint(aColor)];
@@ -52,21 +54,30 @@ export class SimpleShader {
         mat3 normalMatrix = transpose(inverse(mat3(modelViewMatrix)));
         vNormal = normalize(normalMatrix * aNormal);
         vLightDirection = uView * vec4(uLightingDirection, 1.0);
-        vPosition = modelViewMatrix * vec4(aPosition, 1.0);
-        gl_Position = uProjection * vPosition;
+        vec4 position = modelViewMatrix * vec4(aPosition, 1.0);
+        gl_Position = uProjection * position;
+        vTexCoord = aTexCoord;
+        vPosition =  vec4(aPosition, 1.0);
+        vec3 x_axis = vec3(aModel[0][0], aModel[1][0], aModel[2][0]); 
+        vec3 y_axis = vec3(aModel[0][1], aModel[1][1], aModel[2][1]); 
+        vec3 z_axis = vec3(aModel[0][2], aModel[1][2], aModel[2][2]);
+        vScale = vec3(length(x_axis),length(y_axis),length(z_axis));
     }
 `;
         const fs = `#version 300 es
         #pragma vscode_glsllint_stage: frag
-  precision mediump float;
+  precision highp float;
 
   uniform vec3 uAmbientColor;
   uniform vec3 uDirectionalColor;
   uniform mat4 uView;
 
+  in vec4 vPosition;
   in vec3 vColor;
   in vec3 vNormal;
   in vec4 vLightDirection;
+  in vec2 vTexCoord;
+  in vec3 vScale;
   out vec4 oColor;
 
   float fogFactorExp2(float dist, float density) {
@@ -75,14 +86,31 @@ export class SimpleShader {
     return 1.0 - clamp(exp2(d*d*LOG2), 0.0, 1.0);
   }
 
+  float random(vec2 co)
+  {
+    return fract(sin(dot(co.xy,vec2(12.9898,78.233))) * 43758.5453);
+  }
+
   void main() {
     float dist = gl_FragCoord.z/gl_FragCoord.w;
     float fogFactor = fogFactorExp2(dist, 0.035);
-
+    
     float directionalLightIntensity = max(0.0, dot(vNormal, normalize(-vLightDirection.xyz)));
+    
+    vec3 norm = normalize(vNormal);
+    vec2 uvX = vPosition.yz * vScale.yz;
+    vec2 uvY = vPosition.zx * vScale.zx;
+    vec2 uvZ = vPosition.xy * vScale.xy;
+
+    float fX = random(floor(uvX*5.0)/5.0) * abs(norm.x);
+    float fY = random(floor(uvY*5.0)/5.0) * abs(norm.y);
+    float fZ = random(floor(uvZ*5.0)/5.0) * abs(norm.z);
+
+    float f = fX + fY + fZ;
 
     vec3 light = uAmbientColor + directionalLightIntensity * uDirectionalColor;
-    vec3 diffuse = vColor.rgb * light;
+    vec3 diffuse = vColor.rgb * light * (0.7+f*0.3);
+    
     oColor  = mix(vec4(diffuse,1.0), vec4(0.5, 0.8, 1., 1.), fogFactor);
   }
 `;
