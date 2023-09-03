@@ -223,6 +223,10 @@ export class Game {
         this.scene.updateMatrix();
 
         this.deleteInactiveArrows();
+        if (this.knightReachedCastle()) {
+            console.log('Game Over');
+            return;
+        }
 
         // Getting the pose may fail if, for example, tracking is lost. So we
         // have to check to make sure that we got a valid pose before attempting
@@ -286,7 +290,7 @@ export class Game {
         //scene.endFrame();
     }
 
-    deleteInactiveArrows() {
+    private deleteInactiveArrows() {
         this.arrowList.forEach((arrow) => {
             if (!arrow.active) {
                 this.arrowList.splice(this.arrowList.indexOf(arrow), 1);
@@ -308,7 +312,7 @@ export class Game {
         });
     }
 
-    getModel(model: number[][][]) {
+    private getModel(model: number[][][]) {
         return model.map((props) => {
             const node = new MeshNode(props[3][0]);
             node.scale.set(...props[1]);
@@ -318,7 +322,7 @@ export class Game {
         });
     }
 
-    spawnArrow(arrowData: ArrowData) {
+    private spawnArrow(arrowData: ArrowData) {
         //const arrow = new MeshNode(this.arrowMesh, this.arrowMat);
         const arrow = new Arrow(paletteIndex.brown);
         arrow.position.copy(arrowData.position);
@@ -332,7 +336,7 @@ export class Game {
         this.scene.addNode(arrow);
     }
 
-    spawnKnightWave() {
+    private spawnKnightWave() {
         let spawned = 0;
         for (let i = 0; i < 5; i++) {
             // wave rows
@@ -346,7 +350,8 @@ export class Game {
         }
         return spawned;
     }
-    spawnKnight(j: number, i: number, arg2: number) {
+
+    private spawnKnight(j: number, i: number, arg2: number) {
         let knight = new knightNode();
         knight.setRenderer(this.renderer);
         knight.addNode(...this.getModel(EnemyModel));
@@ -355,5 +360,9 @@ export class Game {
         knight.name = 'knight';
         this.army.push(knight);
         this.battlefield!.addNode(knight);
+    }
+
+    private knightReachedCastle(): boolean {
+        return this.army.some((knight) => knight.position.z > 0);
     }
 }

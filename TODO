@@ -6,7 +6,7 @@ Must have:
     ✔ Indication that you hit an enemy @done(23-09-02 21:46)
         ~ Stop moving and become red for a second and then they disappear
     ✔ Keep track of score @done(23-09-02 22:27)
-    ☐ Game over when knights reach the castle
+    ✔ Game over when knights reach the castle @done(23-09-03 21:48)
     ☐ Next level when all knights are killed.
 
     ☐ Show score when game over

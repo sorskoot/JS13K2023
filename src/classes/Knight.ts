@@ -39,7 +39,7 @@ export class knightNode extends Object3D {
         this.tempPos.x = this.orgPos.x + Math.sin(this.jump * 1) * 4;
         this.tempPos.z = this.orgPos.z + this.jump;
         this.position.set(this.tempPos.x, this.tempPos.y, this.tempPos.z);
-        //console.log(this.position);
+
         this.children.forEach((child) => child.update(dt));
     }
 }
