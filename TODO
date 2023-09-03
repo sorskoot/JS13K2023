@@ -8,8 +8,8 @@ Must have:
     ✔ Keep track of score @done(23-09-02 22:27)
     ✔ Game over when knights reach the castle @done(23-09-03 21:48)
     ☐ Next level when all knights are killed.
-
-    ☐ Show score when game over
+    ✔ Show score when game over @done(23-09-03 22:56)
+    ☐ Play again when game over
         ~ when they do you'll be kicked out of VR and see the score
     General improvements:
         ✔ Remove Arrow when below the ground @done(23-09-03 12:48)

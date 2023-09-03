@@ -224,7 +224,17 @@ export class Game {
 
         this.deleteInactiveArrows();
         if (this.knightReachedCastle()) {
-            console.log('Game Over');
+            let normalTitle = document.querySelector('.title.normal')! as HTMLElement;
+            normalTitle.style.display = 'none';
+
+            let gameover = document.querySelector('.game-over')! as HTMLElement;
+            gameover.style.display = 'block';
+
+            let scorecontainer = document.querySelector('.score-container')! as HTMLElement;
+            scorecontainer.style.display = 'block';
+
+            document.getElementById('score')!.innerText = `${this.currentScore}`;
+            this.xrSession.end();
             return;
         }
 
