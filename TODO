@@ -32,7 +32,7 @@ Should have:
         ☐ Exit button
     ☐ Better enemy animation
     ☐ Better enemy design
-    
+    ☐ Better collision algoritm (aabb)
     Other enemies:
         ☐ Archers that shoot back so you'll have to duck
         ☐ Knights with shields that need to be hit twice
@@ -42,7 +42,7 @@ Should have:
         ~ some trees, grass, etc.
     ☐ More levels
     Arrow improvements:        
-        ☐ Arrows flying with an arc
+        ✔ Arrows flying with an arc @done(23-09-03 12:29)
         ☐ Arrow trail
     Title screen in HTML:
         ☐ Show a canvas with the game design as a background

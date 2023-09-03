@@ -165,7 +165,7 @@ export class Arrow extends MeshNode {
     private state: ArrowState;
     velocity: Vector3;
 
-    constructor(arrowMat) {
+    constructor(arrowMat: number) {
         super(arrowMat);
         this.scale.set(0.005, 0.005, 0.4);
         this.position.set(0, -0.4 + 0.19, 0);
@@ -185,8 +185,10 @@ export class Arrow extends MeshNode {
         //this.velocity.multiply(0.999);
         const old = new Vector3();
         old.copy(this.position);
+        this.velocity.y -= 9.8 * dt;
+
         this.position.x += this.velocity.x * dt;
-        this.position.y += this.velocity.y * dt - 0.5 * 9.8 * dt * dt; // subtract gravity, sort of
+        this.position.y += this.velocity.y * dt;
         this.position.z += this.velocity.z * dt;
 
         this.quaternion.lookAt(old, this.position, new Vector3(0, -1, 0));
