@@ -12,8 +12,8 @@ Must have:
     ☐ Show score when game over
         ~ when they do you'll be kicked out of VR and see the score
     General improvements:
-        ☐ Remove Arrow when below the ground
-        ☐ Remove Arrow after X seconds
+        ✔ Remove Arrow when below the ground @done(23-09-03 12:48)
+        ✘ Remove Arrow after X seconds @cancelled(23-09-03 12:48)
 
     Title screen in HTML:
         ✔ Very basic HTML page with some CSS styling @done(23-09-03 00:18)
@@ -21,6 +21,9 @@ Must have:
         ✔ Name of the game @done(23-09-03 00:18)
 
 Should have:
+    Architecture:
+        ☐ Split Game class into multiple
+            XR part should be separated from game logic
     ☐ Error handling / disable VR button on desktop
     Title screen in VR:
             We could use a similar approach as with the `Back to Space` game

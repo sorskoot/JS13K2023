@@ -192,6 +192,10 @@ export class Arrow extends MeshNode {
         this.position.z += this.velocity.z * dt;
 
         this.quaternion.lookAt(old, this.position, new Vector3(0, -1, 0));
+
+        if (this.position.y < -5) {
+            this.active = false;
+        }
         // Check for collision with enemy here and if so set state to HIT_TARGET
         //         break;
         //     case ArrowState.HIT_TARGET:

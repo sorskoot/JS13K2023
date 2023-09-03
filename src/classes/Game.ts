@@ -219,10 +219,10 @@ export class Game {
 
         // Check if any Arrow is close to any Knight
         this.checkKnightHits();
-
         this.scene.update(t);
-
         this.scene.updateMatrix();
+
+        this.deleteInactiveArrows();
 
         // Getting the pose may fail if, for example, tracking is lost. So we
         // have to check to make sure that we got a valid pose before attempting
@@ -284,6 +284,14 @@ export class Game {
 
         // Per-frame scene teardown. Nothing WebXR specific here.
         //scene.endFrame();
+    }
+
+    deleteInactiveArrows() {
+        this.arrowList.forEach((arrow) => {
+            if (!arrow.active) {
+                this.arrowList.splice(this.arrowList.indexOf(arrow), 1);
+            }
+        });
     }
 
     private checkKnightHits() {
