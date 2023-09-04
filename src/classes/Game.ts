@@ -17,7 +17,7 @@ export class Game {
     // XR globals.
     xrButton!: HTMLButtonElement;
     xrRefSpace!: XRReferenceSpace | XRBoundedReferenceSpace;
-    xrSession!: XRSession;
+    xrSession?: XRSession;
     gl!: WebGL2RenderingContext;
     renderer!: Renderer;
     cube!: Object3D;
@@ -40,6 +40,19 @@ export class Game {
 
     constructor() {
         console.log('Game started');
+
+        let webglCanvas = document.createElement('canvas');
+        // Create a WebGL context to render with, initialized to be compatible
+        // with the XRDisplay we're presenting to.
+        this.gl = webglCanvas.getContext('webgl2', {
+            xrCompatible: true,
+            alpha: false,
+        })!;
+        this.renderer = new Renderer(this.gl);
+        this.renderer.depthTesting(true); // if you don't know what that means - it means that our meshes will be rendered properly ¯\_(ツ)_/¯
+
+        this.createScene();
+
         this.initXR();
     }
 
@@ -85,14 +98,6 @@ export class Game {
 
         SFX.initAudio();
 
-        let webglCanvas = document.createElement('canvas');
-        // Create a WebGL context to render with, initialized to be compatible
-        // with the XRDisplay we're presenting to.
-        this.gl = webglCanvas.getContext('webgl2', {
-            xrCompatible: true,
-            alpha: false,
-        })!;
-
         this.xrSession = session; // we set our session to be the session our request created
         this.xrSession.addEventListener('end', this.onSessionEnded.bind(this)); // we set what happenes when our session is ended
 
@@ -100,12 +105,6 @@ export class Game {
             baseLayer: new XRWebGLLayer(this.xrSession, this.gl),
         }); // this line simply sets our session's WebGL context to our WebGL2 context
 
-        this.renderer = new Renderer(this.gl);
-        this.renderer.depthTesting(true); // if you don't know what that means - it means that our meshes will be rendered properly ¯\_(ツ)_/¯
-
-        if (!this.scene) {
-            this.createScene();
-        }
         this.currentwave = -1;
         this.currentScore = 0;
 
@@ -201,6 +200,7 @@ export class Game {
         //TODO: do something with speed to slowly increase difficulty
 
         this.battlefield!.children.length = 0;
+        this.army = [];
         this.numberOfKnightsLeft = this.spawnKnightWave();
     }
 
@@ -212,10 +212,7 @@ export class Game {
      * @param event The event that caused the session to end.
      */
     onSessionEnded(event) {
-        //xrButton.setSession(null);
-        // In this simple case discard the WebGL context too, since we're not
-        // rendering anything else to the screen with it.
-        // renderer = null;
+        this.xrSession = undefined;
     }
 
     ang = 0;
@@ -242,17 +239,20 @@ export class Game {
 
         this.deleteInactiveArrows();
         if (this.knightReachedCastle()) {
-            let normalTitle = document.querySelector('.title.normal')! as HTMLElement;
-            normalTitle.style.display = 'none';
+            this.xrSession!.end().then(() => {
+                let normalTitle = document.querySelector('.title.normal')! as HTMLElement;
+                normalTitle.style.display = 'none';
 
-            let gameover = document.querySelector('.game-over')! as HTMLElement;
-            gameover.style.display = 'block';
+                let gameover = document.querySelector('.game-over')! as HTMLElement;
+                gameover.style.display = 'block';
 
-            let scorecontainer = document.querySelector('.score-container')! as HTMLElement;
-            scorecontainer.style.display = 'block';
+                let scorecontainer = document.querySelector('.score-container')! as HTMLElement;
+                scorecontainer.style.display = 'block';
 
-            document.getElementById('score')!.innerText = `${this.currentScore}`;
-            this.xrSession.end();
+                document.getElementById('score')!.innerText = `${this.currentScore}`;
+
+                this.xrSession = undefined;
+            });
             return;
         }
 
@@ -356,14 +356,12 @@ export class Game {
 
     private spawnArrow(arrowData: ArrowData) {
         SFX.playSound(Sounds.shoot);
-        //const arrow = new MeshNode(this.arrowMesh, this.arrowMat);
         const arrow = new Arrow(paletteIndex.brown);
         arrow.position.copy(arrowData.position);
         arrow.quaternion.copy(arrowData.orientation);
 
         // calculate velocity based on arrowData.force and arrowData.direction
         arrow.velocity.copy(arrowData.direction).multiply(arrowData.force);
-        console.log(arrow.velocity);
 
         this.arrowList.push(arrow);
         this.scene.addNode(arrow);

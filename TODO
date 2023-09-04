@@ -7,9 +7,9 @@ Must have:
         ~ Stop moving and become red for a second and then they disappear
     ✔ Keep track of score @done(23-09-02 22:27)
     ✔ Game over when knights reach the castle @done(23-09-03 21:48)
-    ☐ Next level when all knights are killed.
+    ✔ Next level when all knights are killed. @done(23-09-04 22:04)
     ✔ Show score when game over @done(23-09-03 22:56)
-    ☐ Play again when game over
+    ✔ Play again when game over @done(23-09-04 22:04)
         ~ when they do you'll be kicked out of VR and see the score
     General improvements:
         ✔ Remove Arrow when below the ground @done(23-09-03 12:48)
@@ -55,6 +55,7 @@ Should have:
 
 Could have:
     ☐ Desktop support
+        ☐ Resize must work then as well.
     ☐ Particle effects
     ☐ great level Design
         ~ more details om towers, etc.
