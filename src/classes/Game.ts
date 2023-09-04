@@ -8,6 +8,7 @@ import {BowModel, EnemyModel, TowerModel, Wall} from './Models';
 import {Arrow, ArrowData, Bow, State, StringPart} from './Bow';
 import {Controller} from './Controller';
 import {knightNode} from './Knight';
+import {SFX, Sounds} from './sfx';
 
 /**
  * Represents the game object.
@@ -80,6 +81,8 @@ export class Game {
         // Listen for the sessions 'end' event so we can respond if the user
         // or UA ends the session for any reason.
         session.addEventListener('end', this.onSessionEnded.bind(this));
+
+        SFX.initAudio();
 
         let webglCanvas = document.createElement('canvas');
         // Create a WebGL context to render with, initialized to be compatible
@@ -332,6 +335,7 @@ export class Game {
     }
 
     private spawnArrow(arrowData: ArrowData) {
+        SFX.playSound(Sounds.shoot);
         //const arrow = new MeshNode(this.arrowMesh, this.arrowMat);
         const arrow = new Arrow(paletteIndex.brown);
         arrow.position.copy(arrowData.position);
