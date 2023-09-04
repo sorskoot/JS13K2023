@@ -19,7 +19,9 @@ Must have:
         ✔ Very basic HTML page with some CSS styling @done(23-09-03 00:18)
         ✔ VR/Start Button @done(23-09-03 00:18)
         ✔ Name of the game @done(23-09-03 00:18)
-
+    Bugs: @critical 
+        ✔ Knights are disappearing when another near by is hit. @done(23-09-04 19:31)
+        
 Should have:
     Architecture:
         ☐ Split Game class into multiple

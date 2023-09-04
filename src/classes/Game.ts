@@ -314,7 +314,6 @@ export class Game {
                 if (arrow.position.distanceTo(knight.position) < 2) {
                     knight.hit();
                     this.currentScore++;
-                    this.battlefield!.removeNode(this.battlefield!.children.indexOf(arrow));
                     this.arrowList.splice(this.arrowList.indexOf(arrow), 1);
                     return;
                 }
