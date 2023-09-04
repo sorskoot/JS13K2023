@@ -33,9 +33,10 @@ export class Game {
     army: knightNode[] = [];
     battlefield?: Object3D;
 
-    currentwave = 0;
-
+    currentwave = -1;
     currentScore = 0;
+
+    numberOfKnightsLeft = 999;
 
     constructor() {
         console.log('Game started');
@@ -102,7 +103,13 @@ export class Game {
         this.renderer = new Renderer(this.gl);
         this.renderer.depthTesting(true); // if you don't know what that means - it means that our meshes will be rendered properly ¯\_(ツ)_/¯
 
-        this.createScene();
+        if (!this.scene) {
+            this.createScene();
+        }
+        this.currentwave = -1;
+        this.currentScore = 0;
+
+        this.nextWave();
 
         session.updateRenderState({baseLayer: new XRWebGLLayer(session, this.gl)});
 
@@ -130,9 +137,6 @@ export class Game {
         this.battlefield.name = 'battlefield';
         this.battlefield.position.set(0, -5, 0);
         this.scene.addNode(this.battlefield);
-
-        this.spawnKnightWave();
-        this.currentScore = 0;
 
         this.scene.leftHand = new Controller('left');
         this.scene.leftHand.setRenderer(this.renderer);
@@ -165,7 +169,7 @@ export class Game {
         const wall = new Object3D();
         wall.setRenderer(this.renderer);
         wall.addNode(...this.getModel(Wall));
-        wall.position.set(8, -5, 4);
+        wall.position.set(8, -5.3, 4);
         this.scene.addNode(wall);
 
         // this.scene.rightHand.onTrigger.on((value) => {
@@ -187,6 +191,17 @@ export class Game {
 
         this.scene.addNode(tower);
         this.scene.addNode(tower2);
+    }
+
+    nextWave() {
+        this.currentwave++;
+        if (this.currentwave >= Waves.length) {
+            this.currentwave = 0;
+        }
+        //TODO: do something with speed to slowly increase difficulty
+
+        this.battlefield!.children.length = 0;
+        this.numberOfKnightsLeft = this.spawnKnightWave();
     }
 
     /**
@@ -315,10 +330,15 @@ export class Game {
         this.army.forEach((knight) => {
             this.arrowList.forEach((arrow) => {
                 if (arrow.position.distanceTo(knight.position) < 2) {
-                    knight.hit();
-                    this.currentScore++;
-                    this.arrowList.splice(this.arrowList.indexOf(arrow), 1);
-                    return;
+                    if (knight.hit()) {
+                        this.currentScore++;
+                        this.arrowList.splice(this.arrowList.indexOf(arrow), 1);
+                        this.numberOfKnightsLeft--;
+                        if (this.numberOfKnightsLeft == 0) {
+                            this.nextWave();
+                        }
+                        return;
+                    }
                 }
             });
         });

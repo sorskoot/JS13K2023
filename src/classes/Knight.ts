@@ -16,8 +16,10 @@ export class knightNode extends Object3D {
     }
 
     hit() {
+        if (this.isHit) return false;
         this.children.forEach((child) => ((child as MeshNode).colorIndex = 5));
         this.isHit = true;
+        return true;
     }
 
     override update(dt: number): void {

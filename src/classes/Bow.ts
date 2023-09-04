@@ -23,7 +23,7 @@ export class Bow {
     public onFire: EventEmitter<ArrowData> = new EventEmitter();
 
     // Force multiplier for drawing the bow.
-    DRAW_FORCE_MULTIPLIER = 45;
+    DRAW_FORCE_MULTIPLIER = 65;
 
     constructor() {
         this.state = State.IDLE;
