@@ -10,6 +10,8 @@ import {Controller} from './Controller';
 import {knightNode} from './Knight';
 import {SFX, Sounds} from './sfx';
 
+new EventSource('/esbuild').addEventListener('change', () => location.reload());
+
 /**
  * Represents the game object.
  */
@@ -165,31 +167,15 @@ export class Game {
 
         this.scene.leftHand.addNode(...nodes, this.stringPart1, this.stringPart2, this.placedArrow);
 
-        const wall = new Object3D();
-        wall.setRenderer(this.renderer);
-        wall.addNode(...this.getModel(Wall));
-        wall.position.set(8, -5.3, 4);
-        this.scene.addNode(wall);
-
-        // this.scene.rightHand.onTrigger.on((value) => {
-        //     if (value) {
-        //         this.handRm.setColor([1.0, 0.0, 0.0, 1]);
-        //     } else {
-        //         this.handRm.setColor([0.0, 0.0, 1.0, 1]);
-        //     }
-        // });
-        const tower = new Object3D();
-        tower.setRenderer(this.renderer);
-        tower.addNode(...this.getModel(TowerModel));
-        tower.position.set(-15, -2, -2);
-
-        const tower2 = new Object3D();
-        tower2.setRenderer(this.renderer);
-        tower2.addNode(...this.getModel(TowerModel));
-        tower2.position.set(15, -2, -2);
-
-        this.scene.addNode(tower);
-        this.scene.addNode(tower2);
+        this.addObjectToScene(Wall, [8, -5.3, 4]);
+        this.addObjectToScene(Wall, [8, -1.3, 8]);
+        this.addObjectToScene(Wall, [-12, -5.35, 8]).quaternion.fromEuler(0, Math.PI / 4, 0);
+        this.addObjectToScene(Wall, [12, -5.35, 23]).quaternion.fromEuler(0, -Math.PI / 4, 0);
+        this.addObjectToScene(TowerModel, [-15, -2, -2]);
+        this.addObjectToScene(TowerModel, [15, -2, -2]);
+        this.addObjectToScene(TowerModel, [-12, -0.5, 4.5]);
+        this.addObjectToScene(TowerModel, [12, -0.5, 4.5]);
+        this.addObjectToScene(TowerModel, [0, 3, 6]);
     }
 
     nextWave() {
@@ -395,5 +381,14 @@ export class Game {
 
     private knightReachedCastle(): boolean {
         return this.army.some((knight) => knight.position.z > 0);
+    }
+
+    private addObjectToScene(modelName: number[][][], position: [number, number, number]): Object3D {
+        const object = new Object3D();
+        object.setRenderer(this.renderer);
+        object.addNode(...this.getModel(modelName));
+        object.position.set(...position);
+        this.scene.addNode(object);
+        return object;
     }
 }

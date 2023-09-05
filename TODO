@@ -23,10 +23,28 @@ Must have:
         ✔ Knights are disappearing when another near by is hit. @done(23-09-04 19:31)
         
 Should have:
+    ☐ nice level design    
+        ✔ Nicer Castle @done(23-09-05 20:59)
+        ☐ Add trees
+        ☐ Add shrubberies
+        ☐ Nicer Towers
+        
+    ☐ Better enemy animation
+    ☐ Better enemy design
+  
+    ☐ Error handling / disable VR button on desktop
+  
     Architecture:
         ☐ Split Game class into multiple
             XR part should be separated from game logic
-    ☐ Error handling / disable VR button on desktop
+    Arrow improvements:        
+        ✔ Arrows flying with an arc @done(23-09-03 12:29)
+        ☐ Arrow trail
+    Title screen in HTML:
+        ☐ Show a canvas with the game design as a background
+    Sound effects:
+        ☐ Hit sound
+        ☐ Miss sound
     Title screen in VR:
             We could use a similar approach as with the `Back to Space` game
             with generated textures containing a text. The difficulty is that
@@ -35,25 +53,13 @@ Should have:
         ☐ Name of the game
         ☐ Start button
         ☐ Exit button
-    ☐ Better enemy animation
-    ☐ Better enemy design
+Could have:
     ☐ Better collision algoritm (aabb)
     Other enemies:
         ☐ Archers that shoot back so you'll have to duck
         ☐ Knights with shields that need to be hit twice
         ☐ Red knights that are faster but spawn a little later
-
-    ☐ nice level design    
-        ~ some trees, grass, etc.
     ☐ More levels
-    Arrow improvements:        
-        ✔ Arrows flying with an arc @done(23-09-03 12:29)
-        ☐ Arrow trail
-    Title screen in HTML:
-        ☐ Show a canvas with the game design as a background
-    ☐ Sound effects
-
-Could have:
     ☐ Desktop support
         ☐ Resize must work then as well.
     ☐ Particle effects
