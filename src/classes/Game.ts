@@ -4,7 +4,7 @@ import {Scene} from './Scene';
 import {MeshNode} from '../lib/MeshNode';
 import {Waves, paletteIndex} from './Consts';
 import {Object3D} from '../lib/Object3D';
-import {BowModel, EnemyModel, TowerModel, Wall} from './Models';
+import {BowModel, EnemyModel, Pine, TowerModel, Wall} from './Models';
 import {Arrow, ArrowData, Bow, State, StringPart} from './Bow';
 import {Controller} from './Controller';
 import {knightNode} from './Knight';
@@ -130,7 +130,7 @@ export class Game {
         this.scene = new Scene(this.renderer);
 
         const ground = new MeshNode(paletteIndex.green);
-        ground.scale.set(50, 0.1, 50);
+        ground.scale.set(150, 0.1, 150);
         ground.position.set(0, -5, 0);
         this.scene.addNode(ground);
 
@@ -176,6 +176,12 @@ export class Game {
         this.addObjectToScene(TowerModel, [-12, -0.5, 4.5]);
         this.addObjectToScene(TowerModel, [12, -0.5, 4.5]);
         this.addObjectToScene(TowerModel, [0, 3, 6]);
+
+        for (let i = 0; i < 100; i++) {
+            const x = i * 2 + Math.random() - 0.5;
+            const y = Math.sin((i / 100) * Math.PI);
+            this.addObjectToScene(Pine, [100 - x, -5, -Math.random() * 20 - y * 50]).scale.set(1, Math.random() + 1, 1);
+        }
     }
 
     nextWave() {
