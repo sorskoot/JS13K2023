@@ -6,7 +6,7 @@
     "type": "module",
     "scripts": {
         "copyHtml": "copyfiles -a -u 1 ./static/**/* ./dist",
-        "build": "esbuild ./src/index.ts --bundle --minify --drop:console --sourcemap --target=ES2022 --format=esm --outfile=./dist/index.js && npm run copyHtml",
+        "build": "esbuild ./src/index.ts --bundle --minify --drop:console --target=ES2022 --format=esm --outfile=./dist/index.js && npm run copyHtml",
         "build:watch": "esbuild ./src/index.ts --bundle --minify --sourcemap --watch --target=ES2022 --format=esm --outfile=./dist/index.js --servedir=dist ",
         "test": "echo \"Error: no test specified\" && exit 1",
         "doc": "typedoc --out docs --entryPointStrategy Expand ./src --watch",
