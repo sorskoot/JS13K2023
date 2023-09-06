@@ -19,6 +19,7 @@ export class Controller extends Object3D {
 
     constructor(handedness: 'left' | 'right') {
         super();
+        this.isStatic = false;
         this.handedness = handedness;
     }
 }

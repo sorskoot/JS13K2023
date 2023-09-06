@@ -159,55 +159,38 @@ export class ArrowData {
         this.force = force;
     }
 }
-
+const up = new Vector3(0, -1, 0);
 export class Arrow extends MeshNode {
-    // The current state of the arrow.
-    private state: ArrowState;
     velocity: Vector3;
 
     constructor(arrowMat: number) {
         super(arrowMat);
+        this.isStatic = false;
         this.scale.set(0.005, 0.005, 0.4);
         this.position.set(0, -0.4 + 0.19, 0);
-        this.state = ArrowState.HELD;
         this.velocity = new Vector3(0, 0, 0);
     }
-
+    tempVector = new Vector3();
     override update(dt: number) {
-        // switch (this.state) {
-        //     case ArrowState.HELD:
-        //         // If held, position should be updated to match hand position
-        //         break;
-        //     case ArrowState.IN_FLIGHT:
-        // If in flight, update based on physics
-
-        // this.position.x += 0.01 * dt;
-        //this.velocity.multiply(0.999);
-        const old = new Vector3();
-        old.copy(this.position);
+        this.tempVector.copy(this.position);
         this.velocity.y -= 9.8 * dt;
 
         this.position.x += this.velocity.x * dt;
         this.position.y += this.velocity.y * dt;
         this.position.z += this.velocity.z * dt;
 
-        this.quaternion.lookAt(old, this.position, new Vector3(0, -1, 0));
+        this.quaternion.lookAt(this.tempVector, this.position, up);
 
         if (this.position.y < -5) {
             this.active = false;
         }
-        // Check for collision with enemy here and if so set state to HIT_TARGET
-        //         break;
-        //     case ArrowState.HIT_TARGET:
-        //         // Handle logic after hitting a target e.g., play sound effect or animation etc.
-        //         break;
-        // }
     }
 }
 
 export class StringPart extends MeshNode {
     constructor(colorIndex: number) {
         super(colorIndex);
+        this.isStatic = false;
     }
 
     recalculate(node1: Object3D, node2: Object3D) {

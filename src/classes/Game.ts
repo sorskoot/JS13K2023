@@ -107,7 +107,7 @@ export class Game {
             baseLayer: new XRWebGLLayer(this.xrSession, this.gl),
         }); // this line simply sets our session's WebGL context to our WebGL2 context
 
-        this.currentwave = -1;
+        this.currentwave = 1;
         this.currentScore = 0;
 
         this.nextWave();
@@ -233,8 +233,6 @@ export class Game {
 
         // Check if any Arrow is close to any Knight
         this.checkKnightHits();
-        this.scene.update(t);
-        this.scene.updateMatrix();
 
         this.deleteInactiveArrows();
         if (this.knightReachedCastle()) {
@@ -254,6 +252,8 @@ export class Game {
             });
             return;
         }
+
+        this.scene.update(t);
 
         // Getting the pose may fail if, for example, tracking is lost. So we
         // have to check to make sure that we got a valid pose before attempting
@@ -302,6 +302,8 @@ export class Game {
             }
 
             this.scene.leftHand.children[7].position.set(0, 0.19 + this.bow!.drawDistance, 0);
+
+            this.scene.updateMatrix();
 
             // Loop through each of the views reported by the frame and draw them
             // into the corresponding viewport.
@@ -356,14 +358,16 @@ export class Game {
     private spawnArrow(arrowData: ArrowData) {
         SFX.playSound(Sounds.shoot);
         const arrow = new Arrow(paletteIndex.brown);
+        this.arrowList.push(arrow);
+        this.scene.addNode(arrow);
+
         arrow.position.copy(arrowData.position);
         arrow.quaternion.copy(arrowData.orientation);
 
         // calculate velocity based on arrowData.force and arrowData.direction
         arrow.velocity.copy(arrowData.direction).multiply(arrowData.force);
 
-        this.arrowList.push(arrow);
-        this.scene.addNode(arrow);
+        arrow.isStatic = false;
     }
 
     private spawnKnightWave() {
@@ -383,6 +387,7 @@ export class Game {
 
     private spawnKnight(j: number, i: number, arg2: number) {
         let knight = new knightNode();
+        knight.isStatic = false;
         knight.setRenderer(this.renderer);
         knight.addNode(...this.getModel(EnemyModel));
         knight.position.set(11 - j * 2, 0.25 - 5, -40 - i * 2);

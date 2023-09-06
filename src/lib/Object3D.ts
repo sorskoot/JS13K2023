@@ -13,13 +13,16 @@ export class Object3D {
     readonly position = new Vector3(0, 0, 0);
     readonly scale = new Vector3(1, 1, 1);
     readonly children: Object3D[] = [];
+    public isStatic = true;
+
     public parent: Object3D | null = null;
     public active = true;
 
-    private _absoluteTransform: Matrix4 = new Matrix4().set(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    private _absoluteTransform?: Matrix4; // = new Matrix4().set(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
 
     get absoluteTransform(): Matrix4 {
         if (!this.parent) return this.matrix;
+        if (this.isStatic && this._absoluteTransform) return this._absoluteTransform;
         this._absoluteTransform = new Matrix4();
         this._absoluteTransform.copy(this.parent.matrix);
         this._absoluteTransform.multiply(this.matrix);
@@ -29,15 +32,6 @@ export class Object3D {
 
     protected renderer?: Renderer;
 
-    constructor() {
-        // this.translation = new Vector3();
-        // this.rotation = new Quaternion();
-        // this.scale = new Vector3(1, 1, 1);
-        // this.worldMatrix = Matrix4.Identity;
-        // this.localTransform = Matrix4.Identity;
-        // this._absoluteTransform = Matrix4.Identity;
-    }
-
     setRenderer(renderer: Renderer): void {
         this.renderer = renderer;
     }
@@ -46,6 +40,7 @@ export class Object3D {
         for (const child of children) {
             this.children.push(child);
             child.parent = this;
+            child.isStatic = this.isStatic;
             child.setRenderer(this.renderer!);
         }
     }
