@@ -14,7 +14,6 @@ export class Bow {
 
     // The position of the arrow hand.
     private arrowHandPosition: Vector3;
-    private arrowHandOrientation: Quaternion;
     // The current state of the bow (e.g., DRAWN or IDLE)
     public state: State;
     public readyToDraw: boolean = false;
@@ -30,8 +29,14 @@ export class Bow {
         this.bowHandPosition = new Vector3(0, 0, 0);
         this.bowHandOrientation = new Quaternion(0, 0, 0, 1);
         this.arrowHandPosition = new Vector3(0, 0, 0);
-        this.arrowHandOrientation = new Quaternion(0, 0, 0, 1);
     }
+
+    tempStringCenter = new Vector3();
+    tempVec1 = new Vector3();
+    tempVec2 = new Vector3();
+    tempDir = new Vector3();
+    tempPV = new Vector3();
+    tempClosestPoint = new Vector3();
 
     /**
      * Updates the state of the bow based on the current hand positions.
@@ -50,11 +55,10 @@ export class Bow {
         this.bowHandOrientation = bowHandState.orientation;
 
         this.arrowHandPosition = arrowHandState.position;
-        this.arrowHandOrientation = arrowHandState.orientation;
 
-        const stringCenterWorld = stringCenter.absoluteTransform.toVector3();
+        stringCenter.absoluteTransform.toVector3(this.tempStringCenter);
 
-        if (this.arrowHandPosition.distanceTo(stringCenterWorld) < 0.05) {
+        if (this.arrowHandPosition.distanceTo(this.tempStringCenter) < 0.05) {
             this.readyToDraw = true;
         } else {
             this.readyToDraw = false;
@@ -83,33 +87,31 @@ export class Bow {
                     // If still gripping update string center
 
                     // Your 3 vectors
-                    const v1 = stringMin.absoluteTransform.toVector3();
-                    const v2 = stringMax.absoluteTransform.toVector3();
+                    stringMin.absoluteTransform.toVector3(this.tempVec1);
+                    stringMax.absoluteTransform.toVector3(this.tempVec2);
                     const p = arrowHandState.position;
 
                     // Calculate direction vector d
-                    const d = new Vector3();
-                    d.copy(v2).sub(v1);
+                    this.tempDir.copy(this.tempVec2).sub(this.tempVec1);
 
                     // Calculate vector difference between p and v1
-                    const pv = new Vector3();
-                    pv.copy(p).sub(v1);
+                    this.tempPV.copy(p).sub(this.tempVec1);
 
                     // Scalar projection formula: (pv . d) / ||d||^2 which gives us t.
                     // If t<0 => closest is v1; if t>1 => closest is v2; else closest is on the line
-                    let t = pv.dot(d) / (d.getLength() * d.getLength());
+                    let t = this.tempPV.dot(this.tempDir) / (this.tempDir.getLength() * this.tempDir.getLength());
                     t = Math.max(0, Math.min(1, t));
 
                     // Closest point calculation
-                    const closestPointOnLine = new Vector3();
-                    closestPointOnLine.copy(v1).lerp(v2, t);
+                    this.tempClosestPoint.copy(this.tempVec1).lerp(this.tempVec2, t);
 
-                    this.drawDistance = closestPointOnLine.distanceTo(v1);
+                    this.drawDistance = this.tempClosestPoint.distanceTo(this.tempVec1);
                 }
 
                 break;
         }
     }
+
     calculateDirection(orientation: Quaternion): Vector3 {
         // Return forward vector of bow orientation
         const forward = new Vector3(0, -1, 0);
@@ -193,45 +195,25 @@ export class StringPart extends MeshNode {
         this.isStatic = false;
     }
 
+    tempDiffVector = new Vector3();
+    tempDirVector = new Vector3();
+
     recalculate(node1: Object3D, node2: Object3D) {
         // update position, rotation and scale to create a line between the 2 nodes
         const posA = node1.position;
         const posB = node2.position;
 
-        const diff = new Vector3();
-        diff.copy(posB);
-        diff.sub(posA);
-        diff.multiply(0.5);
-        const dist = diff.getLength();
+        this.tempDiffVector.copy(posB);
+        this.tempDiffVector.sub(posA);
+        this.tempDiffVector.multiply(0.5);
+        const dist = this.tempDiffVector.getLength();
 
         this.scale.set(0.003, 0.003, dist);
-        this.position.copy(diff);
+        this.position.copy(this.tempDiffVector);
         this.position.add(posA);
 
-        const dir = new Vector3();
-        dir.copy(diff).normalize();
-        const q = new Quaternion();
-        this.quaternion.rotationTo(new Vector3(0, 0, 1), dir);
+        this.tempDirVector.copy(this.tempDiffVector).normalize();
+
+        this.quaternion.rotationTo(new Vector3(0, 0, 1), this.tempDirVector);
     }
-    /*
-    update: function(dt) {
-        this.targetA.getTranslationWorld(this.posA);
-        this.targetB.getTranslationWorld(this.posB);
-        glMatrix.vec3.sub(this.diff, this.posB, this.posA);
-        glMatrix.vec3.scale(this.diff, this.diff, 0.5);
-
-        let dist = glMatrix.vec3.length(this.diff);
-        this.object.resetTransform();
-        this.object.scale([this.thickness, this.lengthPercentage*dist, this.thickness]);
-
-        glMatrix.quat2.conjugate(this.invParent, this.object.parent.transformWorld);
-
-        glMatrix.vec3.normalize(this.dir, this.diff);
-        glMatrix.quat.rotationTo(this.object.transformLocal, [0, 1, 0], this.dir);
-        glMatrix.vec3.add(this.diff, this.posA, this.diff);
-        this.object.translate(this.diff);
-
-        glMatrix.quat2.mul(this.object.transformLocal, this.invParent, this.object.transformLocal);
-    },   
-*/
 }

@@ -67,42 +67,8 @@ export class Matrix4 extends Array<number> {
                 this[i] *= t;
             }
         } else {
-            const [
-                m00,
-                m01,
-                m02,
-                m03,
-                m10,
-                m11,
-                m12,
-                m13,
-                m20,
-                m21,
-                m22,
-                m23,
-                m30,
-                m31,
-                m32,
-                m33,
-            ] = this;
-            const [
-                t00,
-                t01,
-                t02,
-                t03,
-                t10,
-                t11,
-                t12,
-                t13,
-                t20,
-                t21,
-                t22,
-                t23,
-                t30,
-                t31,
-                t32,
-                t33,
-            ] = t;
+            const [m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33] = this;
+            const [t00, t01, t02, t03, t10, t11, t12, t13, t20, t21, t22, t23, t30, t31, t32, t33] = t;
             this.set(
                 m00 * t00 + m10 * t01 + m20 * t02 + m30 * t03,
                 m01 * t00 + m11 * t01 + m21 * t02 + m31 * t03,
@@ -130,24 +96,7 @@ export class Matrix4 extends Array<number> {
      * Returns the determinant of this matrix.
      */
     determinant(): number {
-        const [
-            m00,
-            m01,
-            m02,
-            m03,
-            m10,
-            m11,
-            m12,
-            m13,
-            m20,
-            m21,
-            m22,
-            m23,
-            m30,
-            m31,
-            m32,
-            m33,
-        ] = this;
+        const [m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33] = this;
 
         const b0 = m00 * m11 - m01 * m10;
         const b1 = m00 * m12 - m02 * m10;
@@ -167,66 +116,15 @@ export class Matrix4 extends Array<number> {
      * Transposes this matrix in place over its diagonal.
      */
     transpose(): this {
-        const [
-            m00,
-            m01,
-            m02,
-            m03,
-            m10,
-            m11,
-            m12,
-            m13,
-            m20,
-            m21,
-            m22,
-            m23,
-            m30,
-            m31,
-            m32,
-            m33,
-        ] = this;
-        return this.set(
-            m00,
-            m10,
-            m20,
-            m30,
-            m01,
-            m11,
-            m21,
-            m31,
-            m02,
-            m12,
-            m22,
-            m32,
-            m03,
-            m13,
-            m23,
-            m33
-        );
+        const [m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33] = this;
+        return this.set(m00, m10, m20, m30, m01, m11, m21, m31, m02, m12, m22, m32, m03, m13, m23, m33);
     }
 
     /**
      * Calculates the inverse of this matrix.
      */
     invert(): this {
-        const [
-            m00,
-            m01,
-            m02,
-            m03,
-            m10,
-            m11,
-            m12,
-            m13,
-            m20,
-            m21,
-            m22,
-            m23,
-            m30,
-            m31,
-            m32,
-            m33,
-        ] = this;
+        const [m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33] = this;
 
         const b00 = m00 * m11 - m01 * m10;
         const b01 = m00 * m12 - m02 * m10;
@@ -296,14 +194,7 @@ export class Matrix4 extends Array<number> {
     /**
      * Calculates an orthographic projection matrix.
      */
-    orthogonal(
-        left: number,
-        right: number,
-        bottom: number,
-        top: number,
-        near: number,
-        far: number
-    ): this {
+    orthogonal(left: number, right: number, bottom: number, top: number, near: number, far: number): this {
         const horizontal = 1 / (left - right);
         const vertical = 1 / (bottom - top);
         const depth = 1 / (near - far);
@@ -388,24 +279,7 @@ export class Matrix4 extends Array<number> {
      * Calculates a normal matrix from a model-view matrix.
      */
     normal(m: Matrix4): this {
-        const [
-            m00,
-            m01,
-            m02,
-            m03,
-            m10,
-            m11,
-            m12,
-            m13,
-            m20,
-            m21,
-            m22,
-            m23,
-            m30,
-            m31,
-            m32,
-            m33,
-        ] = m;
+        const [m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33] = m;
 
         const b00 = m00 * m11 - m01 * m10;
         const b01 = m00 * m12 - m02 * m10;
@@ -456,7 +330,7 @@ export class Matrix4 extends Array<number> {
         return this;
     }
 
-    toVector3(): Vector3 {
-        return new Vector3(this[12], this[13], this[14]);
+    toVector3(v: Vector3) {
+        v.set(this[12], this[13], this[14]);
     }
 }

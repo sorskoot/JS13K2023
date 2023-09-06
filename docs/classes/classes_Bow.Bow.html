@@ -25,7 +25,7 @@
 <ul class="tsd-hierarchy">
 <li><span class="target">Bow</span></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/509cbf2/src/classes/Bow.ts#L10">src/classes/Bow.ts:10</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/228bd36/src/classes/Bow.ts#L10">src/classes/Bow.ts:10</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-index-accordion" open><summary class="tsd-accordion-summary tsd-index-summary">
@@ -38,7 +38,6 @@
 <section class="tsd-index-section">
 <h3 class="tsd-index-heading">Properties</h3>
 <div class="tsd-index-list"><a href="classes_Bow.Bow.html#DRAW_FORCE_MULTIPLIER" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-1024"><rect fill="var(--color-icon-background)" stroke="#FF984D" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="12"></rect><path d="M9.354 16V7.24H12.174C12.99 7.24 13.638 7.476 14.118 7.948C14.606 8.412 14.85 9.036 14.85 9.82C14.85 10.604 14.606 11.232 14.118 11.704C13.638 12.168 12.99 12.4 12.174 12.4H10.434V16H9.354ZM10.434 11.428H12.174C12.646 11.428 13.022 11.284 13.302 10.996C13.59 10.7 13.734 10.308 13.734 9.82C13.734 9.324 13.59 8.932 13.302 8.644C13.022 8.356 12.646 8.212 12.174 8.212H10.434V11.428Z" fill="var(--color-text)"></path></g></svg><span>DRAW_<wbr/>FORCE_<wbr/>MULTIPLIER</span></a>
-<a href="classes_Bow.Bow.html#arrowHandOrientation" class="tsd-index-link tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>arrow<wbr/>Hand<wbr/>Orientation</span></a>
 <a href="classes_Bow.Bow.html#arrowHandPosition" class="tsd-index-link tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>arrow<wbr/>Hand<wbr/>Position</span></a>
 <a href="classes_Bow.Bow.html#bowHandOrientation" class="tsd-index-link tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>bow<wbr/>Hand<wbr/>Orientation</span></a>
 <a href="classes_Bow.Bow.html#bowHandPosition" class="tsd-index-link tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>bow<wbr/>Hand<wbr/>Position</span></a>
@@ -46,6 +45,12 @@
 <a href="classes_Bow.Bow.html#onFire" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>on<wbr/>Fire</span></a>
 <a href="classes_Bow.Bow.html#readyToDraw" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>ready<wbr/>To<wbr/>Draw</span></a>
 <a href="classes_Bow.Bow.html#state" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>state</span></a>
+<a href="classes_Bow.Bow.html#tempClosestPoint" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>temp<wbr/>Closest<wbr/>Point</span></a>
+<a href="classes_Bow.Bow.html#tempDir" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>temp<wbr/>Dir</span></a>
+<a href="classes_Bow.Bow.html#tempPV" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>tempPV</span></a>
+<a href="classes_Bow.Bow.html#tempStringCenter" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>temp<wbr/>String<wbr/>Center</span></a>
+<a href="classes_Bow.Bow.html#tempVec1" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>temp<wbr/>Vec1</span></a>
+<a href="classes_Bow.Bow.html#tempVec2" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>temp<wbr/>Vec2</span></a>
 </div></section>
 <section class="tsd-index-section">
 <h3 class="tsd-index-heading">Methods</h3>
@@ -63,54 +68,79 @@
 <li class="tsd-description">
 <h4 class="tsd-returns-title">Returns <a href="classes_Bow.Bow.html" class="tsd-signature-type tsd-kind-class">Bow</a></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/509cbf2/src/classes/Bow.ts#L28">src/classes/Bow.ts:28</a></li></ul></aside></li></ul></section></section>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/228bd36/src/classes/Bow.ts#L27">src/classes/Bow.ts:27</a></li></ul></aside></li></ul></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Properties</h2>
 <section class="tsd-panel tsd-member"><a id="DRAW_FORCE_MULTIPLIER" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>DRAW_<wbr/>FORCE_<wbr/>MULTIPLIER</span><a href="#DRAW_FORCE_MULTIPLIER" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">DRAW_<wbr/>FORCE_<wbr/>MULTIPLIER</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 65</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/509cbf2/src/classes/Bow.ts#L26">src/classes/Bow.ts:26</a></li></ul></aside></section>
-<section class="tsd-panel tsd-member tsd-is-private"><a id="arrowHandOrientation" class="tsd-anchor"></a>
-<h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>arrow<wbr/>Hand<wbr/>Orientation</span><a href="#arrowHandOrientation" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">arrow<wbr/>Hand<wbr/>Orientation</span><span class="tsd-signature-symbol">:</span> <a href="lib_Quaternion.Quaternion.html" class="tsd-signature-type tsd-kind-class">Quaternion</a></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/509cbf2/src/classes/Bow.ts#L17">src/classes/Bow.ts:17</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/228bd36/src/classes/Bow.ts#L25">src/classes/Bow.ts:25</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-private"><a id="arrowHandPosition" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>arrow<wbr/>Hand<wbr/>Position</span><a href="#arrowHandPosition" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">arrow<wbr/>Hand<wbr/>Position</span><span class="tsd-signature-symbol">:</span> <a href="lib_Vector3.Vector3.html" class="tsd-signature-type tsd-kind-class">Vector3</a></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/509cbf2/src/classes/Bow.ts#L16">src/classes/Bow.ts:16</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/228bd36/src/classes/Bow.ts#L16">src/classes/Bow.ts:16</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-private"><a id="bowHandOrientation" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>bow<wbr/>Hand<wbr/>Orientation</span><a href="#bowHandOrientation" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">bow<wbr/>Hand<wbr/>Orientation</span><span class="tsd-signature-symbol">:</span> <a href="lib_Quaternion.Quaternion.html" class="tsd-signature-type tsd-kind-class">Quaternion</a></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/509cbf2/src/classes/Bow.ts#L13">src/classes/Bow.ts:13</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/228bd36/src/classes/Bow.ts#L13">src/classes/Bow.ts:13</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-private"><a id="bowHandPosition" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>bow<wbr/>Hand<wbr/>Position</span><a href="#bowHandPosition" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">bow<wbr/>Hand<wbr/>Position</span><span class="tsd-signature-symbol">:</span> <a href="lib_Vector3.Vector3.html" class="tsd-signature-type tsd-kind-class">Vector3</a></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/509cbf2/src/classes/Bow.ts#L12">src/classes/Bow.ts:12</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/228bd36/src/classes/Bow.ts#L12">src/classes/Bow.ts:12</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member"><a id="drawDistance" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>draw<wbr/>Distance</span><a href="#drawDistance" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">draw<wbr/>Distance</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/509cbf2/src/classes/Bow.ts#L21">src/classes/Bow.ts:21</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/228bd36/src/classes/Bow.ts#L20">src/classes/Bow.ts:20</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member"><a id="onFire" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>on<wbr/>Fire</span><a href="#onFire" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">on<wbr/>Fire</span><span class="tsd-signature-symbol">:</span> <a href="lib_EventEmitter.EventEmitter.html" class="tsd-signature-type tsd-kind-class">EventEmitter</a><span class="tsd-signature-symbol">&lt;</span><a href="classes_Bow.ArrowData.html" class="tsd-signature-type tsd-kind-class">ArrowData</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = ...</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/509cbf2/src/classes/Bow.ts#L23">src/classes/Bow.ts:23</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/228bd36/src/classes/Bow.ts#L22">src/classes/Bow.ts:22</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member"><a id="readyToDraw" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>ready<wbr/>To<wbr/>Draw</span><a href="#readyToDraw" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ready<wbr/>To<wbr/>Draw</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/509cbf2/src/classes/Bow.ts#L20">src/classes/Bow.ts:20</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/228bd36/src/classes/Bow.ts#L19">src/classes/Bow.ts:19</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member"><a id="state" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>state</span><a href="#state" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">state</span><span class="tsd-signature-symbol">:</span> <a href="../enums/classes_Bow.State.html" class="tsd-signature-type tsd-kind-enum">State</a></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/509cbf2/src/classes/Bow.ts#L19">src/classes/Bow.ts:19</a></li></ul></aside></section></section>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/228bd36/src/classes/Bow.ts#L18">src/classes/Bow.ts:18</a></li></ul></aside></section>
+<section class="tsd-panel tsd-member"><a id="tempClosestPoint" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>temp<wbr/>Closest<wbr/>Point</span><a href="#tempClosestPoint" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">temp<wbr/>Closest<wbr/>Point</span><span class="tsd-signature-symbol">:</span> <a href="lib_Vector3.Vector3.html" class="tsd-signature-type tsd-kind-class">Vector3</a><span class="tsd-signature-symbol"> = ...</span></div><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/228bd36/src/classes/Bow.ts#L39">src/classes/Bow.ts:39</a></li></ul></aside></section>
+<section class="tsd-panel tsd-member"><a id="tempDir" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>temp<wbr/>Dir</span><a href="#tempDir" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">temp<wbr/>Dir</span><span class="tsd-signature-symbol">:</span> <a href="lib_Vector3.Vector3.html" class="tsd-signature-type tsd-kind-class">Vector3</a><span class="tsd-signature-symbol"> = ...</span></div><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/228bd36/src/classes/Bow.ts#L37">src/classes/Bow.ts:37</a></li></ul></aside></section>
+<section class="tsd-panel tsd-member"><a id="tempPV" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>tempPV</span><a href="#tempPV" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">tempPV</span><span class="tsd-signature-symbol">:</span> <a href="lib_Vector3.Vector3.html" class="tsd-signature-type tsd-kind-class">Vector3</a><span class="tsd-signature-symbol"> = ...</span></div><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/228bd36/src/classes/Bow.ts#L38">src/classes/Bow.ts:38</a></li></ul></aside></section>
+<section class="tsd-panel tsd-member"><a id="tempStringCenter" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>temp<wbr/>String<wbr/>Center</span><a href="#tempStringCenter" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">temp<wbr/>String<wbr/>Center</span><span class="tsd-signature-symbol">:</span> <a href="lib_Vector3.Vector3.html" class="tsd-signature-type tsd-kind-class">Vector3</a><span class="tsd-signature-symbol"> = ...</span></div><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/228bd36/src/classes/Bow.ts#L34">src/classes/Bow.ts:34</a></li></ul></aside></section>
+<section class="tsd-panel tsd-member"><a id="tempVec1" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>temp<wbr/>Vec1</span><a href="#tempVec1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">temp<wbr/>Vec1</span><span class="tsd-signature-symbol">:</span> <a href="lib_Vector3.Vector3.html" class="tsd-signature-type tsd-kind-class">Vector3</a><span class="tsd-signature-symbol"> = ...</span></div><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/228bd36/src/classes/Bow.ts#L35">src/classes/Bow.ts:35</a></li></ul></aside></section>
+<section class="tsd-panel tsd-member"><a id="tempVec2" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>temp<wbr/>Vec2</span><a href="#tempVec2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">temp<wbr/>Vec2</span><span class="tsd-signature-symbol">:</span> <a href="lib_Vector3.Vector3.html" class="tsd-signature-type tsd-kind-class">Vector3</a><span class="tsd-signature-symbol"> = ...</span></div><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/228bd36/src/classes/Bow.ts#L36">src/classes/Bow.ts:36</a></li></ul></aside></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Methods</h2>
 <section class="tsd-panel tsd-member"><a id="calculateDirection" class="tsd-anchor"></a>
@@ -125,7 +155,7 @@
 <h5><span class="tsd-kind-parameter">orientation</span>: <a href="lib_Quaternion.Quaternion.html" class="tsd-signature-type tsd-kind-class">Quaternion</a></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="lib_Vector3.Vector3.html" class="tsd-signature-type tsd-kind-class">Vector3</a></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/509cbf2/src/classes/Bow.ts#L113">src/classes/Bow.ts:113</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/228bd36/src/classes/Bow.ts#L115">src/classes/Bow.ts:115</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="calculateForce" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>calculate<wbr/>Force</span><a href="#calculateForce" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -140,7 +170,7 @@
 <h5><span class="tsd-kind-parameter">arrowPos</span>: <a href="lib_Vector3.Vector3.html" class="tsd-signature-type tsd-kind-class">Vector3</a></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/509cbf2/src/classes/Bow.ts#L120">src/classes/Bow.ts:120</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/228bd36/src/classes/Bow.ts#L122">src/classes/Bow.ts:122</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="fireArrow" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>fire<wbr/>Arrow</span><a href="#fireArrow" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -159,7 +189,7 @@
 <h5><span class="tsd-kind-parameter">force</span>: <span class="tsd-signature-type">number</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/509cbf2/src/classes/Bow.ts#L125">src/classes/Bow.ts:125</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/228bd36/src/classes/Bow.ts#L127">src/classes/Bow.ts:127</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="update" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>update</span><a href="#update" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -189,7 +219,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 <div class="tsd-comment tsd-typography"></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/509cbf2/src/classes/Bow.ts#L41">src/classes/Bow.ts:41</a></li></ul></aside></li></ul></section></section></div>
+<li>Defined in <a href="https://github.com/sorskoot/JS13K2023/blob/228bd36/src/classes/Bow.ts#L46">src/classes/Bow.ts:46</a></li></ul></aside></li></ul></section></section></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">
@@ -211,7 +241,6 @@
 <ul>
 <li><a href="#constructor" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-512"></use></svg><span>constructor</span></a></li>
 <li><a href="#DRAW_FORCE_MULTIPLIER" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>DRAW_<wbr/>FORCE_<wbr/>MULTIPLIER</span></a></li>
-<li><a href="#arrowHandOrientation" class="tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>arrow<wbr/>Hand<wbr/>Orientation</span></a></li>
 <li><a href="#arrowHandPosition" class="tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>arrow<wbr/>Hand<wbr/>Position</span></a></li>
 <li><a href="#bowHandOrientation" class="tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>bow<wbr/>Hand<wbr/>Orientation</span></a></li>
 <li><a href="#bowHandPosition" class="tsd-is-private"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>bow<wbr/>Hand<wbr/>Position</span></a></li>
@@ -219,6 +248,12 @@
 <li><a href="#onFire" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>on<wbr/>Fire</span></a></li>
 <li><a href="#readyToDraw" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>ready<wbr/>To<wbr/>Draw</span></a></li>
 <li><a href="#state" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>state</span></a></li>
+<li><a href="#tempClosestPoint" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>temp<wbr/>Closest<wbr/>Point</span></a></li>
+<li><a href="#tempDir" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>temp<wbr/>Dir</span></a></li>
+<li><a href="#tempPV" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>tempPV</span></a></li>
+<li><a href="#tempStringCenter" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>temp<wbr/>String<wbr/>Center</span></a></li>
+<li><a href="#tempVec1" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>temp<wbr/>Vec1</span></a></li>
+<li><a href="#tempVec2" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>temp<wbr/>Vec2</span></a></li>
 <li><a href="#calculateDirection" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>calculate<wbr/>Direction</span></a></li>
 <li><a href="#calculateForce" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>calculate<wbr/>Force</span></a></li>
 <li><a href="#fireArrow" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>fire<wbr/>Arrow</span></a></li>
