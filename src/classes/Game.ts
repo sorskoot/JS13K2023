@@ -4,7 +4,7 @@ import {Scene} from './Scene';
 import {MeshNode} from '../lib/MeshNode';
 import {Waves, paletteIndex} from './Consts';
 import {Object3D} from '../lib/Object3D';
-import {BowModel, EnemyModel, Pine, Shrub, TowerModel, Wall} from './Models';
+import {BowModel, EnemyModel, EnemyModel2, EnemyModel3, Pine, Shrub, TowerModel, Wall} from './Models';
 import {Arrow, ArrowData, Bow, State, StringPart} from './Bow';
 import {Controller} from './Controller';
 import {knightNode} from './Knight';
@@ -176,6 +176,8 @@ export class Game {
         this.addObjectToScene(TowerModel, [-12, -0.5, 4.5]);
         this.addObjectToScene(TowerModel, [12, -0.5, 4.5]);
         this.addObjectToScene(TowerModel, [0, 3, 6]);
+
+        //this.addObjectToScene(EnemyModel3, [0, 0, -6]);
 
         for (let i = 0; i < 100; i++) {
             const x = i * 2 + Math.random() - 0.5;
@@ -385,14 +387,24 @@ export class Game {
         return spawned;
     }
 
-    private spawnKnight(j: number, i: number, arg2: number) {
+    private spawnKnight(j: number, i: number, type: number) {
         let knight = new knightNode();
         knight.isStatic = false;
         knight.setRenderer(this.renderer);
-        knight.addNode(...this.getModel(EnemyModel));
+        switch (type) {
+            case 1:
+                knight.addNode(...this.getModel(EnemyModel));
+                break;
+            case 2:
+                knight.addNode(...this.getModel(EnemyModel2));
+                break;
+            case 3:
+                knight.addNode(...this.getModel(EnemyModel3));
+                break;
+        }
         knight.position.set(11 - j * 2, 0.25 - 5, -40 - i * 2);
-        knight.scale.set(0.15, 0.15, 0.15);
-        knight.name = 'knight';
+        knight.scale.set(0.4, 0.4, 0.4);
+
         this.army.push(knight);
         this.battlefield!.addNode(knight);
     }
