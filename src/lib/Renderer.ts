@@ -101,11 +101,9 @@ export class Renderer {
 
         this.gl.useProgram(this.shader.program!);
 
-        let inv = Matrix4.from(transform.inverse.matrix) as Matrix4;
-        this.gl.uniformMatrix4fv(this.shader.viewLoc!, false, inv);
+        this.gl.uniformMatrix4fv(this.shader.viewLoc!, false, transform.inverse.matrix);
         this.gl.uniformMatrix4fv(this.shader.projectionLoc!, false, projectionMatrix);
 
-        // this.gl.bindVertexArray(this.vertexArray);
         let colorbuffer = this.gl.createBuffer();
         this.gl.bindBuffer(this.gl.ARRAY_BUFFER, colorbuffer);
         this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(colorData), this.gl.STATIC_DRAW);
