@@ -35,11 +35,9 @@ export class Scene extends Object3D {
             }
         }
     }
-    prevTime: number = 0;
+
     override update(time: number): void {
-        const deltaTime = (time - this.prevTime) / 1000;
-        this.prevTime = time;
-        this.children.forEach((c) => c.update(deltaTime));
+        this.children.forEach((c) => c.update(time));
     }
 
     override render2(projectionMatrix: Float32Array, transform: XRRigidTransform): ObjectData {

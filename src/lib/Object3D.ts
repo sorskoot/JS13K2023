@@ -18,12 +18,13 @@ export class Object3D {
     public parent: Object3D | null = null;
     public active = true;
 
-    private _absoluteTransform?: Matrix4; // = new Matrix4().set(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
-
+    private _absoluteTransform: Matrix4 = new Matrix4().set(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+    private identity? = true;
     get absoluteTransform(): Matrix4 {
         if (!this.parent) return this.matrix;
-        if (this.isStatic && this._absoluteTransform) return this._absoluteTransform;
-        this._absoluteTransform = new Matrix4();
+        if (this.isStatic && !this.identity) return this._absoluteTransform;
+        this.identity = true;
+        //this._absoluteTransform = new Matrix4();
         this._absoluteTransform.copy(this.parent.matrix);
         this._absoluteTransform.multiply(this.matrix);
 

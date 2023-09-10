@@ -21,16 +21,20 @@ Must have:
         ✔ Name of the game @done(23-09-03 00:18)
     Bugs: @critical 
         ✔ Knights are disappearing when another near by is hit. @done(23-09-04 19:31)
-        
+    Other enemies:
+        ☐ Knights with shields that need to be hit twice
+        ☐ Red knights that are faster but spawn a little later
+    ☐ More interesting waves of knights
+        ☐ Redesign of wave system
 Should have:
-    ☐ nice level design    
+    ✔ nice level design @done(23-09-10 21:12)
         ✔ Nicer Castle @done(23-09-05 20:59)
         ✔ Add trees @done(23-09-05 21:58)
         ✔ Add shrubberies @done(23-09-05 23:13)
-        ☐ Nicer Towers
         
+    
     ☐ Better enemy animation
-    ☐ Better enemy design
+    ✔ Better enemy design @done(23-09-10 21:12)
   
     ☐ Error handling / disable VR button on desktop
   
@@ -57,9 +61,7 @@ Could have:
     ☐ Better collision algoritm (aabb)
     Other enemies:
         ☐ Archers that shoot back so you'll have to duck
-        ☐ Knights with shields that need to be hit twice
-        ☐ Red knights that are faster but spawn a little later
-    ☐ More levels
+
     ☐ Desktop support
         ☐ Resize must work then as well.
     ☐ Particle effects
@@ -69,6 +71,7 @@ Could have:
     ☐ power ups like flame bows
     ☐ Fights at night with fire effects
     ☐ Enable ESLint again
+    ☐ Nicer Towers
 
 Would like:
     ☐ Texture mapping

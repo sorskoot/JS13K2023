@@ -2,7 +2,7 @@ import {GL} from '../lib/GL';
 import {Renderer} from '../lib/Renderer';
 import {Scene} from './Scene';
 import {MeshNode} from '../lib/MeshNode';
-import {Waves, paletteIndex} from './Consts';
+import {Formations, Waves, paletteIndex} from './Consts';
 import {Object3D} from '../lib/Object3D';
 import {BowModel, EnemyModel, EnemyModel2, EnemyModel3, Pine, Shrub, TowerModel, Wall} from './Models';
 import {Arrow, ArrowData, Bow, State, StringPart} from './Bow';
@@ -11,6 +11,9 @@ import {knightNode} from './Knight';
 import {SFX, Sounds} from './sfx';
 
 new EventSource('/esbuild').addEventListener('change', () => location.reload());
+
+const ROW_DELAY = 3; // start delay between rows in seconds
+const WAVE_DELAY = 20; // delay between waves in seconds
 
 /**
  * Represents the game object.
@@ -107,7 +110,7 @@ export class Game {
             baseLayer: new XRWebGLLayer(this.xrSession, this.gl),
         }); // this line simply sets our session's WebGL context to our WebGL2 context
 
-        this.currentwave = 1;
+        this.currentwave = -1;
         this.currentScore = 0;
 
         this.nextWave();
@@ -159,8 +162,6 @@ export class Game {
         this.stringPart2 = new StringPart(paletteIndex.black);
         this.stringPart2.scale.set(0.003, 0.003, 0.1);
 
-        // this.arrowMesh = new Mesh(this.gl);
-        // this.arrowMesh.loadFromData(cube);
         this.placedArrow = new MeshNode(paletteIndex.brown);
         this.placedArrow.scale.set(0.005, 0.4, 0.005);
         this.placedArrow.position.set(0, -0.4 + 0.19, 0);
@@ -202,7 +203,7 @@ export class Game {
 
         this.battlefield!.children.length = 0;
         this.army = [];
-        this.numberOfKnightsLeft = this.spawnKnightWave();
+        this.spawnKnightWave();
     }
 
     /**
@@ -216,6 +217,7 @@ export class Game {
         this.xrSession = undefined;
     }
 
+    prevTime: number = 0;
     ang = 0;
     prev = 0;
     /**
@@ -223,7 +225,8 @@ export class Game {
      */
     onXRFrame(t: DOMHighResTimeStamp, frame: XRFrame) {
         let session = frame.session;
-
+        const deltaTime = (t - this.prevTime) / 1000;
+        this.prevTime = t;
         // Per-frame scene setup. Nothing WebXR specific here.
         //scene.startFrame();
         // Inform the session that we're ready for the next frame.
@@ -235,8 +238,9 @@ export class Game {
 
         // Check if any Arrow is close to any Knight
         this.checkKnightHits();
-
+        this.knightFrameUpdate(deltaTime);
         this.deleteInactiveArrows();
+
         if (this.knightReachedCastle()) {
             this.xrSession!.end().then(() => {
                 let normalTitle = document.querySelector('.title.normal')! as HTMLElement;
@@ -255,7 +259,7 @@ export class Game {
             return;
         }
 
-        this.scene.update(t);
+        this.scene.update(deltaTime);
 
         // Getting the pose may fail if, for example, tracking is lost. So we
         // have to check to make sure that we got a valid pose before attempting
@@ -373,18 +377,48 @@ export class Game {
     }
 
     private spawnKnightWave() {
-        let spawned = 0;
-        for (let i = 0; i < 5; i++) {
-            // wave rows
-            for (let j = 0; j < 11; j++) {
-                // wave columns
-                if (Waves[this.currentwave][i][j] > 0) {
-                    spawned++;
-                    this.spawnKnight(j, i, Waves[this.currentwave][i][j]);
-                }
-            }
-        }
-        return spawned;
+        // let spawned = 0;
+        // // Spawn the next row of the current wave
+        // for (let j = 0; j < 11; j++) {
+        //     // wave columns
+        //     if (!isNaN(Waves[this.currentwave][0][j])) {
+        //         spawned++;
+        //         this.spawnKnight(j, 0, Waves[this.currentwave][0][j]);
+        //     }
+        // }
+        // for (let i = 0; i < 5; i++) {
+        //     // wave rows
+        //     for (let j = 0; j < 11; j++) {
+        //         // wave columns
+        //         if (!isNaN(Waves[this.currentwave][i][j])) {
+        //             spawned++;
+        //             this.spawnKnight(j, i, Waves[this.currentwave][i][j]);
+        //         }
+        //     }
+        // }
+        // return spawned;
+        //     Waves.forEach((wave, waveIndex) => {
+        //         // The delay or interval after which the next wave should be released.
+        //         // This could depend on your game logic.
+        //         const waveDelay = waveIndex * 3000;
+        //         wave.forEach((row, rowIndex) => {
+        //             row.forEach((cell, columnIndex) => {
+        //                 if (cell !== 0) {
+        //                     // If cell has a knight
+        //                     const knightType = cell;
+        //                     const positionX = columnIndex;
+        //                     const positionY = rowIndex;
+        //                     // Now use these values to create and place a Knight instance in your game.
+        //                     // If you're using some kind of game engine, this would probably involve
+        //                     // creating a new entity and assigning it a sprite/texture and placing it at
+        //                     // an X/Y location corresponding to positionX/positionY
+        //                     setTimeout(() => {
+        //                         this.spawnKnight(positionX, positionY, knightType);
+        //                     }, waveDelay);
+        //                 }
+        //             });
+        //         });
+        //     });
     }
 
     private spawnKnight(j: number, i: number, type: number) {
@@ -420,5 +454,48 @@ export class Game {
         object.position.set(...position);
         this.scene.addNode(object);
         return object;
+    }
+
+    accumulatedTime = WAVE_DELAY;
+    currentRow = 0;
+    private knightFrameUpdate(deltaTime: number) {
+        // 1 accumulated the time
+        // 4 after WAVE_DELAY span next wave.
+        // 5 repeat from 4
+        // 6 when all waves are passed increase the speed and start from a specified wave.
+        // 7 continue to impossisble speeds.
+
+        // Your game loop update function.
+        this.accumulatedTime += deltaTime;
+
+        if (this.accumulatedTime >= WAVE_DELAY) {
+            if (this.currentwave < Waves.length) {
+                const currentWave = Waves[this.currentwave];
+                for (let q = 0; q < currentWave.length; q++) {
+                    const currentFormation = +currentWave[q];
+                    if (isNaN(currentFormation)) {
+                        continue;
+                    }
+                    const knightsInFormation = Formations[currentFormation]
+                        .split('\n')
+                        .map((row) => [...row].map((cell) => parseInt(cell, 10)));
+
+                    const offset = q == 0 ? -10 : q == 2 ? 10 : 0;
+                    for (let i = 0; i < knightsInFormation.length; i++) {
+                        for (let j = 0; j < knightsInFormation[i].length; j++) {
+                            if (!isNaN(knightsInFormation[i][j])) {
+                                const knightType = knightsInFormation[i][j];
+                                this.spawnKnight(j - offset, i, knightType);
+                            }
+                        }
+                    }
+                }
+
+                this.currentRow++;
+                this.accumulatedTime -= WAVE_DELAY; // Reset the timer.
+            } else {
+                //this.currentwave ;
+            }
+        }
     }
 }
