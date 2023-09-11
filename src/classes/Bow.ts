@@ -186,6 +186,7 @@ export class Arrow extends MeshNode {
         if (this.position.y < -5) {
             this.active = false;
         }
+        super.update(dt);
     }
 }
 

@@ -9,6 +9,7 @@ import {Arrow, ArrowData, Bow, State, StringPart} from './Bow';
 import {Controller} from './Controller';
 import {knightNode} from './Knight';
 import {SFX, Sounds} from './sfx';
+import {Vector3} from '../lib/Vector3';
 
 new EventSource('/esbuild').addEventListener('change', () => location.reload());
 
@@ -42,7 +43,6 @@ export class Game {
     currentScore = 0;
 
     accumulatedTime = WAVE_DELAY;
-    currentRow = 0;
 
     constructor() {
         console.log('Game started');
@@ -112,7 +112,6 @@ export class Game {
         this.currentwave = 0;
         this.currentScore = 0;
         this.accumulatedTime = WAVE_DELAY - 3;
-        this.currentRow = 0;
         this.army = [];
         this.prevTime = null; // skip first frame again to correct timer
 
@@ -330,10 +329,11 @@ export class Game {
         });
     }
 
+    tempVec = new Vector3();
     private checkKnightHits() {
         this.army.forEach((knight) => {
             this.arrowList.forEach((arrow) => {
-                if (arrow.position.distanceTo(knight.position) < 2) {
+                if (arrow.position.distanceTo(knight.position) < 4) {
                     this.arrowList.splice(this.arrowList.indexOf(arrow), 1);
                     if (knight.hit()) {
                         this.currentScore++;
@@ -384,7 +384,7 @@ export class Game {
                 knight.addNode(...this.getModel(EnemyModel3));
                 break;
         }
-        knight.position.set(11 - j * 2, 0.25 - 5, -40 - i * 2);
+        knight.position.set(8 - j * 2, 0.25 - 5, -40 - i * 2);
         knight.scale.set(0.4, 0.4, 0.4);
 
         this.army.push(knight);
@@ -415,33 +415,32 @@ export class Game {
         this.accumulatedTime += deltaTime;
 
         if (this.accumulatedTime >= WAVE_DELAY) {
-            if (this.currentwave < Waves.length) {
-                const currentWave = Waves[this.currentwave];
-                for (let q = 0; q < currentWave.length; q++) {
-                    const currentFormation = +currentWave[q];
-                    if (isNaN(currentFormation)) {
-                        continue;
-                    }
-                    const knightsInFormation = Formations[currentFormation]
-                        .split('\n')
-                        .map((row) => [...row].map((cell) => parseInt(cell, 10)));
+            const currentWave = Waves[this.currentwave];
+            for (let q = 0; q < currentWave.length; q++) {
+                const currentFormation = parseInt(currentWave[q], 10);
+                if (isNaN(currentFormation)) {
+                    continue;
+                }
+                let knightsInFormation = Formations[currentFormation]
+                    .split('\n')
+                    .map((row) => [...row].map((cell) => parseInt(cell, 16)));
 
-                    const offset = q == 0 ? -10 : q == 2 ? 10 : 0;
-                    for (let i = 0; i < knightsInFormation.length; i++) {
-                        for (let j = 0; j < knightsInFormation[i].length; j++) {
-                            if (!isNaN(knightsInFormation[i][j])) {
-                                const knightType = knightsInFormation[i][j];
-                                this.spawnKnight(j - offset, i, knightType);
-                            }
+                if (q == 0) {
+                    knightsInFormation = knightsInFormation.map((row) => row.reverse());
+                }
+
+                const offset = q == 0 ? -8 : q == 2 ? 9 : 0;
+                for (let i = 0; i < knightsInFormation.length; i++) {
+                    for (let j = 0; j < knightsInFormation[i].length; j++) {
+                        if (!isNaN(knightsInFormation[i][j])) {
+                            const knightType = knightsInFormation[i][j];
+                            this.spawnKnight(j - offset, i, knightType);
                         }
                     }
                 }
-
-                this.currentRow++;
-                this.accumulatedTime -= WAVE_DELAY; // Reset the timer.
-            } else {
-                //this.currentwave ;
             }
+            this.currentwave++;
+            this.accumulatedTime -= WAVE_DELAY; // Reset the timer.
         }
     }
 }
