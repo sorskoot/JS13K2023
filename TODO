@@ -21,7 +21,7 @@ Must have:
         ✔ Name of the game @done(23-09-03 00:18)
     Bugs: @critical 
         ✔ Knights are disappearing when another near by is hit. @done(23-09-04 19:31)
-        ☐ Game restart is broken
+        ✔ Game restart is broken @done(23-09-11 23:01)
     Other enemies:
         ✔ Knights with shields that need to be hit twice @done(23-09-11 22:34)
         ✔ Red knights that are faster but spawn a little later @done(23-09-11 22:34)
@@ -29,7 +29,7 @@ Must have:
         ✔ Redesign of wave system @done(23-09-11 22:34)
     ☐ Endless waves
     ☐ Remove dead code 
-    
+    ☐ Cleanup and document
 Should have:
     ✔ nice level design @done(23-09-10 21:12)
         ✔ Nicer Castle @done(23-09-05 20:59)

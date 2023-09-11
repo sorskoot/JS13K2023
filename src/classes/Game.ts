@@ -41,7 +41,8 @@ export class Game {
     currentwave = -1;
     currentScore = 0;
 
-    numberOfKnightsLeft = 999;
+    accumulatedTime = WAVE_DELAY;
+    currentRow = 0;
 
     constructor() {
         console.log('Game started');
@@ -55,8 +56,6 @@ export class Game {
         })!;
         this.renderer = new Renderer(this.gl);
         this.renderer.depthTesting(true); // if you don't know what that means - it means that our meshes will be rendered properly ¯\_(ツ)_/¯
-
-        this.createScene();
 
         this.initXR();
     }
@@ -110,10 +109,14 @@ export class Game {
             baseLayer: new XRWebGLLayer(this.xrSession, this.gl),
         }); // this line simply sets our session's WebGL context to our WebGL2 context
 
-        this.currentwave = -1;
+        this.currentwave = 0;
         this.currentScore = 0;
+        this.accumulatedTime = WAVE_DELAY - 3;
+        this.currentRow = 0;
+        this.army = [];
+        this.prevTime = null; // skip first frame again to correct timer
 
-        this.nextWave();
+        this.createScene();
 
         session.updateRenderState({baseLayer: new XRWebGLLayer(session, this.gl)});
 
@@ -194,18 +197,6 @@ export class Game {
         }
     }
 
-    nextWave() {
-        this.currentwave++;
-        if (this.currentwave >= Waves.length) {
-            this.currentwave = 0;
-        }
-        //TODO: do something with speed to slowly increase difficulty
-
-        this.battlefield!.children.length = 0;
-        this.army = [];
-        this.spawnKnightWave();
-    }
-
     /**
      * Called either when the user has explicitly ended the session (like in
      * onEndSession()) or when the UA has ended the session for any reason.
@@ -217,14 +208,20 @@ export class Game {
         this.xrSession = undefined;
     }
 
-    prevTime: number = 0;
-    ang = 0;
-    prev = 0;
+    prevTime: number | null = null;
+
     /**
      * Called every time the XRSession requests that a new frame be drawn.
      */
     onXRFrame(t: DOMHighResTimeStamp, frame: XRFrame) {
         let session = frame.session;
+        // initialize prevTime on the first run
+        if (this.prevTime === null) {
+            this.prevTime = t;
+            session.requestAnimationFrame(this.onXRFrame.bind(this));
+            return; // skip further execution for this frame
+        }
+
         const deltaTime = (t - this.prevTime) / 1000;
         this.prevTime = t;
         // Per-frame scene setup. Nothing WebXR specific here.
@@ -372,51 +369,6 @@ export class Game {
         arrow.isStatic = false;
     }
 
-    private spawnKnightWave() {
-        // let spawned = 0;
-        // // Spawn the next row of the current wave
-        // for (let j = 0; j < 11; j++) {
-        //     // wave columns
-        //     if (!isNaN(Waves[this.currentwave][0][j])) {
-        //         spawned++;
-        //         this.spawnKnight(j, 0, Waves[this.currentwave][0][j]);
-        //     }
-        // }
-        // for (let i = 0; i < 5; i++) {
-        //     // wave rows
-        //     for (let j = 0; j < 11; j++) {
-        //         // wave columns
-        //         if (!isNaN(Waves[this.currentwave][i][j])) {
-        //             spawned++;
-        //             this.spawnKnight(j, i, Waves[this.currentwave][i][j]);
-        //         }
-        //     }
-        // }
-        // return spawned;
-        //     Waves.forEach((wave, waveIndex) => {
-        //         // The delay or interval after which the next wave should be released.
-        //         // This could depend on your game logic.
-        //         const waveDelay = waveIndex * 3000;
-        //         wave.forEach((row, rowIndex) => {
-        //             row.forEach((cell, columnIndex) => {
-        //                 if (cell !== 0) {
-        //                     // If cell has a knight
-        //                     const knightType = cell;
-        //                     const positionX = columnIndex;
-        //                     const positionY = rowIndex;
-        //                     // Now use these values to create and place a Knight instance in your game.
-        //                     // If you're using some kind of game engine, this would probably involve
-        //                     // creating a new entity and assigning it a sprite/texture and placing it at
-        //                     // an X/Y location corresponding to positionX/positionY
-        //                     setTimeout(() => {
-        //                         this.spawnKnight(positionX, positionY, knightType);
-        //                     }, waveDelay);
-        //                 }
-        //             });
-        //         });
-        //     });
-    }
-
     private spawnKnight(j: number, i: number, type: number) {
         let knight = new knightNode(type);
         knight.isStatic = false;
@@ -440,7 +392,7 @@ export class Game {
     }
 
     private knightReachedCastle(): boolean {
-        return this.army.some((knight) => knight.position.z > 0);
+        return this.army.some((knight) => knight.position.z > -1);
     }
 
     private addObjectToScene(modelName: number[][][], position: [number, number, number]): Object3D {
@@ -452,8 +404,6 @@ export class Game {
         return object;
     }
 
-    accumulatedTime = WAVE_DELAY;
-    currentRow = 0;
     private knightFrameUpdate(deltaTime: number) {
         // 1 accumulated the time
         // 4 after WAVE_DELAY span next wave.
