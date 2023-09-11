@@ -337,15 +337,11 @@ export class Game {
         this.army.forEach((knight) => {
             this.arrowList.forEach((arrow) => {
                 if (arrow.position.distanceTo(knight.position) < 2) {
+                    this.arrowList.splice(this.arrowList.indexOf(arrow), 1);
                     if (knight.hit()) {
                         this.currentScore++;
-                        this.arrowList.splice(this.arrowList.indexOf(arrow), 1);
-                        this.numberOfKnightsLeft--;
-                        if (this.numberOfKnightsLeft == 0) {
-                            this.nextWave();
-                        }
-                        return;
                     }
+                    return;
                 }
             });
         });
@@ -422,7 +418,7 @@ export class Game {
     }
 
     private spawnKnight(j: number, i: number, type: number) {
-        let knight = new knightNode();
+        let knight = new knightNode(type);
         knight.isStatic = false;
         knight.setRenderer(this.renderer);
         switch (type) {

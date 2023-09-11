@@ -24,10 +24,10 @@ export const palette = [
     [0x74, 0x74, 0x74], // grey
 ];
 
-export const Waves = ['555', ' 0 ', ' 1 ', ' 2 ', ' 3 ', ' 4 '];
+export const Waves = ['000', ' 0 ', ' 1 ', ' 2 ', ' 3 ', ' 4 '];
 
 export const Formations = [
-    `1  1  1`, //0
+    `3  2  3`, //0
     `1  1  1
 1  1  1
 1  1  1`, //1
