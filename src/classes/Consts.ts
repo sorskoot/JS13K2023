@@ -25,11 +25,11 @@ export const palette = [
 ];
 // prettier-ignore
 export const Waves = [
- ' D ', 
- ' 0 ', 
- ' 0 ', 
- ' 1 ', 
- ' 8 ',
+  ' D ', 
+  ' 0 ', 
+  ' 0 ', 
+  ' 1 ', 
+  ' 8 ',
  'A0A',
  'A1A',
  ' 9 ',
@@ -38,6 +38,8 @@ export const Waves = [
  'C3C', 
  ' 4 ',
  'C4C',
+ ' 5 ',
+ '787',
  ' 5 ',
  '727',
  ' 5 ',

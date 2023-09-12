@@ -21,7 +21,7 @@ export class Explosion extends Object3D {
             const node = new MeshNode(paletteIndex.red);
             const s = Math.random() * 0.1 + 0.1;
             node.scale.set(s, s, s);
-            node.position.set(Math.random() - 0.5, Math.random(), Math.random() - 0.5);
+            node.position.set(Math.random() - 0.5, Math.random() * 2, Math.random() - 0.5);
             cubes.push(node);
 
             this.velocities.push(new Vector3((Math.random() - 0.5) * 3, Math.random() * 5, (Math.random() - 0.5) * 3));
