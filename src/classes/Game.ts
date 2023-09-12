@@ -347,6 +347,7 @@ export class Game {
                 .filter((a) => a.active)
                 .forEach((arrow) => {
                     if (arrow.position.distanceTo(this.tempVec) < 1.5) {
+                        arrow.active = false;
                         this.arrowList.splice(this.arrowList.indexOf(arrow), 1);
                         if (knight.hit()) {
                             this.currentScore++;
@@ -430,7 +431,7 @@ export class Game {
         if (this.accumulatedTime >= WAVE_DELAY) {
             const currentWave = Waves[this.currentwave];
             for (let q = 0; q < currentWave.length; q++) {
-                const currentFormation = parseInt(currentWave[q], 10);
+                const currentFormation = parseInt(currentWave[q], 16);
                 if (isNaN(currentFormation)) {
                     continue;
                 }
