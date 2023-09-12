@@ -34,12 +34,12 @@ export class knightNode extends Object3D {
 
     override update(dt: number): void {
         if (this.isHit) {
-            if (this.deathTimer > 0) {
-                this.deathTimer -= dt;
-                if (this.deathTimer <= 0) {
-                    this.active = false;
-                }
-            }
+            // if (this.deathTimer > 0) {
+            //     this.deathTimer -= dt;
+            //     if (this.deathTimer <= 0) {
+            this.active = false;
+            //     }
+            // }
             return;
         }
         if (!this.orgPos) {

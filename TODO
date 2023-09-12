@@ -27,8 +27,8 @@ Must have:
         ✔ Red knights that are faster but spawn a little later @done(23-09-11 22:34)
     ✔ More interesting waves of knights @done(23-09-11 22:34)
         ✔ Redesign of wave system @done(23-09-11 22:34)
-    ☐ Endless waves
-    ☐ Remove dead code 
+    ✔ Endless waves @done(23-09-12 22:26)
+    ✔ Remove dead code @done(23-09-12 22:26)
     ☐ Cleanup and document
 Should have:
     ✔ nice level design @done(23-09-10 21:12)

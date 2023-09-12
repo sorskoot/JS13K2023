@@ -46,7 +46,10 @@ export const Waves = [
 
 // prettier-ignore
 export const Formations = [
-`1  11  1`,//0 
+`1  11  1
+
+1  11  1
+`,//0 
 `   11   
   1  1  
  1    1 `, //1
@@ -81,5 +84,8 @@ export const Formations = [
 `      2 
       1 `, // B
 `   3  3 `, // C
-`  1  1  `, //D
+`  1  1  
+
+
+  1  1  `, //D
 ];

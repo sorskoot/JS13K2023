@@ -10,6 +10,7 @@ import {Controller} from './Controller';
 import {knightNode} from './Knight';
 import {SFX, Sounds} from './sfx';
 import {Vector3} from '../lib/Vector3';
+import {Explosion} from './explosion';
 
 new EventSource('/esbuild').addEventListener('change', () => location.reload());
 
@@ -38,6 +39,7 @@ export class Game {
 
     army: knightNode[] = [];
     battlefield?: Object3D;
+    particleParent?: Object3D;
 
     currentwave = -1;
     currentScore = 0;
@@ -180,7 +182,8 @@ export class Game {
         this.addObjectToScene(TowerModel, [12, -0.5, 4.5]);
         this.addObjectToScene(TowerModel, [0, 3, 6]);
 
-        //this.addObjectToScene(EnemyModel3, [0, 0, -6]);
+        this.particleParent = new Object3D();
+        this.scene.addNode(this.particleParent);
 
         for (let i = 0; i < 100; i++) {
             const x = i * 2 + Math.random() - 0.5;
@@ -237,6 +240,7 @@ export class Game {
         this.knightFrameUpdate(deltaTime);
         this.deleteInactiveArrows();
         this.deleteInactiveKnights();
+        this.deleteInactiveParticles();
 
         if (this.knightReachedCastle()) {
             this.xrSession!.end().then(() => {
@@ -336,6 +340,13 @@ export class Game {
             }
         });
     }
+    private deleteInactiveParticles() {
+        this.particleParent?.children.forEach((particle) => {
+            if (!particle.active) {
+                this.particleParent?.children.splice(this.particleParent?.children.indexOf(particle), 1);
+            }
+        });
+    }
 
     tempVec = new Vector3();
     private checkKnightHits() {
@@ -351,6 +362,10 @@ export class Game {
                         this.arrowList.splice(this.arrowList.indexOf(arrow), 1);
                         if (knight.hit()) {
                             this.currentScore++;
+                            const exp = new Explosion();
+                            exp.position.copy(knight.position);
+                            this.particleParent!.addNode(exp);
+                            exp.initialize();
                         }
                         return;
                     }
