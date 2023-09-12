@@ -236,6 +236,7 @@ export class Game {
         this.checkKnightHits();
         this.knightFrameUpdate(deltaTime);
         this.deleteInactiveArrows();
+        this.deleteInactiveKnights();
 
         if (this.knightReachedCastle()) {
             this.xrSession!.end().then(() => {
@@ -328,19 +329,31 @@ export class Game {
             }
         });
     }
+    private deleteInactiveKnights() {
+        this.army.forEach((knight) => {
+            if (!knight.active) {
+                this.army.splice(this.army.indexOf(knight), 1);
+            }
+        });
+    }
 
     tempVec = new Vector3();
     private checkKnightHits() {
         this.army.forEach((knight) => {
-            this.arrowList.forEach((arrow) => {
-                if (arrow.position.distanceTo(knight.position) < 4) {
-                    this.arrowList.splice(this.arrowList.indexOf(arrow), 1);
-                    if (knight.hit()) {
-                        this.currentScore++;
+            this.tempVec.copy(knight.position);
+            this.tempVec.y += 2;
+            this.tempVec.z += 1;
+            this.arrowList
+                .filter((a) => a.active)
+                .forEach((arrow) => {
+                    if (arrow.position.distanceTo(this.tempVec) < 1.5) {
+                        this.arrowList.splice(this.arrowList.indexOf(arrow), 1);
+                        if (knight.hit()) {
+                            this.currentScore++;
+                        }
+                        return;
                     }
-                    return;
-                }
-            });
+                });
         });
     }
 
@@ -439,6 +452,7 @@ export class Game {
                     }
                 }
             }
+
             this.currentwave++;
             this.accumulatedTime -= WAVE_DELAY; // Reset the timer.
         }

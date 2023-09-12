@@ -168,7 +168,7 @@ export class Arrow extends MeshNode {
     constructor(arrowMat: number) {
         super(arrowMat);
         this.isStatic = false;
-        this.scale.set(0.005, 0.005, 0.4);
+        this.scale.set(0.01, 0.01, 0.4);
         this.position.set(0, -0.4 + 0.19, 0);
         this.velocity = new Vector3(0, 0, 0);
     }
