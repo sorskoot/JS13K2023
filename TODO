@@ -29,16 +29,16 @@ Must have:
         ✔ Redesign of wave system @done(23-09-11 22:34)
     ✔ Endless waves @done(23-09-12 22:26)
     ✔ Remove dead code @done(23-09-12 22:26)
-    ☐ Cleanup and document
+    ✔ Cleanup and document @done(23-09-12 23:43)
 Should have:
     ✔ nice level design @done(23-09-10 21:12)
         ✔ Nicer Castle @done(23-09-05 20:59)
         ✔ Add trees @done(23-09-05 21:58)
         ✔ Add shrubberies @done(23-09-05 23:13)
 
-    ☐ Better enemy animation
+    ✔ Better enemy animation @done(23-09-12 23:43)
     ✔ Better enemy design @done(23-09-10 21:12)
-  
+    ✔ Nicer Towers @done(23-09-13 00:16)
     ☐ Error handling / disable VR button on desktop
   
     Architecture:
@@ -74,7 +74,7 @@ Could have:
     ☐ power ups like flame bows
     ☐ Fights at night with fire effects
     ☐ Enable ESLint again
-    ☐ Nicer Towers
+
 
 Would like:
     ☐ Texture mapping

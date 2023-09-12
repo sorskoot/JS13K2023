@@ -5,7 +5,7 @@ export enum paletteIndex {
     green = 3,
     yellow = 4,
     red = 5,
-    darkRed = 6,
+    darkGray = 6,
     brown = 7,
     orange = 8,
     gray = 9,
@@ -18,33 +18,35 @@ export const palette = [
     [0x74, 0xa3, 0x3f], // green
     [0xfc, 0xff, 0xc0], // yellow
     [0xc6, 0x50, 0x5a], // red
-    [0x2f, 0x14, 0x2f], // dark red
+    [0x44, 0x44, 0x44], // dark gray
     [0x77, 0x44, 0x48], // brown
     [0xee, 0x9c, 0x5d], // orange
     [0x74, 0x74, 0x74], // grey
 ];
 // prettier-ignore
 export const Waves = [
-  ' D ', 
-  ' 0 ', 
-  ' 0 ', 
-  ' 1 ', 
-  ' 8 ',
- 'A0A',
- 'A1A',
- ' 9 ',
- 'B9B',
- 'B2B', 
- 'C3C', 
- ' 4 ',
- 'C4C',
- ' 5 ',
- '787',
- ' 5 ',
- '727',
- ' 5 ',
- '767',
- '666'];
+' D ', 
+' 0 ', 
+' 0 ', 
+' 1 ', 
+' 8 ',
+'A0A',
+'A1A',
+' 9 ',
+'B9B',
+'B2B', 
+'C3C', 
+' 4 ',
+'C4C',
+' 5 ',
+'3C3',
+'949',
+'787',
+' 5 ',
+'727',
+'5 5',
+'767',
+'666'];
 
 // prettier-ignore
 export const Formations = [
@@ -65,8 +67,8 @@ export const Formations = [
 1 1 1 1 1
  3 3 3 3`, //4
 
-    `11 11 11
-22 22 22
+    `22 22 22
+11 11 11
 33 33 33`, //5
 
     `22 22 22
