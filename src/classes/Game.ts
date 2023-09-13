@@ -12,7 +12,7 @@ import {SFX, Sounds} from './sfx';
 import {Vector3} from '../lib/Vector3';
 import {Explosion} from './explosion';
 
-new EventSource('/esbuild').addEventListener('change', () => location.reload());
+//new EventSource('/esbuild').addEventListener('change', () => location.reload());
 
 const ROW_DELAY = 3; // start delay between rows in seconds
 const WAVE_DELAY = 20; // delay between waves in seconds
@@ -45,17 +45,19 @@ export class Game {
     currentScore = 0;
 
     accumulatedTime = WAVE_DELAY;
+    webglCanvas: HTMLCanvasElement;
 
     constructor() {
         console.log('Game started');
 
-        let webglCanvas = document.createElement('canvas');
+        this.webglCanvas = document.createElement('canvas');
         // Create a WebGL context to render with, initialized to be compatible
         // with the XRDisplay we're presenting to.
-        this.gl = webglCanvas.getContext('webgl2', {
+        this.gl = this.webglCanvas.getContext('webgl2', {
             xrCompatible: true,
             alpha: false,
         })!;
+
         this.renderer = new Renderer(this.gl);
         this.renderer.depthTesting(true); // if you don't know what that means - it means that our meshes will be rendered properly ¯\_(ツ)_/¯
 
@@ -70,14 +72,16 @@ export class Game {
         // Adds a helper button to the page that indicates if any XRDevices are
         // available and let's the user pick between them if there's multiple.
         this.xrButton = document.getElementById('xr-button') as HTMLButtonElement;
-        this.xrButton.addEventListener('click', this.onRequestSession.bind(this));
 
         // Is WebXR available on this UA?
         if (navigator.xr) {
             // If the device allows creation of exclusive sessions set it as the
             // target of the 'Enter XR' button.
             navigator.xr.isSessionSupported('immersive-vr').then((supported) => {
-                this.xrButton.disabled = !supported;
+                this.xrButton.innerText = supported ? 'Enter VR' : 'VR not available';
+                if (supported) {
+                    this.xrButton.addEventListener('click', this.onRequestSession.bind(this));
+                }
             });
         }
     }
@@ -95,9 +99,6 @@ export class Game {
      * will set up the necessary session state and kick off the frame loop.
      */
     onSessionStarted(session: XRSession) {
-        // This informs the 'Enter XR' button that the session has started and
-        // that it should display 'Exit XR' instead.
-        //xrButton.setSession(session);
         // Listen for the sessions 'end' event so we can respond if the user
         // or UA ends the session for any reason.
         session.addEventListener('end', this.onSessionEnded.bind(this));
@@ -242,24 +243,6 @@ export class Game {
         this.deleteInactiveKnights();
         this.deleteInactiveParticles();
 
-        if (this.knightReachedCastle()) {
-            this.xrSession!.end().then(() => {
-                let normalTitle = document.querySelector('.title.normal')! as HTMLElement;
-                normalTitle.style.display = 'none';
-
-                let gameover = document.querySelector('.game-over')! as HTMLElement;
-                gameover.style.display = 'block';
-
-                let scorecontainer = document.querySelector('.score-container')! as HTMLElement;
-                scorecontainer.style.display = 'block';
-
-                document.getElementById('score')!.innerText = `${this.currentScore}`;
-
-                this.xrSession = undefined;
-            });
-            return;
-        }
-
         this.scene.update(deltaTime);
 
         // Getting the pose may fail if, for example, tracking is lost. So we
@@ -322,8 +305,27 @@ export class Game {
             }
         }
 
-        // Per-frame scene teardown. Nothing WebXR specific here.
-        //scene.endFrame();
+        this.checkKnightsReachedCastle();
+    }
+
+    checkKnightsReachedCastle() {
+        if (this.knightReachedCastle()) {
+            this.xrSession!.end().then(() => {
+                let normalTitle = document.querySelector('.title.normal')! as HTMLElement;
+                normalTitle.style.display = 'none';
+
+                let gameover = document.querySelector('.game-over')! as HTMLElement;
+                gameover.style.display = 'block';
+
+                let scorecontainer = document.querySelector('.score-container')! as HTMLElement;
+                scorecontainer.style.display = 'block';
+
+                document.getElementById('score')!.innerText = `${this.currentScore}`;
+
+                this.xrSession = undefined;
+            });
+            return;
+        }
     }
 
     private deleteInactiveArrows() {

@@ -30,6 +30,8 @@ Must have:
     ✔ Endless waves @done(23-09-12 22:26)
     ✔ Remove dead code @done(23-09-12 22:26)
     ✔ Cleanup and document @done(23-09-12 23:43)
+    ☐ Error handling / disable VR button on desktop
+
 Should have:
     ✔ nice level design @done(23-09-10 21:12)
         ✔ Nicer Castle @done(23-09-05 20:59)
@@ -39,7 +41,7 @@ Should have:
     ✔ Better enemy animation @done(23-09-12 23:43)
     ✔ Better enemy design @done(23-09-10 21:12)
     ✔ Nicer Towers @done(23-09-13 00:16)
-    ☐ Error handling / disable VR button on desktop
+   
   
     Architecture:
         ☐ Split Game class into multiple
